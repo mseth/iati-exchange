@@ -1,0 +1,92 @@
+	html{background:url(css/bg.gif) repeat-x top #f6f6f6;}
+	* {
+        margin: 0;
+        padding: 0;
+    }
+	.clearer{clear:both;}
+    body {
+        font-family: Arial;
+        color: #292416;
+		background:#fff;background:url(bg.gif) repeat-x top;
+		font-size:12px;
+    }
+*{margin:0px; padding:0px;}
+#iati-container{width:960px;margin:0 auto;padding:0px 0px 25px 0px;}
+.clear, div.iati-form li{clear:both;}
+form{margin:0px;padding:0px;}
+#container{background:#fff;padding:25px 0px;}
+div.iati-form{margin:0 auto;position:relative;padding:10px;}
+div.iati-form li{list-style:none;margin:0px 0px 10px 0px;min-height:30px;}
+div.iati-form li label{display:inline-block;width:150px;color:#0f0f0e;font-size:14px;}
+div.ubox{width:150px;position:absolute;right:20px; top:70px;}
+input.iati-text{width:200px;height:20px;border:1px solid #d6d5d2;}
+input.iati-text-small{width:100px;height:20px;border:1px solid #d6d5d2;}
+input.iati-text-medium{width:150px;height:20px;border:1px solid #d6d5d2;}
+div.iati-form li h4{border-bottom:1px solid #ccc;}
+div.iati-form li label.smalllabel{width:80px;}
+select.iati-option{width:150px;font-size:11px;}
+input.button{background:#e0dfda;padding:5px 10px;border:1px solid #d6d5d2;margin:5px 0px;}
+input.button-save{background:#0087c7;padding:5px 10px;color:#fff;text-transform:uppercase;border:none;float:right;}
+div.iati-form li span{color:#0087c7;}
+span.opt-name{padding:0px 10px 0px 5px;}
+textarea#xsltcontent{width:550px;height:200px;}
+textarea.query{width:400px;height:125px;}
+div.ui-accordion-content ul li{width:500px;}
+#header{height:142px;position:relative;margin:0px 0px 0px 0px;width:960px;margin:0 auto;}
+#footer{border-top:1px solid #e0dfda;margin:0px 0px 0px 0px;background:url(ftbg.jpg) repeat-x top #f6f6f6;position:relative;}
+#ftinner{width:960px;margin:0 auto;position:relative;}
+#mainmenu{clear:both;}
+#mainmenu ul{margin:0px;padding:0px;}
+#mainmenu ul li {display:inline;margin:0px;padding:0px;}
+#mainmenu ul li a{color:#0292d1;font-size:12px;padding:12px 10px 13px 10px; font-weight:bold;text-transform:uppercase;text-decoration:none; border-right:1px solid #cecece;}
+#mainmenu ul li a:hover{text-decoration:underline;color:#fff;background:#0292d1;}
+#logo{width:420px;height:112px;background:url(extr1.jpg) no-repeat top left;}
+#logo1{width:420px;height:112px;background:url(extr2.jpg) no-repeat top left;}
+#logo2{width:420px;height:112px;background:url(extr3.jpg) no-repeat top left;}
+#fcopyright ul {margin:0px; padding:0px;margin-top:15px;}
+#fcopyright ul li {padding:5px; list-style:none;border-bottom:1px dotted #cecece;}
+#fcopyright ul li a{color:#0292d1;font-size:11px;padding:5px 0px; text-decoration:none; }
+#fcopyright ul li a:hover{text-decoration:underline; }
+#footer #fcopyright{padding:15px;color:#6b737a;font-size:12px;width:300px;}
+#poweredby{position:absolute;right:15px;top:15px;background:url(powered.jpg) no-repeat top left;width:376px;height:95px;font-size:11px;color:#f2f2f2;color:#969595;background-position:0px 10px;}
+#poweredby a{display:block;height:95px;text-indent:-9999px;outline:none;}
+ul#maintabslist{border-left:1px solid #ccc}
+.ui-tabs-vertical { width: width:960px; }
+.ui-tabs-vertical .ui-tabs-nav { float: right; width:280px;}
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 280px; border-bottom-width: 1px !important; border-right-width: 0 !important;  }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0;border-left:1px solid #fff; border-bottom:1px solid #ccc;}
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected a{margin-left:-2px;background:#fff;}
+.ui-tabs-vertical .ui-tabs-panel {  float: left; width:632px;border:1px solid #ccc;}
+div#tabs ul.ui-tabs-nav{float:right;border-right:1px solid #ccc;border-bottom:1px solid #ccc;}	
+.demoHeaders { margin-top: 2em; }
+#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+ul#icons {margin: 0; padding: 0;}
+ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+ul#icons span.ui-icon {float: left; margin: 0 4px;}
+div.maintabcontent{border:1px solid #ccc;}
+#tabs ul.ui-tabs-nav li.ui-tabs-selected a,#tabs ul.ui-tabs-nav li.ui-tabs-active a{background:#1ca3db;}
+#id1 ul.ui-tabs-nav li.ui-tabs-selected a, #tabs ul.ui-tabs-nav li.ui-tabs-active a{background:#1ca3db;}
+#id2 ul.ui-tabs-nav li.ui-tabs-selected a, #tabs ul.ui-tabs-nav li.ui-tabs-active a{background:#1ca3db;}
+#id3 ul.ui-tabs-nav li.ui-tabs-selected a,#tabs ul.ui-tabs-nav li.ui-tabs-active a{background:#1ca3db;}
+#id4 ul.ui-tabs-nav li.ui-tabs-selected a,#tabs ul.ui-tabs-nav li.ui-tabs-active a{background:#1ca3db;}
+#idXX ul.ui-tabs-nav li.ui-tabs-selected a,#tabs ul.ui-tabs-nav li.ui-tabs-active a{background:#1ca3db;}
+#maintabslist{z-index:9999;	border-bottom:1px solid #ccc;}
+#maintabslist .ui-tabs-selected, #maintabslist .ui-tabs-active{background:#1ca3db;}
+#maintabslist .ui-tabs-selected a{color:#fff;background:#1ca3db;}
+.ui-tabs .ui-tabs-nav{padding-bottom:0px;}
+div#id1 ul.ui-tabs-nav, div#id2 ul.ui-tabs-nav,div#id3 ul.ui-tabs-nav, div#id4 ul.ui-tabs-nav, div#idXX ul.ui-tabs-nav{border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding:0px;margin:0px 0px 0px 0px;} 
+.tabcontent h3.ui-accordion-header{border-left:1px solid #ccc;}
+table#settings{width:100%;}
+table#settings td{background:#f2f2f2;padding:5px;}
+table#settings td.header{padding:5px;background:#86b7cc;font-weight:bold;color:#fff;text-align:center;}
+table#settings td.action{text-align:center;font-weight:bold;}
+table#settings td.action a{color:#3b3c3d;text-decoration:none;}
+table#settings td.action a:hover{text-decoration:underline;}
+table#settings td.iati{background:url(iati.png) no-repeat left #f2f2f2;background-position:10px 5px;}
+table#settings td.xml{background:url(xml.png) no-repeat left #f2f2f2;background-position:12px 5px;}
+table#settings td.xsl{background:url(xsl.png) no-repeat left #f2f2f2;background-position:8px 5px;}
+table#settings td.edit{background:url(edit.png) no-repeat left #f2f2f2;background-position:15px 5px;}
+table#settings td.delete{background:url(delete.png) no-repeat left #f2f2f2;background-position:10px 5px;}
+table#settings td.run{background:url(run.png) no-repeat left #f2f2f2;background-position:5px 5px;}

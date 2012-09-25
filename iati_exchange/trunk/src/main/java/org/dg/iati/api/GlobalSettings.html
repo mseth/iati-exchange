@@ -1,0 +1,18 @@
+<wicket:panel>
+<div class="iati-form">
+		<ul>
+			<li>
+				<label>Setting name</label>
+				<input wicket:id="settingName" type="text" value="iati-text" title="Name of the settings that will unique identify">
+			</li>
+			<li>
+				<label>Data Source Type</label>
+				<select wicket:id="datasourceType" class="iati-text-small"></select>
+			</li>
+			<div wicket:id="databaseSettings"/>
+			<div wicket:id="fileUploadSettings"/>
+			<div wicket:id="csvMapperSettings"/>
+		</ul>
+	<div class="clear"></div>
+</div>
+</wicket:panel>

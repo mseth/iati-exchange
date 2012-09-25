@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      results items after extracting information from data sources
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <!-- for xml:lang -->
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  
+   <xsd:element name="iati-activities">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level list of one or more IATI activities.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="iati-activity"/>
+      </xsd:choice>
+    </xsd:complexType>
+    </xsd:element>
+  
+  <xsd:element name="iati-activity">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:choice minOccurs="1" maxOccurs="unbounded">
+        <xsd:element ref="item"/>
+      </xsd:choice>
+	  <xsd:attribute name="version" type="xsd:decimal" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            A number indicating the IATI specification version in use.
+            Defaults to "1.0" if not specified.  It is required to
+            specify this attribute if the document is using features
+            specific to an IATI specification other than the initial
+            1.0 version.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="last-updated-datetime" type="xsd:dateTime" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The last date/time that the data for this specific
+            activity was updated.  This date must change whenever the
+            value of any field changes.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute ref="xml:lang"/>
+      <xsd:attribute name="default-currency" type="xsd:string" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Default ISO 4217 currency code for all financial values in
+            this activity report.  See
+            http://iatistandard.org/codelists/currency
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="hierarchy" type="xsd:string" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Shortcut to show whether this is a parent or child
+            activity, without having to evaluate related-activity
+            elements.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="item">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="value"/>
+        <xsd:element ref="attribute" maxOccurs="unbounded"/>
+        <xsd:element ref="item" maxOccurs="unbounded"/>
+      </xsd:sequence>
+	  <xsd:attribute ref="ref" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="value" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+			this is the content of the iati element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="attribute" type="refType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        A short, human-readable title.  May be repeated for different
+        languages.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:attribute name="ref" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Machine-readable identification string for the business
+        object being described.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  
+  <xsd:complexType name="refType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier as well as human-readable text in
+        different languages (e.g. an organisation).
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="ref" use="optional"/>
+  </xsd:complexType>
+  
+</xsd:schema>

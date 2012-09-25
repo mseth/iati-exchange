@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      results items after extracting information from data sources
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <!-- for xml:lang -->
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  
+   <xsd:element name="iati-api-mapping">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level list of one or more IATI mapping.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+      	<xsd:element name="mapping-name" type="xsd:string"/>
+        <xsd:element ref="datasource"/>
+        <xsd:element ref="generated-datetime"/>
+        <xsd:element ref="iati-activity"/>
+        <xsd:element ref="global-query"/>
+        <xsd:element ref="mapping"/>
+        <xsd:element ref="global-settings"/>
+        <xsd:element name="csv-mapping-filename" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+    </xsd:element>
+  
+  <xsd:element name="datasource">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="url" type="xsd:string"/>
+        <xsd:element name="port" type="xsd:string"/>
+        <xsd:element name="username" type="xsd:string"/>
+        <xsd:element name="password" type="xsd:string"/>
+      </xsd:sequence>
+	  <xsd:attribute ref="type" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="global-settings">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for storing general settings for this mapping.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="organization-name" type="xsd:string"/>
+        <xsd:element name="organization-type" type="xsd:string"/>
+        <xsd:element name="organization-ref" type="xsd:string"/>
+        <xsd:element name="default-currency" type="xsd:string"/>
+        <xsd:element name="default-language" type="xsd:string"/>
+      </xsd:sequence>
+	  <xsd:attribute ref="type" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="mapping">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:choice minOccurs="1" maxOccurs="unbounded">
+        <xsd:element ref="field"/>
+      </xsd:choice>
+    </xsd:complexType>
+   </xsd:element>
+  
+  <xsd:element name="generated-datetime" type="typeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="iati-activity" type="typeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="global-query" type="typeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="value" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+		This is the content of the IATI element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="attribute" type="attributeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        attribute
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="content" type="contentType" >
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        content
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="query" type="queryType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        query
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="field">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence >
+        <xsd:element ref="content" />
+        <xsd:element ref="attribute" maxOccurs="unbounded" />
+        <xsd:element ref="query"/>
+        <xsd:element ref="field"  maxOccurs="unbounded"/>
+      </xsd:sequence>
+	  <xsd:attribute ref="ref" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  
+  
+  <xsd:attribute name="ref" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Machine-readable identification string for the business object being described.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  
+  <xsd:attribute name="prefix" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Prefix that can be used for different values
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  
+  <xsd:attribute name="type" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Machine-readable identification string for the business
+        object being described.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  
+  <xsd:complexType name="refType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="ref" use="optional"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="typeType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="type" use="optional"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="attributeType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="ref" use="required"/>
+	<xsd:attribute ref="type" use="required"/>
+	<xsd:attribute ref="prefix" use="optional"/>
+  </xsd:complexType>
+  
+  
+  <xsd:complexType name="contentType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+ 	<xsd:attribute ref="type" use="required"/>
+  	<xsd:attribute ref="prefix" use="optional"/>
+  </xsd:complexType>
+  
+    <xsd:complexType name="queryType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+	<xsd:attribute ref="type" use="optional"/>
+  </xsd:complexType>
+  
+</xsd:schema>

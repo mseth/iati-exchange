@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="iati-result-transform.xsl"?>
+<iati-activities>
+	<iati-activity xml:lang="" default-currency="" hierarchy="" last-updated-datetime="">
+		<item ref="title">
+			<value>this is the first title of the activity 1</value>
+			<attribute ref="lang">en</attribute>
+			<attribute ref="testAttribute">test attribute value</attribute>
+		</item>
+		<item ref="description">
+			<value>this is the description 1</value>
+			<item ref="transaction-type">
+				<value>commitment</value>
+				<attribute ref="code">C</attribute>
+			</item>
+		</item>
+	</iati-activity>
+	<iati-activity xml:lang="" default-currency="" hierarchy="" last-updated-datetime="">
+			<item ref="title">
+			<value>this is the first title of the activity 2</value>
+			<attribute ref="lang">en</attribute>
+			<attribute ref="testAttribute">test attribute value</attribute>
+		</item>
+		<item ref="description">
+			<value>this is the description number 2</value>
+			<item ref="transaction-type">
+				<value>commitment</value>
+				<attribute ref="code">C</attribute>
+			</item>
+		</item>
+	</iati-activity>
+</iati-activities>

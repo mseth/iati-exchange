@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<iati-activities>
+  <iati-activity>
+        <iati-identifier>WB-GG-101400</iati-identifier>
+        <title xml:lang="en">Activity Test Refresher 11</title>
+        <description owner-ref="WB-ER-12-en" owner-name="en">aim-desc-518-1323930795677</description>
+        <sector code="400" percentage="25" vocabulary="DAC">MULTISECTOR/CROSS-CUTTING</sector>
+        <sector code="311" percentage="25" vocabulary="DAC">AGRICULTURE</sector>
+        <sector code="110" percentage="25" vocabulary="DAC">EDUCATION</sector>
+        <sector code="120" percentage="25" vocabulary="DAC">HEALTH</sector>
+        <transaction ref="WB-ER-12-116140"><transaction-type>2</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116140"><transaction-type>1</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116140"><transaction-type>0</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116140"><transaction-type>0</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116140"><transaction-type>1</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116140"><transaction-type>2</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116141"><transaction-type>1</transaction-type><provider-org>European Investment Bank</provider-org><value>350000</value><transaction-date>2011-07-28 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116141"><transaction-type>0</transaction-type><provider-org>European Investment Bank</provider-org><value>400000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116141"><transaction-type>2</transaction-type><provider-org>European Investment Bank</provider-org><value>300000</value><transaction-date>2011-08-10 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116142"><transaction-type>1</transaction-type><provider-org>European Union</provider-org><value>300000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116142"><transaction-type>0</transaction-type><provider-org>European Union</provider-org><value>300000</value><transaction-date>2011-06-23 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116142"><transaction-type>2</transaction-type><provider-org>European Union</provider-org><value>250000</value><transaction-date>2011-06-30 00:00:00.0</transaction-date></transaction>
+    </iati-activity>
+  <iati-activity>
+        <iati-identifier>WB-GG-101472</iati-identifier>
+        <title xml:lang="en">hiwot ,  hiwikas@gmail.com &amp;&#13;
+woindekm@yahoo.com</title>
+        <description owner-ref="WB-ER-12-en" owner-name="en">aim-desc-543-1324379360278</description>
+        <sector code="14050" percentage="30" vocabulary="DAC">Waste management/disposal</sector>
+        <sector code="32310" percentage="70" vocabulary="DAC">Construction policy and administrative management</sector>
+        <transaction ref="WB-ER-12-116893"><transaction-type>0</transaction-type><provider-org>African Development Bank</provider-org><value>5000000</value><transaction-date>2011-12-07 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116893"><transaction-type>2</transaction-type><provider-org>African Development Bank</provider-org><value>2500000</value><transaction-date>2011-12-28 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116893"><transaction-type>1</transaction-type><provider-org>African Development Bank</provider-org><value>3000000</value><transaction-date>2011-12-22 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116894"><transaction-type>2</transaction-type><provider-org>International Development Association</provider-org><value>2000000</value><transaction-date>2011-12-29 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116894"><transaction-type>1</transaction-type><provider-org>International Development Association</provider-org><value>8000000</value><transaction-date>2011-12-10 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116894"><transaction-type>0</transaction-type><provider-org>International Development Association</provider-org><value>10000000</value><transaction-date>2011-12-07 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116894"><transaction-type>0</transaction-type><provider-org>International Development Association</provider-org><value>2000000</value><transaction-date>2011-12-22 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116894"><transaction-type>1</transaction-type><provider-org>International Development Association</provider-org><value>1000000</value><transaction-date>2011-12-24 00:00:00.0</transaction-date></transaction>
+        <transaction ref="WB-ER-12-116894"><transaction-type>2</transaction-type><provider-org>International Development Association</provider-org><value>4000000</value><transaction-date>2011-12-12 00:00:00.0</transaction-date></transaction>
+    </iati-activity>
+  <iati-activity>
+        <iati-identifier>WB-GG-101520</iati-identifier>
+        <title xml:lang="en">Institutional Collabration HU, MU and UMB</title>
+        <description owner-ref="WB-ER-12-en" owner-name="en">aim-desc-567-1325586387356</description>
+        <sector code="110" percentage="50" vocabulary="DAC">EDUCATION</sector>
+        <sector code="311" percentage="50" vocabulary="DAC">AGRICULTURE</sector>
+    </iati-activity>
+</iati-activities>

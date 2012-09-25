@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<iati-activities>
+  <iati-activity>
+		<title owner-ref="en" owner-name="test attribute value">this is the first title of the activity 1</title>
+		<description lang="dandan" testAttribute="test attribute value">Transaction of the activity 1</description>
+	</iati-activity>
+  <iati-activity>
+			<title owner-ref="en" owner-name="test attribute value">this is the first title of the activity 2</title>
+		<description lang="dandan" testAttribute="test attribute value">Transaction of the activity 1</description>
+	</iati-activity>
+</iati-activities>
