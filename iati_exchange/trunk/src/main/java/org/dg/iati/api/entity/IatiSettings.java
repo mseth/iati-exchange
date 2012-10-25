@@ -66,6 +66,18 @@ public class IatiSettings implements Serializable{
 	private String settingName	= "";
 	private String test;
 	
+	public String getGlobalQueryType() {
+		return globalQueryType;
+	}
+
+
+
+	public void setGlobalQueryType(String globalQueryType) {
+		this.globalQueryType = globalQueryType;
+	}
+
+
+
 	@TransformationMetadata ( jaxbMapping = "csvMappingFilename" )
 	private String csvMapperFilename;
 	private transient List<FileUpload> csvMapperFileUpload;
