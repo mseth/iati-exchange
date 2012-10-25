@@ -87,6 +87,7 @@ public class Constants {
 	public final static String IATI_DATASOURCE_POSTGRES			= "postgres";
 	public final static List<String> IATI_DATASOURCE_TYPES		= Arrays.asList(IATI_DATASOURCE_MYSQL,IATI_DATASOURCE_POSTGRES,IATI_DATASOURCE_FILE);
 
+	public final static String IATI_GLOBALQUERY_TYPE_SELECT		= "select";
 
 	public final static String IATI_FILE_CSV		= "CSV";
 	public final static String IATI_FILE_XML		= "XML";

@@ -80,6 +80,9 @@ public class IatiSettings implements Serializable{
 	@TransformationMetadata ( jaxbMapping = "iatiActivity:content" )
 	private String globalQueryIDs;
 	
+	@TransformationMetadata ( jaxbMapping = "globalQuery:type" )
+	private String globalQueryType	= Constants.IATI_GLOBALQUERY_TYPE_SELECT;
+	
 	   
 	public String getGlobalQuery() {
 		return globalQuery;
