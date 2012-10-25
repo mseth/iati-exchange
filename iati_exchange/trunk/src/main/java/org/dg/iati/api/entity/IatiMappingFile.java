@@ -334,6 +334,8 @@ public class IatiMappingFile {
 	// iati-path, local-value, iati-value
 	private void processCSVFile() throws IOException {
 		// TODO Auto-generated method stub
+		if(mappingFile.getCsvMappingFilename() == null || "".compareTo(mappingFile.getCsvMappingFilename()) == 0)
+			return;
 		CSVReader reader = new CSVReader(new FileReader(mappingFile.getCsvMappingFilename()),',', '\"');
 		try {
 			List<String[]> mappingList = reader.readAll();
