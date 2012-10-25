@@ -16,7 +16,9 @@ public class IatiMappedValue {
 	
 	HashMap items;
 	
-	
+	public boolean hasMapping(){
+		return this.getItems().size()>0;
+	}
 	
 	public IatiMappedValue(HashMap items) {
 		super();
