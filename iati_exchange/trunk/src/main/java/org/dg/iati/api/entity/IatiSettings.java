@@ -66,17 +66,6 @@ public class IatiSettings implements Serializable{
 	private String settingName	= "";
 	private String test;
 	
-	public String getGlobalQueryType() {
-		return globalQueryType;
-	}
-
-
-
-	public void setGlobalQueryType(String globalQueryType) {
-		this.globalQueryType = globalQueryType;
-	}
-
-
 
 	@TransformationMetadata ( jaxbMapping = "csvMappingFilename" )
 	private String csvMapperFilename;
@@ -89,11 +78,14 @@ public class IatiSettings implements Serializable{
 	@TransformationMetadata ( jaxbMapping = "globalQuery:content" )
 	private String globalQuery;
 	
-	@TransformationMetadata ( jaxbMapping = "iatiActivity:content" )
-	private String globalQueryIDs;
-	
 	@TransformationMetadata ( jaxbMapping = "globalQuery:type" )
 	private String globalQueryType	= Constants.IATI_GLOBALQUERY_TYPE_SELECT;
+	
+	@TransformationMetadata ( jaxbMapping = "iatiActivity:type" )
+	private String iatiActivityType	= Constants.IATI_IATIACTIVITY_TYPE_SELECT;
+	
+	@TransformationMetadata ( jaxbMapping = "iatiActivity:content" )
+	private String globalQueryIDs;
 	
 	   
 	public String getGlobalQuery() {
@@ -342,6 +334,30 @@ public class IatiSettings implements Serializable{
 
 	public void setCsvMapperFileUpload(List<FileUpload> csvMapperFileUpload) {
 		this.csvMapperFileUpload = csvMapperFileUpload;
+	}
+
+	
+
+	public String getGlobalQueryType() {
+		return globalQueryType;
+	}
+
+
+
+	public void setGlobalQueryType(String globalQueryType) {
+		this.globalQueryType = globalQueryType;
+	}
+
+
+
+	public String getIatiActivityType() {
+		return iatiActivityType;
+	}
+
+
+
+	public void setIatiActivityType(String iatiActivityType) {
+		this.iatiActivityType = iatiActivityType;
 	}
 
 
