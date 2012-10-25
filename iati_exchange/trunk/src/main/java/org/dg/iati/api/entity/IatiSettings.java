@@ -77,7 +77,7 @@ public class IatiSettings implements Serializable{
 	@TransformationMetadata ( jaxbMapping = "globalQuery:content" )
 	private String globalQuery;
 	
-	@TransformationMetadata ( jaxbMapping = "globalQuery:type" )
+	@TransformationMetadata ( jaxbMapping = "iatiActivity:content" )
 	private String globalQueryIDs;
 	
 	   
