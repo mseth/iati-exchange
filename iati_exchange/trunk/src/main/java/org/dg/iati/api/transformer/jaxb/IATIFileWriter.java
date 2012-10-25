@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.apache.log4j.Logger;
 import org.dg.iati.api.entity.Constants;
 
 public class IATIFileWriter{
 			
 	public static final String MAPPING_FOLDER	= "mapping";
+	public static final Logger logger			= Logger.getLogger(IATIFileWriter.class);
+
 
 	private String filename;
 	private FileOutputStream fop = null;
@@ -49,7 +52,13 @@ public class IATIFileWriter{
 	
 	public void persist (){
 		try {
-			file = new File(filename+extension);
+			
+			File folder				= new File(this.foldername);
+			if ( !folder.isDirectory() && !folder.mkdir() ) {
+				logger.error("Cannot create mapping folder !!");
+				return;
+			}
+			file = new File(folder,filename+extension);
 			fop = new FileOutputStream(file);
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
@@ -60,7 +69,7 @@ public class IATIFileWriter{
 			fop.write(contentInBytes);
 			fop.flush();
 			fop.close();
-			System.out.println("File "+filename+extension+ " written OK!"); 
+			logger.info("File "+filename+extension+ " written OK!");
 		}  catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

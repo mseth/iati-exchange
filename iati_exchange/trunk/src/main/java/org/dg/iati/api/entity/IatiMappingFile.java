@@ -25,6 +25,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.Logger;
 import org.dg.iati.api.jaxb.iatiApiMapping.Datasource;
 import org.dg.iati.api.jaxb.iatiApiMapping.Field;
 import org.dg.iati.api.jaxb.iatiApiMapping.IatiApiMapping;
@@ -48,6 +49,8 @@ public class IatiMappingFile {
 	 * field that contains the information regarding the mapping
 	 */
 
+	public static final Logger logger			= Logger.getLogger(IatiMappingFile.class);
+	
 	private IatiApiMapping mappingFile = null;
 	private DataSourceConnection ds = null;
 	private Connection con = null;
@@ -317,15 +320,15 @@ public class IatiMappingFile {
     	XmlFileWriter<IatiActivities> writer		= new XmlFileWriter<IatiActivities>(rootResult, mappingFile.getMappingName(), Constants.IATI_FILE_RESULT_EXTENSION);
     	writer.persist();
     	
-    	Source xmlSource 	=	new StreamSource(new File(mappingFile.getMappingName() + Constants.IATI_FILE_RESULT_EXTENSION));
-    	Source xsltSource 	= 	new StreamSource(new File(mappingFile.getMappingName() + Constants.IATI_FILE_TRANSFORM_EXTENSION));
-    	Result result		=	new StreamResult(new File(mappingFile.getMappingName() + Constants.IATI_FILE_EXTENSION));
+    	Source xmlSource 	=	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+mappingFile.getMappingName() + Constants.IATI_FILE_RESULT_EXTENSION));
+    	Source xsltSource 	= 	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+mappingFile.getMappingName() + Constants.IATI_FILE_TRANSFORM_EXTENSION));
+    	Result result		=	new StreamResult(new File(XmlFileWriter.MAPPING_FOLDER+"/"+mappingFile.getMappingName() + Constants.IATI_FILE_EXTENSION));
     	 
     	// create an instance of TransformerFactory
     	javax.xml.transform.TransformerFactory transFact 	= javax.xml.transform.TransformerFactory.newInstance( );
   	    javax.xml.transform.Transformer trans 				= transFact.newTransformer(xsltSource);
   	    trans.transform(xmlSource, result);
-  	    System.out.println("File "+mappingFile.getMappingName() + Constants.IATI_FILE_EXTENSION+ " written OK!");
+  	    logger.info("File "+mappingFile.getMappingName() + Constants.IATI_FILE_EXTENSION+ " written OK!");
     	
 	}
 

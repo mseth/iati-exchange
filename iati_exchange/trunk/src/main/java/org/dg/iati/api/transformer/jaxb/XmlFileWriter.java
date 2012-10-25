@@ -66,7 +66,7 @@ public class XmlFileWriter<T>{
 		    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		    
 		    marshaller.marshal(this.mainJaxbObject, new FileOutputStream(file));
-		    System.out.println("File "+filename+extension+ " written OK!");
+		    logger.info("File "+filename+extension+ " written OK!");
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
