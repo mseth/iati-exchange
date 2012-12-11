@@ -136,7 +136,7 @@ public class IatiUtils {
 		List<IatiMappingElement> items = Arrays.asList(
 		new IatiMappingElement("iati-identifier",null, true),
 		new IatiMappingElement("other-identifier",Arrays.asList(Constants.IATI_ATTRIBUTE_OWNER_REF, Constants.IATI_ATTRIBUTE_OWNER_NAME), true),
-		new IatiMappingElement("reporting-org",Arrays.asList(Constants.IATI_ATTRIBUTE_REF,Constants.IATI_ATTRIBUTE_TYPE), true),
+		new IatiMappingElement("reporting-org",Arrays.asList(Constants.IATI_ATTRIBUTE_REF,Constants.IATI_ATTRIBUTE_TYPE, Constants.IATI_ATTRIBUTE_LANG), true),
 		new IatiMappingElement("title",Arrays.asList(Constants.IATI_ATTRIBUTE_LANG), true),
 		new IatiMappingElement("description",Arrays.asList(Constants.IATI_ATTRIBUTE_TYPE, Constants.IATI_ATTRIBUTE_LANG), true),
 		new IatiMappingElement("activity-status",Arrays.asList(Constants.IATI_ATTRIBUTE_CODE, Constants.IATI_ATTRIBUTE_LANG), true),
