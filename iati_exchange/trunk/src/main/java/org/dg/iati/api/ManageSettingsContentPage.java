@@ -86,14 +86,14 @@ public class ManageSettingsContentPage extends Panel {
 				item.add(iatiLink);
 				
 				String xmlFilename = baseFileName + Constants.IATI_FILE_RESULT_EXTENSION;
-				File xmlFile = new File(iatiFilename);
+				File xmlFile = new File(xmlFilename);
 				DownloadLink xmlResultLink = new DownloadLink("xmlResultFile", xmlFile, xmlFilename);
 				if(!xmlFile.exists())
 					xmlResultLink.setEnabled(false);
 				item.add(xmlResultLink);
 				
 				String xslFilename = baseFileName + Constants.IATI_FILE_TRANSFORM_EXTENSION ;
-				File xslFile = new File(iatiFilename);
+				File xslFile = new File(xslFilename);
 				DownloadLink xslLink = new DownloadLink("xslFile", xslFile, xslFilename );
 				if(!xslFile.exists())
 					xslLink.setEnabled(false);
