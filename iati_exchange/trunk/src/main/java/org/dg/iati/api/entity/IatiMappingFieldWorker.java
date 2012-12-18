@@ -82,7 +82,8 @@ public class IatiMappingFieldWorker {
 		if (this.getField().getQuery() != null
 				&& "".compareTo(this.getField().getQuery().getContent()) != 0)
 			this.select = true;
-		if (this.getField().getContent().getType() != null
+		if (this.getField().getContent()!=null 
+				&&	this.getField().getContent().getType() != null
 				&& "select".compareToIgnoreCase(this.getField().getContent()
 						.getType()) == 0)
 			this.select = true;
