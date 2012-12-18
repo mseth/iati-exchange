@@ -63,12 +63,6 @@ public class IatiUtils {
 	        Marshaller marshaller = ctx.createMarshaller();
 	        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 	        
-//	        JAXBSource source 		= new JAXBSource( ctx, i );
-//	        TransformerFactory tf 	= TransformerFactory.newInstance();
-//	        InputStream is 			= new ByteArrayInputStream(xsl.getBytes());
-//	        Transformer t 			= tf.newTransformer(new StreamSource(is));	        
-//	        // run transformation
-//	        t.transform(source,new StreamResult(System.out));
 	        marshaller.marshal(i, System.out);
 	    }
 	    catch (Exception
