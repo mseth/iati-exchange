@@ -136,7 +136,7 @@ public class IatiUtils {
 		new IatiMappingElement("activity-status",Arrays.asList(Constants.IATI_ATTRIBUTE_CODE, Constants.IATI_ATTRIBUTE_LANG), true),
 		new IatiMappingElement("activity-date",Arrays.asList(Constants.IATI_ATTRIBUTE_TYPE, Constants.IATI_ATTRIBUTE_ISO_DATE, Constants.IATI_ATTRIBUTE_LANG), true),
 		actContacts,
-		new IatiMappingElement("participating-org",Arrays.asList(Constants.IATI_ATTRIBUTE_REF, Constants.IATI_ATTRIBUTE_TYPE, Constants.IATI_ATTRIBUTE_LANG), true),
+		new IatiMappingElement("participating-org",Arrays.asList(Constants.IATI_ATTRIBUTE_REF, Constants.IATI_ATTRIBUTE_ROLE, Constants.IATI_ATTRIBUTE_TYPE, Constants.IATI_ATTRIBUTE_LANG), true),
 		new IatiMappingElement("recipient-country",Arrays.asList(Constants.IATI_ATTRIBUTE_PERCENTAGE, Constants.IATI_ATTRIBUTE_LANG), true),
 		new IatiMappingElement("recipient-region",Arrays.asList(Constants.IATI_ATTRIBUTE_PERCENTAGE, Constants.IATI_ATTRIBUTE_LANG), true),
 		actLocation,
