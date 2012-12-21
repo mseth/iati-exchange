@@ -95,11 +95,12 @@ public class IatiMappingFieldWorker {
 
 	public Field isComplexField() {
 		if (field.getField() != null && field.getField().size() > 0) {
-			for (Iterator<Field> it = field.getField().iterator(); it.hasNext();) {
-				Field f = (Field) it.next();
-				if (f.getRef().contains(".content"))
-					return f;
-			}
+//			for (Iterator<Field> it = field.getField().iterator(); it.hasNext();) {
+//				Field f = (Field) it.next();
+//				if (f.getRef().contains(".content"))
+//					return f;
+//			}
+			return field;
 		}
 		return null;
 	}
@@ -178,12 +179,12 @@ public class IatiMappingFieldWorker {
 			else
 				q = IatiUtils.getCleanQuery(getQuery(), parentID);
 			// System.out.println("Running this query ... "+q);
-			rs = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-					ResultSet.CONCUR_READ_ONLY).executeQuery(q);
+			rs = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(q);
 		} else {
 			rs = globalRS;
 			// System.out.println("Running GLOBAL query ... ");
 		}
+		//System.out.println("nr recorduri"+rs.getFetchSize());
 		rs.beforeFirst();
 		ArrayList<Item> result = new ArrayList<Item>();
 		while (rs.next()) {
@@ -218,8 +219,7 @@ public class IatiMappingFieldWorker {
 		resultItem.setRef(iatiLabel);
 		// globalRS.first();
 		String value = null;
-		value = getValueFromResultSet(resultItem.getRef(), getContent()
-				.getType(), getPrefix(), getContentItem(), rs);
+		value = getValueFromResultSet(resultItem.getRef(), getContent().getType(), getPrefix(), getContentItem(), rs);
 		resultItem.setValue(value);
 
 		List<AttributeType> attributes = getAttributes();

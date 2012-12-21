@@ -83,12 +83,16 @@ public class XSLConverter {
       		<xsl:variable name="percentage"><xsl:value-of select="./attribute[@ref='percentage']"/></xsl:variable>
       		<sector code="{$code}" vocabulary="{$vocabulary}" percentage="{$percentage}" ><xsl:value-of select="./value"/></sector>
       	</xsl:template>
+	 * @param item 
 	 * @param resultItem
 	 * @return
 	 */
 	
-	private String createXSLVariable(String name){
-		return "<xsl:variable name=\""+name+"\"><xsl:value-of select=\"./attribute[@ref='"+name+"']\"/></xsl:variable>";
+	private String createXSLVariable(String name, String item, boolean firstLevel){
+		if(firstLevel)
+			return "<xsl:variable name=\""+name+"\"><xsl:value-of select=\"./attribute[@ref='"+name+"']\"/></xsl:variable>";
+		else
+			return  "<xsl:variable name=\""+name+"\"><xsl:value-of select=\"./item[@ref='"+item+"']/attribute[@ref='"+name+"']\"/></xsl:variable>";
 	}
 	
 	private String createXSLElement(String name, List<RefType> attributes, List<Item> subItems, String fullName, boolean firstLevel){
@@ -129,7 +133,7 @@ public class XSLConverter {
 		else name = resultItem.getRef();
 		result+="<xsl:template match=\"item[@ref='"+resultItem.getRef()+"']\" name=\""+name+"\">";
 		for (RefType attr : resultItem.getAttribute()) {
-			result+=createXSLVariable(attr.getRef());
+			result+=createXSLVariable(attr.getRef(),resultItem.getRef(), firstLevel);
 		}
 		result+=createXSLElement(resultItem.getRef(), resultItem.getAttribute(), resultItem.getItem(),name, firstLevel);
 		result+="</xsl:template>";
