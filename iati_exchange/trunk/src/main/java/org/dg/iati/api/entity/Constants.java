@@ -23,6 +23,7 @@ public class Constants {
 	public final static String IATI_FILE_EXTENSION = ".iati.xml";
 	
 	public final static String IATI_API_MAPPING_JAXB = "org.dg.iati.api.jaxb.iatiApiMapping";
+	public final static String IATI_API_RESULT_JAXB = "org.dg.iati.api.jaxb.iatiApiResult";
 	public final static String CONTENT_TYPE_COLUMN = "column";
 	public final static String CONTENT_TYPE_CONSTANT = "constant";
 	public final static String CONTENT_TYPE_SELECT = "select";
@@ -96,5 +97,6 @@ public class Constants {
 	
 	public final static String UI_TABS_JQUERY = "$(function() {$('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');$('#tabs li').removeClass('ui-corner-top').addClass('ui-corner-left');});";
 	public static final String CONFIG_FILE = "config.properties";
+	public static final String CONFIG_UI_FILE = "config.xml";
 	
 }

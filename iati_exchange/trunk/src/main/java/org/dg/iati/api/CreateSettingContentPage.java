@@ -3,6 +3,10 @@
  */
 package org.dg.iati.api;
 
+import java.io.FileNotFoundException;
+
+import javax.xml.bind.JAXBException;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
@@ -44,7 +48,16 @@ public class CreateSettingContentPage extends Panel {
 		
 //		final SaveXMLForm tf = new SaveXMLForm("createXMLForm");
 		this.settings	= new IatiSettings();
-	    settings.setMappingItems(IatiUtils.generateIATIElements());
+	    //settings.setMappingItems(IatiUtils.generateStaticIATIElements());
+		try {
+			settings.setMappingItems(IatiUtils.generateIATIElements());
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 		final SaveXMLForm tf = new SaveXMLForm("createXMLForm", new CompoundPropertyModel<IatiSettings>(settings));
 		tf.setMultiPart(true);

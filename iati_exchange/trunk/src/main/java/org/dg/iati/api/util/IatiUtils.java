@@ -6,17 +6,23 @@ package org.dg.iati.api.util;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.dg.iati.api.entity.Constants;
 import org.dg.iati.api.entity.IatiMappingElement;
+import org.dg.iati.api.jaxb.iatiApiResult.IatiActivities;
+import org.dg.iati.api.jaxb.iatiApiResult.IatiActivity;
 import org.dg.iati.api.jaxb.iatiApiResult.Item;
+import org.dg.iati.api.jaxb.iatiApiResult.RefType;
 
 /**
  * @author dan
@@ -71,7 +77,7 @@ public class IatiUtils {
 	              //catch exception 
 	    }
 	}
-
+/*
 	public static List<IatiMappingElement> generateIATIElements() {
 		IatiMappingElement   actContacts	=	new IatiMappingElement("contact-info",
 				Arrays.asList(new IatiMappingElement("contact-info.content",null, true),
@@ -156,5 +162,55 @@ public class IatiUtils {
 		);
 		return items;
 	}
+	*/
+
+
+	public static List<IatiMappingElement> generateIATIElements() throws JAXBException, FileNotFoundException {
+		// TODO Auto-generated method stub
+		List<IatiMappingElement> items = new ArrayList<IatiMappingElement>();
+		InputStream inputStream = new FileInputStream(Constants.CONFIG_UI_FILE);
+		
+		IatiActivities rf;
+		JAXBContext jc 	= JAXBContext.newInstance(Constants.IATI_API_RESULT_JAXB);
+        Unmarshaller m 	= jc.createUnmarshaller();
+        rf 	= (IatiActivities) m.unmarshal(inputStream);
+		
+        IatiActivity config = rf.getIatiActivity().get(0);
+        for (Iterator<Item> it = config.getItem().iterator(); it.hasNext();) {
+			Item item 				= (Item) it.next();
+			IatiMappingElement ime 	= buildIatiMappingElement(item);
+			items.add(ime);
+		}
+		return items;
+	}
+
+
+	private static IatiMappingElement buildIatiMappingElement(Item item) {
+		String label = item.getRef();
+		ArrayList<String> attrList = null;
+		if(item.getAttribute()!=null && item.getAttribute().size()>0){
+			attrList = new ArrayList<String>();
+			for (Iterator<RefType> jt = item.getAttribute().iterator(); jt.hasNext();) {
+				RefType attr = (RefType) jt.next();
+				attrList.add(attr.getRef());
+			}
+		}
+		ArrayList<IatiMappingElement> subItems = null;
+		if(item.getItem()!=null && item.getItem().size()>0){
+			subItems = new ArrayList<IatiMappingElement>();
+			subItems.add(new IatiMappingElement(item.getRef()+".content", null, attrList));
+			for (Iterator<Item> jt = item.getItem().iterator(); jt.hasNext();) {
+				Item subItem = (Item) jt.next();
+				//subItems.add(attr.getRef());
+				subItems.add(buildIatiMappingElement(subItem));
+			}
+		}
+		
+		IatiMappingElement ime = new IatiMappingElement(label, subItems, attrList);
+		return ime;
+	}
+	
+	
+	
 	
 }

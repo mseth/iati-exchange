@@ -82,37 +82,36 @@ public class IatiMappingElement implements IEmptyCheckable,IChildRepresenter, Se
 	 * listType = false - list of IatiMappingItem
 	 * listType = true - list of Strings
 	 */
-	public IatiMappingElement(String label, List<?> attributes, boolean isStringList) {
+	public IatiMappingElement(String label, List<?> attributes) {
 		super();
 		this.content = new IatiMappingItem(label);
-		if(!isStringList)
-			this.attributes = (ArrayList<IatiMappingItem>) attributes;
-		else{
+//		if(!isStringList)
+//			this.attributes = (ArrayList<IatiMappingItem>) attributes;
+//		else{
 			this.attributes	= new ArrayList<IatiMappingItem>();
 			if(attributes!=null)
 				for (String s : (List<String>)attributes) {
 					IatiMappingItem atr = new IatiMappingItem(s);
 					this.attributes.add(atr);
 				}
-		}
+//		}
 	}
 	
-	public IatiMappingElement(String label, List<?> subItems, List<?> attributes, boolean isStringList) {
+	public IatiMappingElement(String label, List<IatiMappingElement> subItems, List<String> attributes) {
 		super();
 		this.content = new IatiMappingItem(label);
-		if(!isStringList)
-			this.attributes = (ArrayList<IatiMappingItem>) attributes;
-		else{
 			this.attributes	= new ArrayList<IatiMappingItem>();
 			if(attributes!=null)
 				for (String s : (List<String>)attributes) {
 					IatiMappingItem atr = new IatiMappingItem(s);
 					this.attributes.add(atr);
 				}
-		}
-	   this.subItems	= new ArrayList<IatiMappingElement>();
-	   if(subItems!=null)
-		   this.getSubItems().addAll((Collection<? extends IatiMappingElement>) subItems);
+	
+	   if(subItems!=null && subItems.size()>0)
+		   {
+		   	this.subItems	= new ArrayList<IatiMappingElement>();
+		   	this.getSubItems().addAll((Collection<? extends IatiMappingElement>) subItems);
+		   }
 	}
 	
 	public IatiMappingElement(String label, String query) {
