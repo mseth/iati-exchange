@@ -97,6 +97,6 @@ public class Constants {
 	
 	public final static String UI_TABS_JQUERY = "$(function() {$('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');$('#tabs li').removeClass('ui-corner-top').addClass('ui-corner-left');});";
 	public static final String CONFIG_FILE = "config.properties";
-	public static final String CONFIG_UI_FILE = "config.xml";
+	//public static final String CONFIG_UI_FILE = "config.xml";
 	
 }

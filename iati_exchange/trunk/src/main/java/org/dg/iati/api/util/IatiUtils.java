@@ -165,10 +165,12 @@ public class IatiUtils {
 	*/
 
 
-	public static List<IatiMappingElement> generateIATIElements() throws JAXBException, FileNotFoundException {
+	public static List<IatiMappingElement> generateIATIElements() throws JAXBException, IOException {
 		// TODO Auto-generated method stub
 		List<IatiMappingElement> items = new ArrayList<IatiMappingElement>();
-		InputStream inputStream = new FileInputStream(Constants.CONFIG_UI_FILE);
+        Properties prop = new Properties();
+        prop.load(new FileInputStream(Constants.CONFIG_FILE));
+		InputStream inputStream = new FileInputStream(prop.getProperty("ui-config-file"));//Constants.CONFIG_UI_FILE);
 		
 		IatiActivities rf;
 		JAXBContext jc 	= JAXBContext.newInstance(Constants.IATI_API_RESULT_JAXB);

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-activities>
+    <iati-activity>
+        <item ref="iati-identifier"/>
+        <item ref="other-identifier">
+            <attribute ref="owner-ref"/>
+            <attribute ref="owner-name"/>
+        </item>
+        <item ref="title">
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="participating-org">
+            <attribute ref="ref"/>
+            <attribute ref="type"/>
+            <attribute ref="role"/>
+            <attribute ref="xml:lang"/>
+            <attribute ref="npbi:budget-ref"/>
+        </item>
+		<item ref="planned-disbursement">
+        	<attribute ref="updated"/>
+            <item ref="period-start">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="period-end">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>       
+            <item ref="npbi:provider-org">
+                <attribute ref="npbi:ref"/>
+                <attribute ref="npbi:budget-ref"/>
+            </item>
+            <item ref="npbi:receiver-org">
+                <attribute ref="npbi:ref"/>
+                <attribute ref="npbi:budget-ref"/>
+            </item>
+            <item ref="npbi:source-type">
+                <attribute ref="npbi:code"/>
+            </item>
+            <item ref="npbi:receiver-activity-id">
+            </item>  
+                 
+		</item>        
+        <item ref="transaction">
+        	<attribute ref="ref"/>
+            <item ref="transaction-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="provider-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="receiver-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>
+            <item ref="description">
+                <attribute ref="type"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="flow-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="finance-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="aid-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="disbursement-channel">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="tied-status">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+        </item>
+    </iati-activity>
+</iati-activities>

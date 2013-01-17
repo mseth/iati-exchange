@@ -23,7 +23,7 @@ input.iati-text{width:200px;height:20px;border:1px solid #d6d5d2;}
 input.iati-text-small{width:100px;height:20px;border:1px solid #d6d5d2;}
 input.iati-text-medium{width:150px;height:20px;border:1px solid #d6d5d2;}
 div.iati-form li h4{border-bottom:1px solid #ccc;}
-div.iati-form li label.smalllabel{width:80px;}
+div.iati-form li label.smalllabel{width:120px;}
 select.iati-option{width:150px;font-size:11px;}
 input.button{background:#e0dfda;padding:5px 10px;border:1px solid #d6d5d2;margin:5px 0px;}
 input.button-save{background:#0087c7;padding:5px 10px;color:#fff;text-transform:uppercase;border:none;float:right;}
