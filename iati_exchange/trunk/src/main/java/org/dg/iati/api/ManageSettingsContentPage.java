@@ -109,11 +109,11 @@ public class ManageSettingsContentPage extends Panel {
 						XmlFileReader<IatiApiMapping> reader	= new XmlFileReader<IatiApiMapping>(IatiApiMapping.class, getModelObject());
 						IatiApiMapping jaxbMapping				= reader.load();
 						IatiMappingFile imf= new IatiMappingFile(jaxbMapping);
-						HashMap<String, String> t = new HashMap<String, String>();
-						t.put("param_1", "amp_id");
-						t.put("param_2", "name");
+//						HashMap<String, String> t = new HashMap<String, String>();
+//						t.put("param_1", "amp_id");
+//						t.put("param_2", "name");
 						try {
-							imf.run(t);
+							imf.run(null);
 						} catch (JAXBException e) {
 							e.printStackTrace();
 						} catch (SQLException e) {
