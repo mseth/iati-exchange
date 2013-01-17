@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class IatiMappingFieldWorker {
 	private ResultSet globalRS = null;
 	private Connection con = null;
 	private String parentID = null;
+	private HashMap<String,String> params = null;
 
 	public String getParentID() {
 		return parentID;
@@ -129,13 +131,13 @@ public class IatiMappingFieldWorker {
 		this.con = con;
 	}
 
-	public IatiMappingFieldWorker(Field field, ResultSet globalRS,
-			Connection con, String currentActivityID,
-			IatiMappedValue iatiMappedValue) {
+	public IatiMappingFieldWorker(Field field, ResultSet globalRS, Connection con, String currentActivityID,
+			IatiMappedValue iatiMappedValue, HashMap<String,String> params) {
 		// TODO Auto-generated constructor stub
 		this(field, globalRS, con);
 		this.iatiMappedValue = iatiMappedValue;
 		this.parentID = currentActivityID;
+		this.params = params;
 	}
 
 	/**
@@ -174,10 +176,9 @@ public class IatiMappingFieldWorker {
 
 		if (select) {
 			if (complexField != null)
-				q = IatiUtils.getCleanQuery(complexField.getQuery()
-						.getContent(), parentID);
+				q = IatiUtils.getCleanQuery(complexField.getQuery().getContent(), parentID, this.getParams());
 			else
-				q = IatiUtils.getCleanQuery(getQuery(), parentID);
+				q = IatiUtils.getCleanQuery(getQuery(), parentID, this.getParams());
 			// System.out.println("Running this query ... "+q);
 			rs = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(q);
 		} else {
@@ -337,6 +338,14 @@ public class IatiMappingFieldWorker {
 
 	public void setIatiMappedValue(IatiMappedValue iatiMappedValue) {
 		this.iatiMappedValue = iatiMappedValue;
+	}
+
+	public HashMap<String, String> getParams() {
+		return params;
+	}
+
+	public void setParams(HashMap<String, String> params) {
+		this.params = params;
 	}
 
 }

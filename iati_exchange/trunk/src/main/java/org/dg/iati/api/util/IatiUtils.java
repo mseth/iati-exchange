@@ -8,8 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
@@ -30,9 +32,18 @@ import org.dg.iati.api.jaxb.iatiApiResult.RefType;
  */
 public class IatiUtils {
 
-	public static String getCleanQuery(String q, String parentID){
+	public static String getCleanQuery(String q, String parentID, HashMap<String, String> params){
+		//String result = q;
 		if(parentID!=null)
-			return q.replace("$parent", parentID);
+			q	= q.replace("$parent", parentID);
+		if(params != null && params.size()>0){
+			{
+				for(Map.Entry<String, String> entry: params.entrySet())
+					{
+						q	= q.replaceAll("\\$\\{"+entry.getKey()+"\\}", entry.getValue());
+					}
+			}
+		}
 		return q;
 	}
 	

@@ -4,7 +4,6 @@
 package org.dg.iati.api.entity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -134,11 +134,11 @@ public class IatiMappingFile {
 		
 	}
 	
-	public void processMapping(IatiActivity resultActivity) throws SQLException {
+	public void processMapping(IatiActivity resultActivity,  HashMap<String,String> params) throws SQLException {
 		List<Field> mappedFieldsList = getMappedFieldsList();
 		for (Iterator<Field> it = mappedFieldsList.iterator(); it.hasNext();) {
 			Field field = (Field) it.next();
-			IatiMappingFieldWorker f = new IatiMappingFieldWorker(field, globalRS, con, currentActivityID, this.getMappingValues());
+			IatiMappingFieldWorker f = new IatiMappingFieldWorker(field, globalRS, con, currentActivityID, this.getMappingValues(), params);
 			//f.printContent();
 			ArrayList<Item> resultItemList = f.getResultItemList();
 			if(resultItemList!=null)
@@ -187,9 +187,9 @@ public class IatiMappingFile {
 		}
 	}
 	
-	public void executeGlobalQuery(String parentID) throws SQLException{
+	public void executeGlobalQuery(String parentID, HashMap<String,String> params) throws SQLException{
 		String q = null;
-		q = IatiUtils.getCleanQuery(this.mappingFile.getGlobalQuery().getContent(), parentID);
+		q = IatiUtils.getCleanQuery(this.mappingFile.getGlobalQuery().getContent(), parentID, params);
 		globalRS	=	con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(q);
 	}
 	
@@ -272,7 +272,7 @@ public class IatiMappingFile {
 	}
 
 
-	public void run() throws JAXBException, SQLException, TransformerException  {
+	public void run(HashMap<String, String> params) throws JAXBException, SQLException, TransformerException  {
 		if(mappingFile == null)
 		{
 			JAXBContext jc 	= JAXBContext.newInstance(Constants.IATI_API_MAPPING_JAXB);
@@ -303,10 +303,10 @@ public class IatiMappingFile {
 			ObjectFactory of = new ObjectFactory();
 			IatiActivity resultActivity = of.createIatiActivity();
 			
-			this.executeGlobalQuery(id);
+			this.executeGlobalQuery(id, params);
 			this.setCurrentActivityID(id);
 			this.getGlobalRS().first();
-			this.processMapping(resultActivity);
+			this.processMapping(resultActivity, params);
 			if(!xslRun)
 				{
 					xslConv.run(resultActivity);
