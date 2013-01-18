@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-api-mapping>
+    <mapping-name>AidData_export</mapping-name>
+    <datasource type="postgres">
+        <url>localhost:5432/plaid_replica</url>
+        <username>postgres</username>
+    </datasource>
+    <generated-datetime/>
+    <iati-activity type="select">select e.id from external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6 limit 100;</iati-activity>
+    <global-query type="select">select e.id , e.title,e.end_date, e.commitment_date, case when e.long_description is null   then e.short_description else e.long_description END as description , case when e.source_id in (6,7) and  e.code_round_id is null   then e.crs_purpose_code else p.code  END as sector_code,case when e.source_id in (6,7) and  e.code_round_id is null   then e.crs_purpose_name else p.description END as sector_name from external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6 and e.id = $parent limit 100;</global-query>
+    <mapping>
+        <field ref="iati-identifier">
+            <content type="column" prefix="DGF-21006-">id</content>
+            <query/>
+        </field>
+        <field ref="other-identifier">
+            <content type="column">proj_id</content>
+            <attribute ref="owner-ref" type="column">donor_name</attribute>
+            <attribute ref="owner-name" type="column">donor_name</attribute>
+            <query>select e.donor_project_id as proj_id,case when e.donor_id is null then f.name else d.name END as donor_name from external_project e left join donor d on e.donor_id=d.id left join financing_agency f on e.financing_agency_id = f.id where e.id=$parent;</query>
+        </field>
+        <field ref="reporting-org">
+            <content type="constant">Development Gateway</content>
+            <attribute ref="ref" type="constant">DGF-21006</attribute>
+            <attribute ref="type" type="constant">21</attribute>
+            <query/>
+        </field>
+        <field ref="title">
+            <content type="column">title</content>
+            <attribute ref="xml:lang" type="constant">en</attribute>
+            <query/>
+        </field>
+        <field ref="description">
+            <content type="column">description</content>
+            <attribute ref="type" type="constant">General</attribute>
+            <query/>
+        </field>
+        <field ref="activity-date">
+            <content type="column">date_value</content>
+            <attribute ref="type" type="column">date_type</attribute>
+            <attribute ref="iso-date" type="column">date_value</attribute>
+            <attribute ref="xml:lang" type="constant">en</attribute>
+            <query>(select e.commitment_date as date_value, 'start-planned' as date_type from external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6  and e.id=$parent) UNION (select case when e.start_date is null then e.effective_date else e.start_date END as date_value, 'start-actual' from external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6  and e.id=$parent) UNION (select e.end_date as date_value, 'end-planned' as date_type from external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6  and e.id=$parent);</query>
+        </field>
+        <field ref="participating-org">
+            <content type="column">part_org_value</content>
+            <attribute ref="ref" type="column">part_org_value</attribute>
+            <attribute ref="role" type="constant">part_org_type</attribute>
+            <attribute ref="type" type="column">part_org_type</attribute>
+            <attribute ref="xml:lang" type="constant">en</attribute>
+            <query>(select d.name as part_org_value, 'Funding' as part_org_type from donor d, external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6  and e.id=$parent and d.id=e.donor_id) UNION (select i.name as part_org_value, 'Implementing' as part_org_type from implementing_agency i, external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6  and e.id=$parent and i.id=e.implementing_agency_id) UNION (select f.name as part_org_value, 'Extending' as part_org_type  from financing_agency f, external_project e inner join purpose_code p on e.embedded_purpose_codeid=p.id where e.donor_id=6  and e.id=$parent and e.financing_agency_id = f.id);</query>
+        </field>
+        <field ref="sector">
+            <content type="column">sector_name</content>
+            <attribute ref="code" type="column">sector_code</attribute>
+            <attribute ref="percentage" type="constant">100</attribute>
+            <query/>
+        </field>
+        <field ref="transaction">
+            <content type="constant">novalue</content>
+            <query>select e.embedded_donor_name,e.embedded_recipient_name, e.embedded_commitmentcurrent, case when e.embedded_commitment is not null then 'C' END as t_type_code, case when e.embedded_commitment is not null then 'Commitment' END as t_type_text from external_project e where e.id = $parent;</query>
+            <field ref="transaction-type">
+                <content type="column">t_type_text</content>
+                <attribute ref="code" type="column">t_type_code</attribute>
+                <query>select case when e.embedded_commitment is not null then 'C' END as t_type_code, case when e.embedded_commitment is not null then 'Commitment' END as t_type_text from external_project e where e.id = $parent;</query>
+            </field>
+            <field ref="provider-org">
+                <content type="column">embedded_donor_name</content>
+                <attribute ref="ref" type="column">embedded_donor_name</attribute>
+                <query/>
+            </field>
+            <field ref="receiver-org">
+                <content type="column">embedded_recipient_name</content>
+                <attribute ref="ref" type="column">embedded_recipient_name</attribute>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">embedded_commitmentcurrent</content>
+                <attribute ref="currency" type="constant">USD</attribute>
+                <attribute ref="value-date" type="constant">2012-01-01</attribute>
+                <query/>
+            </field>
+            <field ref="transaction-date">
+                <attribute ref="iso-date" type="constant">2012-01-01</attribute>
+                <query/>
+            </field>
+        </field>
+    </mapping>
+    <global-settings/>
+</iati-api-mapping>
