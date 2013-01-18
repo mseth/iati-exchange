@@ -115,7 +115,10 @@ public class XSLConverter {
 			for (Item i : subItems) {
 				if( !this.getLabels().contains(i.getRef()) ){
 					this.getTemplates().add(createTemplate(i,name,false));
-					this.getLabels().add(i.getRef());
+					if(	name!=null )
+						this.getLabels().add(name+"."+i.getRef());
+					else this.getLabels().add(i.getRef());
+					
 				}
 				result	+= "<xsl:call-template name=\""+fullName+"."+i.getRef()+"\"></xsl:call-template>";
 			}
@@ -131,6 +134,7 @@ public class XSLConverter {
 		if(	parent!=null )
 				name		= parent+"."+resultItem.getRef();
 		else name = resultItem.getRef();
+		System.out.println(" performing xsl for "+name);
 		result+="<xsl:template match=\"item[@ref='"+resultItem.getRef()+"']\" name=\""+name+"\">";
 		for (RefType attr : resultItem.getAttribute()) {
 			result+=createXSLVariable(attr.getRef(),resultItem.getRef(), firstLevel);

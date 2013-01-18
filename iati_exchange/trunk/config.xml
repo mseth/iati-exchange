@@ -157,6 +157,9 @@
                 <attribute ref="type"/>
                 <attribute ref="xml:lang"/>
             </item>
+            <item ref="transaction-date">
+                <attribute ref="iso-date"/>
+            </item>
             <item ref="flow-type">
                 <attribute ref="code"/>
                 <attribute ref="xml:lang"/>

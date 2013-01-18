@@ -14,7 +14,7 @@
             <attribute ref="type"/>
             <attribute ref="role"/>
             <attribute ref="xml:lang"/>
-            <attribute ref="npbi:budget-ref"/>
+            <attribute ref="budget-ref"/>
         </item>
 		<item ref="planned-disbursement">
         	<attribute ref="updated"/>
@@ -28,20 +28,19 @@
                 <attribute ref="currency"/>
                 <attribute ref="value-date"/>
             </item>       
-            <item ref="npbi:provider-org">
-                <attribute ref="npbi:ref"/>
-                <attribute ref="npbi:budget-ref"/>
+            <item ref="provider-org">
+                <attribute ref="ref"/>
+                <attribute ref="budget-ref"/>
             </item>
-            <item ref="npbi:receiver-org">
-                <attribute ref="npbi:ref"/>
-                <attribute ref="npbi:budget-ref"/>
+            <item ref="receiver-org">
+                <attribute ref="ref"/>
+                <attribute ref="budget-ref"/>
             </item>
-            <item ref="npbi:source-type">
-                <attribute ref="npbi:code"/>
+            <item ref="source-type">
+                <attribute ref="code"/>
             </item>
-            <item ref="npbi:receiver-activity-id">
+            <item ref="receiver-activity-id">
             </item>  
-                 
 		</item>        
         <item ref="transaction">
         	<attribute ref="ref"/>
@@ -65,6 +64,9 @@
                 <attribute ref="type"/>
                 <attribute ref="xml:lang"/>
             </item>
+            <item ref="transaction-date">
+                <attribute ref="iso-date"/>
+            </item>
             <item ref="flow-type">
                 <attribute ref="code"/>
                 <attribute ref="xml:lang"/>
@@ -84,7 +86,12 @@
             <item ref="tied-status">
                 <attribute ref="code"/>
                 <attribute ref="xml:lang"/>
-            </item>            
+            </item>  
+            <item ref="source-type">
+                <attribute ref="code"/>
+            </item>
+            <item ref="receiver-activity-id">
+            </item>           
         </item>
     </iati-activity>
 </iati-activities>
