@@ -35,6 +35,7 @@ import org.dg.iati.api.jaxb.iatiApiResult.Item;
 import org.dg.iati.api.jaxb.iatiApiResult.ObjectFactory;
 import org.dg.iati.api.transformer.jaxb.IATIFileWriter;
 import org.dg.iati.api.transformer.jaxb.XmlFileWriter;
+import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.IatiUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -64,10 +65,30 @@ public class IatiMappingFile {
 	
 	private InputStream inputStream = null;
 	
+	private String uniqueIdentifier	= null;
+	
 	private boolean hasMapping(){
 		return mappingValues.getItems().size()>0;
 	}
 	
+	
+	/**
+	 * @return the uniqueIdentifier
+	 */
+	public String getUniqueIdentifier() {
+		return uniqueIdentifier;
+	}
+
+	/**
+	 * @param uniqueIdentifier the uniqueIdentifier to set
+	 */
+	public void setUniqueIdentifier(String uniqueIdentifier) {
+		this.uniqueIdentifier = uniqueIdentifier;
+	}
+
+
+
+
 	public InputStream getInputStream() {
 		return inputStream;
 	}
@@ -314,15 +335,17 @@ public class IatiMappingFile {
 				}
 			rootResult.getIatiActivity().add(resultActivity);
 		}
-    	IATIFileWriter xslWriter		= new IATIFileWriter(mappingFile.getMappingName(),xslConv.getXSL());
+		String fileName		= IatiMappingFile.generateResultFileName(mappingFile.getMappingName(), this.uniqueIdentifier );
+		
+    	IATIFileWriter xslWriter		= new IATIFileWriter(fileName,xslConv.getXSL());
     	xslWriter.persist();
 
-    	XmlFileWriter<IatiActivities> writer		= new XmlFileWriter<IatiActivities>(rootResult, mappingFile.getMappingName(), Constants.IATI_FILE_RESULT_EXTENSION);
+    	XmlFileWriter<IatiActivities> writer		= new XmlFileWriter<IatiActivities>(rootResult, fileName, Constants.IATI_FILE_RESULT_EXTENSION);
     	writer.persist();
     	
-    	Source xmlSource 	=	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+mappingFile.getMappingName() + Constants.IATI_FILE_RESULT_EXTENSION));
-    	Source xsltSource 	= 	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+mappingFile.getMappingName() + Constants.IATI_FILE_TRANSFORM_EXTENSION));
-    	Result result		=	new StreamResult(new File(XmlFileWriter.MAPPING_FOLDER+"/"+mappingFile.getMappingName() + Constants.IATI_FILE_EXTENSION));
+    	Source xmlSource 	=	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+fileName + Constants.IATI_FILE_RESULT_EXTENSION));
+    	Source xsltSource 	= 	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+fileName + Constants.IATI_FILE_TRANSFORM_EXTENSION));
+    	Result result		=	new StreamResult(new File(IatiMappingFile.generateFinalIatiFilePath(fileName)));
     	 
     	// create an instance of TransformerFactory
     	javax.xml.transform.TransformerFactory transFact 	= javax.xml.transform.TransformerFactory.newInstance( );
@@ -370,6 +393,17 @@ public class IatiMappingFile {
 
 	public void setMappingValues(IatiMappedValue mappingValues) {
 		this.mappingValues = mappingValues;
+	}
+	
+	
+	public static String generateResultFileName(String mappingName, String queryUniqueIdentifier) {
+		return 
+			(queryUniqueIdentifier==null?mappingName:mappingName+"-"+queryUniqueIdentifier);
+	}
+	
+	public static String generateFinalIatiFilePath(String fileName){
+		return 
+				IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME)+"/"+fileName + Constants.IATI_FILE_EXTENSION;
 	}
 	
 }

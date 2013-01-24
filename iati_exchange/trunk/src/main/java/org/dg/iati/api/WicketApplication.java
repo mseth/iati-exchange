@@ -2,6 +2,9 @@ package org.dg.iati.api;
 
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.response.filter.AjaxServerAndClientTimeFilter;
+import org.dg.iati.api.rest.MyFileResourceReference;
+import org.dg.iati.api.rest.TransformationRunnerPage;
+import org.dg.iati.api.rest.constants.RestConstants;
 
 import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
 import com.google.code.jqwicket.JQContributionConfig;
@@ -40,5 +43,11 @@ public class WicketApplication extends WebApplication
 		mountPage("/create", IndexPage.class);
 		mountPage("/extract", ExtractInfoPage.class);
 		mountPage("/manage", ManageSettingsPage.class);
+		mountPage("/transformation/" +
+				RestConstants.REST_TRASNF_ID+"/${"+RestConstants.REST_TRASNF_ID+"}/" +
+				RestConstants.REST_ACTION+"/${"+RestConstants.REST_ACTION+"}/" +
+						"#{"+RestConstants.REST_TRANSF_ADDITIONAL_INFORMATION+"}", TransformationRunnerPage.class);
+		
+		mountResource("/file/${file}", new MyFileResourceReference() );
 	}
 }

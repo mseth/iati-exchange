@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-api-mapping>
+    <mapping-name>nepal_params</mapping-name>
+    <datasource type="postgres">
+        <url>localhost:5432/amp_nepal_production</url>
+        <username>postgres</username>
+        <password>abc</password>
+    </datasource>
+    <generated-datetime/>
+    <iati-activity type="select">select distinct activity from amp_org_role aor, amp_activity a where role=13 and a.amp_activity_id=activity  AND amp_activity_id IN (&#xD;
+&#xD;
+SELECT amp_activity_id FROM v_donor_funding &#xD;
+ WHERE  adjustment_type_name='Planned' AND transaction_type=1  &#xD;
+  AND transaction_date &gt;= '2012-03-31 00:00:00'AND transaction_date &lt; '2016-01-11 00:00:00'&#xD;
+  &#xD;
+UNION&#xD;
+ &#xD;
+SELECT amp_activity_id FROM v_donor_funding &#xD;
+ WHERE  adjustment_type_name='Actual' AND transaction_type=1  &#xD;
+  AND transaction_date &gt;= '2007-03-31 00:00:00'AND transaction_date &lt; '2011-12-31 00:00:00'&#xD;
+)&#xD;
+&#xD;
+order by activity desc;</iati-activity>
+    <global-query type="select">select amp_activity_id, amp_id, name from amp_activity where amp_activity_id=$parent;</global-query>
+    <mapping>
+        <field ref="iati-identifier">
+            <content prefix="MoF-" type="column">amp_activity_id</content>
+            <query/>
+        </field>
+        <field ref="other-identifier">
+            <content type="column">budget_code</content>
+            <attribute type="column" ref="owner-ref">ref</attribute>
+            <attribute type="column" ref="owner-name">name</attribute>
+            <query>select o.org_code as ref, o.budget_org_code as budget_code, o.name as name from amp_organisation o, amp_org_role aor, amp_role ar where aor.activity=$parent and aor.organisation=o.amp_org_id and aor.role = ar.amp_role_id and ar.name='Responsible Organisation';</query>
+        </field>
+        <field ref="title">
+            <content type="column">name</content>
+            <attribute type="constant" ref="xml:lang">en</attribute>
+            <query/>
+        </field>
+        <field ref="participating-org">
+            <content type="column">org_name</content>
+            <attribute type="column" ref="ref">org_code</attribute>
+            <attribute type="column" ref="role">role</attribute>
+            <attribute type="constant" ref="xml:lang">en</attribute>
+            <query>select distinct case when ar.role_code = 'DN' then 'Funding' else 'Accountable' END as role, o.name as org_name, o.org_code as org_code, o.budget_org_code as budget_code  from amp_org_role aor, amp_organisation o, amp_role ar where aor.activity=$parent and o.amp_org_id = aor.organisation and aor.role = ar.amp_role_id and ar.role_code in ('DN','RO');</query>
+        </field>
+        <field ref="planned-disbursement">
+            <content type="constant">novalue</content>
+            <query>select vf.transaction_date,&#xD;
+  ROUND (CAST (&#xD;
+  (CASE &#xD;
+	WHEN vf.currency_code='NPR' THEN 1.0&#xD;
+	ELSE &#xD;
+		getExchangeWithFixed('NPR',vf.transaction_date, vf.fixed_exchange_rate)/getExchangeWithFixed(vf.currency_code,vf.transaction_date, vf.fixed_exchange_rate)&#xD;
+		   &#xD;
+    END)*vf.transaction_amount &#xD;
+   as numeric), 3)AS transaction_amount&#xD;
+  , &#xD;
+  concat(vf.mode_of_payment_name,' - ',vf.terms_assist_name) as source_name, &#xD;
+  concat(vf.mode_of_payment_id, '-',vf.terms_assist_id) as source_code, &#xD;
+  o.name as org_name, o.org_code as org_code, o.budget_org_code as budget_code &#xD;
+&#xD;
+  from v_donor_funding vf, amp_organisation o  &#xD;
+  where vf.amp_activity_id = $parent and vf.org_id=o.amp_org_id and vf.transaction_type = 1 &#xD;
+    and vf.adjustment_type_name='Planned';</query>
+            <field ref="period-start">
+                <content type="column">transaction_date</content>
+                <attribute type="column" ref="iso-date">transaction_date</attribute>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">transaction_amount</content>
+                <attribute type="constant" ref="currency">QQQ</attribute>
+                <attribute type="column" ref="value-date">transaction_date</attribute>
+                <query/>
+            </field>
+        </field>
+        <field ref="transaction">
+            <content type="constant">novalue</content>
+            <query>select transaction_date, transaction_amount, currency_code, concat(mode_of_payment_name,' - ',terms_assist_name) as source_name, concat(mode_of_payment_id, '-',terms_assist_id) as source_code, o.name as org_name, o.org_code as org_code, o.budget_org_code as budget_code from v_donor_funding v, amp_organisation o  where amp_activity_id = $parent and v.org_id=o.amp_org_id and transaction_type = 1 and adjustment_type_name='Actual';</query>
+            <field ref="transaction-type">
+                <content type="constant">Disbursement</content>
+                <attribute type="constant" ref="code">D</attribute>
+                <query/>
+            </field>
+            <field ref="provider-org">
+                <content type="column">org_name</content>
+                <attribute type="column" ref="ref">org_code</attribute>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">transaction_amount</content>
+                <attribute type="column" ref="currency">currency_code</attribute>
+                <attribute type="column" ref="value-date">transaction_date</attribute>
+                <query/>
+            </field>
+        </field>
+    </mapping>
+    <global-settings/>
+</iati-api-mapping>
