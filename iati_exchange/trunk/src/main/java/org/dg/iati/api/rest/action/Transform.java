@@ -28,7 +28,10 @@ public class Transform {
 			int serverPort) {
 		super();
 		this.sContext = sContext;
-		this.serverName = serverName;
+		this.serverName = serverName.replace("${port}", serverPort+"");
+		if ( !this.serverName.startsWith("http") ) {
+			this.serverName	= "http://" + this.serverName;
+		}
 		this.serverPort = serverPort;
 		
 		this.directResponseFilePath	= null;
@@ -121,7 +124,7 @@ public class Transform {
 	
 	private String createResultString(String filename) {
 		String portStr	= (this.serverPort > 0 ? ":" + this.serverPort : "");
-		return "http://"+this.serverName+portStr+"/file/"+filename+Constants.IATI_FILE_EXTENSION;
+		return this.serverName+"/file/"+filename+Constants.IATI_FILE_EXTENSION;
 	}
 
 
