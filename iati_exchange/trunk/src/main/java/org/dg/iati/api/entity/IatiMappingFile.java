@@ -192,11 +192,12 @@ public class IatiMappingFile {
 	    rs.close();
     }
 
-	public void executeGlobalQueries() throws SQLException {
+	public void executeGlobalQueries(HashMap<String,String> params) throws SQLException {
 		// TODO Auto-generated method stub
 		if(!existConnection())
 			openConnection();
-		activitiesRS 	= 	executeQuery(this.mappingFile.getIatiActivity().getContent());
+		String q = IatiUtils.getCleanQuery(this.mappingFile.getIatiActivity().getContent(), null, params);
+		activitiesRS 	= 	executeQuery(q);
 //		globalRS		=	con.createStatement().executeQuery(this.mappingFile.getGlobalQuery().getContent());
 	}
     
@@ -307,7 +308,7 @@ public class IatiMappingFile {
         	e.printStackTrace();
         }
         this.openConnection();
-        this.executeGlobalQueries();
+        this.executeGlobalQueries(params);
         this.populateActivityIDs();
         
 		ObjectFactory o = new ObjectFactory();
