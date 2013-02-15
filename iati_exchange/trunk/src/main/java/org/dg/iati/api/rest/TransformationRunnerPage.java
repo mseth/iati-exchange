@@ -37,7 +37,7 @@ public class TransformationRunnerPage extends RestBasicPage {
 		
 		String serverName				= IatiUtils.getPropertyValue(ConfigConstants.PUBLIC_SERVER_NAME);
 		if ( serverName == null ) {
-			serverName		= request.getContainerRequest().getServerName() + "${port}";
+			serverName		= request.getContainerRequest().getServerName() + ":${port}";
 		}
 		
 		int serverPort					= request.getContainerRequest().getServerPort();
