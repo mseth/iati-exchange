@@ -39,11 +39,11 @@
 		-->
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.2</version>
-		</dependency>  -->
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -105,19 +105,7 @@
 			<artifactId>xstream</artifactId>
 			<version>1.4.3</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.solr</groupId>
-			<artifactId>solr-solrj</artifactId>
-			<version>4.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-          	<artifactId>commons-logging</artifactId>
-          	<version>1.1.1</version>
-		</dependency>
-            
 	</dependencies>
-	
 	<build>
 	    <finalName>iati</finalName>
 		<resources>
