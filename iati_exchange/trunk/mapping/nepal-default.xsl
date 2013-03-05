@@ -4,6 +4,14 @@
 	<xsl:output method="xml" indent="yes" />
 	<xsl:template match="/">
 		<iati-activities>
+			<period-start>
+				<xsl:value-of
+					select="/iati-activities/iati-activity[1]//item[@ref='feed-period-start']/value" />
+			</period-start>
+				<period-end>
+					<xsl:value-of
+						select="/iati-activities/iati-activity[1]//item[@ref='feed-period-end']/value" />
+				</period-end>
 			<xsl:for-each select="iati-activities//iati-activity">
 				<iati-activity>
 					<xsl:apply-templates />
@@ -46,10 +54,19 @@
 		<xsl:variable name="xml:lang">
 			<xsl:value-of select="./attribute[@ref='xml:lang']" />
 		</xsl:variable>
+		<xsl:variable name="budget-ref">
+			<xsl:value-of select="./attribute[@ref='budget-ref']" />
+		</xsl:variable>
 		<participating-org ref="{$ref}" role="{$role}"
-			xml:lang="{$xml:lang}">
+			xml:lang="{$xml:lang}" budget-ref="{$budget-ref}">
 			<xsl:value-of select="./value" />
 		</participating-org>
+	</xsl:template>
+	<xsl:template match="item[@ref='feed-period-start']" name="feed-period-start">
+		
+	</xsl:template>
+	<xsl:template match="item[@ref='feed-period-end']" name="feed-period-end">
+		
 	</xsl:template>
 	<xsl:template match="item[@ref='period-start']" name="planned-disbursement.period-start">
 		<xsl:variable name="iso-date">

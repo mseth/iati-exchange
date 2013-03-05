@@ -16,6 +16,8 @@
             <attribute ref="xml:lang"/>
             <attribute ref="budget-ref"/>
         </item>
+        <item ref="feed-period-start" />
+        <item ref="feed-period-end" />
 		<item ref="planned-disbursement">
         	<attribute ref="updated"/>
             <item ref="period-start">
@@ -50,11 +52,11 @@
             </item>
             <item ref="provider-org">
                 <attribute ref="ref"/>
-                <attribute ref="provider-activity-id"/>
+                <attribute ref="budget-ref"/>
             </item>
             <item ref="receiver-org">
                 <attribute ref="ref"/>
-                <attribute ref="provider-activity-id"/>
+                <attribute ref="budget-ref"/>
             </item>
             <item ref="value">
                 <attribute ref="currency"/>

@@ -60,7 +60,16 @@ ORDER BY activity_order DESC, activity DESC;</iati-activity>
             <attribute type="column" ref="ref">org_code</attribute>
             <attribute type="column" ref="role">role</attribute>
             <attribute type="constant" ref="xml:lang">en</attribute>
+            <attribute type="column" ref="budget-ref">budget_code</attribute>
             <query>select distinct case when ar.role_code = 'DN' then 'Funding' else 'Accountable' END as role, o.name as org_name, o.org_code as org_code, o.budget_org_code as budget_code  from amp_org_role aor, amp_organisation o, amp_role ar where aor.activity=$parent and o.amp_org_id = aor.organisation and aor.role = ar.amp_role_id and ar.role_code in ('DN','RO');</query>
+        </field>
+        <field ref="feed-period-start">
+            <content type="column">startDate</content>
+            <query>select '${startDate}' as startDate;</query>
+        </field>
+        <field ref="feed-period-end">
+            <content type="column">endDate</content>
+            <query>select '${endDate}' as endDate;</query>
         </field>
         <field ref="planned-disbursement">
             <content type="constant">novalue</content>
