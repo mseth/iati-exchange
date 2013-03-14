@@ -2,9 +2,9 @@
 <iati-api-mapping>
     <mapping-name>fao</mapping-name>
     <datasource type="postgres">
-        <url>localhost:5432/amp_madagascar</url>
+        <url>localhost:5432/amp_kosovo_production</url>
         <username>postgres</username>
-        <password>postgres</password>
+        <password>abc</password>
     </datasource>
     <generated-datetime/>
     <iati-activity type="select">select distinct a.amp_activity_id from amp_activity a, amp_activity_sector aas where a.amp_activity_id = aas.amp_activity_id and aas.classification_config_id=3;</iati-activity>
@@ -44,8 +44,8 @@ UNION&#xD;
         </field>
         <field ref="location">
             <content type="constant">as</content>
-            <attribute type="column" ref="percentage">loc_percentage</attribute>
-            <attribute type="column" ref="percentage">loc_percentage</attribute>
+            <attribute type="constant" ref="percentage">loc7_percentage</attribute>
+            <attribute type="constant" ref="percentage">loc9_percentage</attribute>
             <query>select aal.location_percentage as loc_percentage, acvl.location_name as loc_name, acvl.description as loc_description from amp_activity_location aal, amp_location al, amp_category_value_location acvl where acvl.id = al.location_id and aal.amp_activity_id=$parent and aal.amp_location_id=al.amp_location_id;</query>
             <field ref="name">
                 <content type="column">loc_name</content>
@@ -69,9 +69,10 @@ UNION&#xD;
         <field ref="transaction">
             <content type="constant">asd</content>
             <query>(select 'C' as transaction_type_code, 'Commitment' as transaction_type_name, &#xD;
-      to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as transaction_currency,&#xD;
+      to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as original_transaction_currency,&#xD;
       df.donor_name as donor_name, df.terms_assist_name as finance_type, &#xD;
       df.financing_instrument_name as aid_type, df.transaction_amount as original_currency_value,&#xD;
+      'USD' as transaction_currency,&#xD;
       (CASE &#xD;
       	WHEN df.currency_code='USD' THEN 1.0&#xD;
     		ELSE &#xD;
@@ -84,9 +85,10 @@ UNION&#xD;
 UNION&#xD;
  &#xD;
   (select 'D' as transaction_type_code, 'Disbursement' as transaction_type_name, &#xD;
-      to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as transaction_currency,d&#xD;
+      to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as original_transaction_currency,&#xD;
       df.donor_name as donor_name, df.terms_assist_name as finance_type, &#xD;
       df.financing_instrument_name as aid_type,  df.transaction_amount as original_currency_value,&#xD;
+      'USD' as transaction_currency,&#xD;
       (CASE &#xD;
         WHEN df.currency_code='USD' THEN 1.0&#xD;
     		ELSE &#xD;
