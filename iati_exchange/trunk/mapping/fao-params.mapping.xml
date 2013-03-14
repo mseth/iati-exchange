@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <iati-api-mapping>
-    <mapping-name>fao</mapping-name>
+    <mapping-name>fao-params</mapping-name>
     <datasource type="postgres">
         <url>localhost:5432/amp_madagascar</url>
         <username>postgres</username>
         <password>abc</password>
     </datasource>
     <generated-datetime/>
-    <iati-activity type="select">select distinct a.amp_activity_id from amp_activity a, amp_activity_sector aas where a.amp_activity_id = aas.amp_activity_id and aas.classification_config_id=3;</iati-activity>
+    <iati-activity type="select">select distinct a.amp_activity_id &#xD;
+  from amp_activity a, amp_activity_sector aas &#xD;
+  where a.amp_activity_id = aas.amp_activity_id and aas.classification_config_id=3  &#xD;
+    -- within transaction date&#xD;
+    AND a.amp_activity_id in &#xD;
+    (&#xD;
+      SELECT amp_activity_id FROM v_donor_funding &#xD;
+        WHERE  adjustment_type_name='Actual' AND transaction_type in (0,1)  &#xD;
+         AND transaction_date &gt;= '${txStartDate} 00:00:00' AND transaction_date &lt; '${txEndDate} 00:00:00'&#xD;
+       )&#xD;
+    )&#xD;
+    -- validated activities&#xD;
+   AND a.approval_status IN ('approved','startedapproved') &#xD;
+   &#xD;
+;</iati-activity>
     <global-query type="select">select amp_activity_id, amp_id, name from amp_activity where amp_activity_id=$parent;</global-query>
     <mapping>
         <field ref="title">
@@ -71,15 +85,16 @@ UNION&#xD;
       to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as original_transaction_currency,&#xD;
       df.donor_name as donor_name, df.terms_assist_name as finance_type, &#xD;
       df.financing_instrument_name as aid_type, df.transaction_amount as original_currency_value,&#xD;
-      'USD' as transaction_currency,&#xD;
+      '${currency}' as transaction_currency,&#xD;
       (CASE &#xD;
-      	WHEN df.currency_code='USD' THEN 1.0&#xD;
+      	WHEN df.currency_code='${currency}' THEN 1.0&#xD;
     		ELSE &#xD;
-    			getExchangeWithFixed('USD',df.transaction_date, df.fixed_exchange_rate)/getExchangeWithFixed(df.currency_code,df.transaction_date, df.fixed_exchange_rate)&#xD;
+    			getExchangeWithFixed('${currency}',df.transaction_date, df.fixed_exchange_rate)/getExchangeWithFixed(df.currency_code,df.transaction_date, df.fixed_exchange_rate)&#xD;
 	    END)*df.transaction_amount AS value&#xD;
       &#xD;
   from v_donor_funding df &#xD;
-  where df.amp_activity_id = $parent and df.transaction_type = 0 and df.adjustment_type_name='Actual')&#xD;
+  where df.amp_activity_id = $parent and df.transaction_type = 0 and df.adjustment_type_name='Actual') AND &#xD;
+      df.transaction_date &gt;= '${txStartDate} 00:00:00' AND df.transaction_date &lt; '${txEndDate} 00:00:00'&#xD;
  &#xD;
 UNION&#xD;
  &#xD;
@@ -87,15 +102,19 @@ UNION&#xD;
       to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as original_transaction_currency,&#xD;
       df.donor_name as donor_name, df.terms_assist_name as finance_type, &#xD;
       df.financing_instrument_name as aid_type,  df.transaction_amount as original_currency_value,&#xD;
-      'USD' as transaction_currency,&#xD;
+      '${currency}' as transaction_currency,&#xD;
       (CASE &#xD;
-        WHEN df.currency_code='USD' THEN 1.0&#xD;
+        WHEN df.currency_code='${currency}' THEN 1.0&#xD;
     		ELSE &#xD;
-    			getExchangeWithFixed('USD',df.transaction_date, df.fixed_exchange_rate)/getExchangeWithFixed(df.currency_code,df.transaction_date, df.fixed_exchange_rate)&#xD;
+    			getExchangeWithFixed('${currency}',df.transaction_date, df.fixed_exchange_rate)/getExchangeWithFixed(df.currency_code,df.transaction_date, df.fixed_exchange_rate)&#xD;
 	    END)*df.transaction_amount AS value&#xD;
  &#xD;
   from v_donor_funding df &#xD;
-  where df.amp_activity_id = $parent and df.transaction_type = 1 and df.adjustment_type_name='Actual');</query>
+  where df.amp_activity_id = $parent and df.transaction_type = 1 and df.adjustment_type_name='Actual')  AND &#xD;
+      df.transaction_date &gt;= '${txStartDate} 00:00:00' AND df.transaction_date &lt; '${txEndDate} 00:00:00'&#xD;
+ &#xD;
+ &#xD;
+;</query>
             <field ref="transaction-type">
                 <content type="column">transaction_type_name</content>
                 <attribute type="column" ref="code">transaction_type_code</attribute>

@@ -7,7 +7,14 @@
         <password>abc</password>
     </datasource>
     <generated-datetime/>
-    <iati-activity type="select">select distinct a.amp_activity_id from amp_activity a, amp_activity_sector aas where a.amp_activity_id = aas.amp_activity_id and aas.classification_config_id=3;</iati-activity>
+    <iati-activity type="select">select distinct a.amp_activity_id &#xD;
+  from amp_activity a, amp_activity_sector aas &#xD;
+  where a.amp_activity_id = aas.amp_activity_id and aas.classification_config_id=3  &#xD;
+   &#xD;
+    -- validated activities&#xD;
+   AND a.approval_status IN ('approved','startedapproved') &#xD;
+   &#xD;
+;</iati-activity>
     <global-query type="select">select amp_activity_id, amp_id, name from amp_activity where amp_activity_id=$parent;</global-query>
     <mapping>
         <field ref="title">
