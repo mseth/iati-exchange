@@ -16,7 +16,6 @@
       SELECT amp_activity_id FROM v_donor_funding &#xD;
         WHERE  adjustment_type_name='Actual' AND transaction_type in (0,1)  &#xD;
          AND transaction_date &gt;= '${txStartDate} 00:00:00' AND transaction_date &lt; '${txEndDate} 00:00:00'&#xD;
-       )&#xD;
     )&#xD;
     -- validated activities&#xD;
    AND a.approval_status IN ('approved','startedapproved') &#xD;
