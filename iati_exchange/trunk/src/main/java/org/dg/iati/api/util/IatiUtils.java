@@ -208,10 +208,12 @@ public class IatiUtils {
 				attrList.add(attr.getRef());
 			}
 		}
+		boolean isContent = false;
 		ArrayList<IatiMappingElement> subItems = null;
 		if(item.getItem()!=null && item.getItem().size()>0){
 			subItems = new ArrayList<IatiMappingElement>();
 			subItems.add(new IatiMappingElement(item.getRef()+".content", null, attrList));
+			isContent	= true;
 			for (Iterator<Item> jt = item.getItem().iterator(); jt.hasNext();) {
 				Item subItem = (Item) jt.next();
 				//subItems.add(attr.getRef());
@@ -219,7 +221,10 @@ public class IatiUtils {
 			}
 		}
 		
-		IatiMappingElement ime = new IatiMappingElement(label, subItems, attrList);
+		IatiMappingElement ime = null;
+		if(isContent)
+			ime 	= new IatiMappingElement(label, subItems, null);
+		else ime 	= new IatiMappingElement(label, subItems, attrList);
 		return ime;
 	}
 	
