@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-api-mapping>
+    <mapping-name>FAO</mapping-name>
+    <datasource type="postgres">
+        <url>localhost:5432/amp_madagascar</url>
+        <username>postgres</username>
+        <password>postgres</password>
+    </datasource>
+    <generated-datetime/>
+    <iati-activity type="select">select distinct a.amp_activity_id from amp_activity a, amp_activity_sector aas where a.amp_activity_id = aas.amp_activity_id and aas.classification_config_id=3;</iati-activity>
+    <global-query type="select">select amp_activity_id, amp_id, name from amp_activity where amp_activity_id=$parent;</global-query>
+    <mapping>
+        <field ref="title">
+            <content type="column">name</content>
+            <attribute type="constant" ref="xml:lang">en</attribute>
+            <query/>
+        </field>
+        <field ref="description">
+            <content type="column">body</content>
+            <attribute type="column" ref="type">type</attribute>
+            <attribute type="column" ref="xml:lang">lang</attribute>
+            <query>(select e.body, e.language as lang, '1' as type from dg_editor e, amp_activity a where a.description = e.editor_key and a.amp_activity_id=$parent)&#xD;
+UNION&#xD;
+(select e.body, e.language as lang, '2' as type from dg_editor e, amp_activity a where a.objectives = e.editor_key and a.amp_activity_id=$parent);</query>
+        </field>
+        <field ref="activity-status">
+            <content type="column">status</content>
+            <attribute type="constant" ref="xml:lang">fr</attribute>
+            <query>SELECT acv.category_value as status&#xD;
+     FROM amp_activity  a, amp_category_value acv,amp_activities_categoryvalues aac, amp_category_class acc&#xD;
+     WHERE aac.amp_activity_id = a.amp_activity_id AND aac.amp_categoryvalue_id=acv.id AND acc.keyname='activity_status' and acv.amp_category_class_id=acc.id and a.amp_activity_id=$parent;</query>
+        </field>
+        <field ref="activity-date">
+            <content type="column">act_date</content>
+            <attribute type="column" ref="type">type</attribute>
+            <attribute type="column" ref="iso-date">act_date</attribute>
+            <query>(select to_char(a.actual_start_date, 'YYYY-MM-DD') as act_date, 'start_actual' as type from amp_activity a where a.amp_activity_id = $parent)&#xD;
+UNION&#xD;
+(select to_char(a.proposed_start_date, 'YYYY-MM-DD') as act_date, 'start_planned' as type from amp_activity a where a.amp_activity_id = $parent)&#xD;
+UNION&#xD;
+(select to_char(a.proposed_completion_date, 'YYYY-MM-DD') as act_date, 'end-planned' as type from amp_activity a where a.amp_activity_id = $parent)&#xD;
+UNION&#xD;
+(select to_char(a.actual_completion_date, 'YYYY-MM-DD') as act_date, 'end_actual' as type from amp_activity a where a.amp_activity_id = $parent);</query>
+        </field>
+        <field ref="location">
+            <content type="constant">as</content>
+            <attribute type="column" ref="percentage">loc_percentage</attribute>
+            <query>select aal.location_percentage as loc_percentage, acvl.location_name as loc_name, acvl.description as loc_description from amp_activity_location aal, amp_location al, amp_category_value_location acvl where acvl.id = al.location_id and aal.amp_activity_id=$parent and aal.amp_location_id=al.amp_location_id;</query>
+            <field ref="name">
+                <content type="column">loc_name</content>
+                <attribute type="constant" ref="xml:lang">fr</attribute>
+                <query/>
+            </field>
+            <field ref="administrative">
+                <content type="column">loc_description</content>
+                <attribute type="constant" ref="country">MG</attribute>
+                <query/>
+            </field>
+        </field>
+        <field ref="sector">
+            <content type="column">sector_name</content>
+            <attribute type="column" ref="code">sector_code</attribute>
+            <attribute type="column" ref="vocabulary">sector_scheme</attribute>
+            <attribute type="column" ref="percentage">sector_percentage</attribute>
+            <attribute type="constant" ref="xml:lang">fr</attribute>
+            <query>select aas.sector_percentage as sector_percentage, s.name as sector_name, s.sector_code_official as sector_code, ss.sec_scheme_name as sector_scheme from amp_activity_sector aas, amp_sector_scheme ss, amp_sector s where aas.amp_activity_id=$parent and aas.classification_config_id=ss.amp_sec_scheme_id and ss.sec_scheme_code='OCDE'  and aas.amp_sector_id=s.amp_sector_id;</query>
+        </field>
+        <field ref="transaction">
+            <content type="constant">asd</content>
+            <query>(select 'C' as transaction_type_code, 'Commitment' as transaction_type_name, to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as transaction_currency,&#xD;
+df.donor_name as donor_name, df.terms_assist_name as finance_type, df.financing_instrument_name as aid_type, df.transaction_amount as value&#xD;
+from v_donor_funding df &#xD;
+where df.amp_activity_id = $parent and df.transaction_type = 0 and df.adjustment_type_name='Actual')&#xD;
+UNION&#xD;
+(select 'D' as transaction_type_code, 'Disbursement' as transaction_type_name, to_char(df.transaction_date, 'YYYY-MM-DD') as transaction_date, df.currency_code as transaction_currency,&#xD;
+df.donor_name as donor_name, df.terms_assist_name as finance_type, df.financing_instrument_name as aid_type, df.transaction_amount as value&#xD;
+from v_donor_funding df &#xD;
+where df.amp_activity_id = $parent and df.transaction_type = 1 and df.adjustment_type_name='Actual');</query>
+            <field ref="transaction-type">
+                <content type="column">transaction_type_name</content>
+                <attribute type="column" ref="code">transaction_type_code</attribute>
+                <attribute type="constant" ref="xml:lang">fr</attribute>
+                <query/>
+            </field>
+            <field ref="provider-org">
+                <content type="column">donor_name</content>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">value</content>
+                <attribute type="column" ref="currency">transaction_currency</attribute>
+                <attribute type="column" ref="value-date">transaction_date</attribute>
+                <query/>
+            </field>
+            <field ref="transaction-date">
+                <content type="column">transaction_date</content>
+                <attribute type="column" ref="iso-date">transaction_date</attribute>
+                <query/>
+            </field>
+            <field ref="finance-type">
+                <content type="column">finance_type</content>
+                <query/>
+            </field>
+            <field ref="aid-type">
+                <content type="column">aid_type</content>
+                <query/>
+            </field>
+        </field>
+    </mapping>
+    <global-settings/>
+</iati-api-mapping>
