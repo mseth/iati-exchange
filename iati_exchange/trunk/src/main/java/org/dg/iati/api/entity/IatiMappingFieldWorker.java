@@ -169,11 +169,12 @@ public class IatiMappingFieldWorker {
 		return this.getField().getQuery().getContent();
 	}
 
-	public ArrayList<Item> getResultItemList() throws SQLException {
+	public ArrayList<Item> getResultItemList() {
 		ResultSet rs = null;
 		Field complexField = isComplexField();
 		String q = null;
-
+		ArrayList<Item> result = new ArrayList<Item>();
+		try {
 		if (select) {
 			if (complexField != null)
 				q = IatiUtils.getCleanQuery(complexField.getQuery().getContent(), parentID, this.getParams());
@@ -186,10 +187,15 @@ public class IatiMappingFieldWorker {
 			// System.out.println("Running GLOBAL query ... ");
 		}
 		//System.out.println("nr recorduri"+rs.getFetchSize());
-		rs.beforeFirst();
-		ArrayList<Item> result = new ArrayList<Item>();
+			rs.beforeFirst();
+		
 		while (rs.next()) {
 			result.add(createResultItem(rs));
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Error running query: " + q);
 		}
 
 		// itemToXml(resultItem);

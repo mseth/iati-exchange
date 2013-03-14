@@ -155,7 +155,7 @@ public class IatiMappingFile {
 		
 	}
 	
-	public void processMapping(IatiActivity resultActivity,  HashMap<String,String> params) throws SQLException {
+	public void processMapping(IatiActivity resultActivity,  HashMap<String,String> params) {
 		List<Field> mappedFieldsList = getMappedFieldsList();
 		for (Iterator<Field> it = mappedFieldsList.iterator(); it.hasNext();) {
 			Field field = (Field) it.next();
