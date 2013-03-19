@@ -24,6 +24,7 @@ import org.dg.iati.api.entity.IatiMappingFile;
 import org.dg.iati.api.jaxb.iatiApiMapping.IatiApiMapping;
 import org.dg.iati.api.transformer.jaxb.SavedMappingList;
 import org.dg.iati.api.transformer.jaxb.XmlFileReader;
+import org.dg.iati.api.transformer.jaxb.XmlFileUtils;
 import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.IatiUtils;
 
@@ -40,11 +41,7 @@ public class ManageSettingsContentPage extends Panel {
 		super(id);
 		
 		
-		List<String> list			= new SavedMappingList(
-							IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME), 
-							null
-						)
-						.showSavedMappings();
+		List<String> list			= new SavedMappingList().showSavedMappings();
 		
 		ListView<String> lView			= new ListView<String>( "linkItems", list ) {
 
@@ -52,18 +49,20 @@ public class ManageSettingsContentPage extends Panel {
 
 			@Override
 			protected void populateItem(ListItem<String> item) {
-				String fileName		= item.getModelObject();
-				String baseFileName = IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME)+"/"+fileName.substring(0, fileName.indexOf(".mapping.xml"));
+				String mappingName		= item.getModelObject();
+				String fName			= mappingName + Constants.IATI_FILE_MAPPING_EXTENSION;
+				//String baseFileName = IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME)+"/"+fileName.substring(0, fileName.indexOf(".mapping.xml"));
+				String baseFileName		= XmlFileUtils.generateCustomFolderPath(mappingName) + "/" + mappingName  ;
 				
-				DownloadLink setting = new DownloadLink("setting", new File(IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME)+"/"+fileName), fileName);
-				Label label		= new Label("linkLabel", fileName);
+				DownloadLink setting = new DownloadLink("setting", new File(XmlFileUtils.generateCustomFolderPath(mappingName)+"/"+fName), mappingName);
+				Label label		= new Label("linkLabel", mappingName);
 				setting.add(label);
 				item.add(setting);
 				
 				//Label label		= new Label("linkLabel", fileName);
 				//
 
-				Link<String> link	= new Link<String> ("link",Model.of(fileName)){
+				Link<String> link	= new Link<String> ("link",Model.of(fName)){
 					private static final long serialVersionUID = 6043845179197188521L;
 
 					@Override
@@ -101,7 +100,7 @@ public class ManageSettingsContentPage extends Panel {
 				item.add(xslLink);
 				
 				
-				Link<String> executeLink	= new Link<String> ("execute",Model.of(fileName)){
+				Link<String> executeLink	= new Link<String> ("execute",Model.of(fName)){
 					private static final long serialVersionUID = -1788151307077243660L;
 
 					@Override

@@ -31,7 +31,7 @@ public class IATIFileWriter{
 		this.filename 	= filename;
 		this.content 	= content;
 		this.extension 	= Constants.IATI_FILE_TRANSFORM_EXTENSION;
-		this.foldername = XmlFileWriter.MAPPING_FOLDER;
+		this.foldername = XmlFileUtils.generateCustomFolderPath(filename);
 	}
 	
 	public IATIFileWriter(String filename, String content, String extension) {
@@ -39,7 +39,7 @@ public class IATIFileWriter{
 		this.filename 	= filename;
 		this.content 	= content;
 		this.extension 	= extension;
-		this.foldername = XmlFileWriter.MAPPING_FOLDER;
+		this.foldername = XmlFileUtils.generateCustomFolderPath(filename);
 	}
 	
 	public IATIFileWriter(String filename, String content, String extension, String foldername) {

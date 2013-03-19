@@ -79,7 +79,8 @@ public class Transform {
 	public void executeRun(Answer a, boolean directResponse) {
 		TransformationRunnerThread thread 	= new TransformationRunnerThread(metadata,sContext);
 		
-		String filename		= IatiMappingFile.generateResultFileName(this.metadata.getTransformationId(), this.metadata.uniqueIdentifier() );
+		String mappingName	= this.metadata.getTransformationId();
+		String filename		= IatiMappingFile.generateResultFileName(mappingName, this.metadata.uniqueIdentifier() );
 		a.setResult(this.createResultString(filename));
 		
 		a.setId(metadata.uniqueIdentifier());
@@ -89,7 +90,7 @@ public class Transform {
 			a.setStatus(Answer.STATUSES.get(TransformationRunnerThread.READY_TO_RUN));
 			if ( directResponse) {
 				thread.run();
-				this.directResponseFilePath	= IatiMappingFile.generateFinalIatiFilePath(filename);
+				this.directResponseFilePath	= IatiMappingFile.generateFinalIatiFilePath(mappingName,filename);
 			}
 			else {
 				thread.start();
@@ -109,8 +110,9 @@ public class Transform {
 			a.setStatus(Answer.STATUSES.get(TransformationRunnerThread.RUNNING));
 		}
 		else {
-			String filename		= IatiMappingFile.generateResultFileName(this.metadata.getTransformationId(), this.metadata.getAdditionalInformation() );
-			File f	= new File(IatiMappingFile.generateFinalIatiFilePath(filename));
+			String mappingName	= this.metadata.getTransformationId();
+			String filename		= IatiMappingFile.generateResultFileName(mappingName, this.metadata.getAdditionalInformation() );
+			File f	= new File(IatiMappingFile.generateFinalIatiFilePath(mappingName, filename));
 			if ( f.exists() ) {
 				a.setStatus(Answer.STATUSES.get(TransformationRunnerThread.FINISHED));
 				a.setResult(this.createResultString(filename));

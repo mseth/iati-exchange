@@ -60,6 +60,7 @@
         <xsd:element name="organization-ref" type="xsd:string"/>
         <xsd:element name="default-currency" type="xsd:string"/>
         <xsd:element name="default-language" type="xsd:string"/>
+        <xsd:element name="xslt-transformation" type="xsd:string"/>
       </xsd:sequence>
 	  <xsd:attribute ref="type" use="required"/>
     </xsd:complexType>

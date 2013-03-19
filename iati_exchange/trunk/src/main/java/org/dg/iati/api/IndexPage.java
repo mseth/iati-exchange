@@ -31,8 +31,7 @@ public class IndexPage extends WebPage {
 		CreateSettingContentPage contentPage = null;
 		if (nameValue != null&& nameValue.toString() != null ) {
 			XmlFileReader<IatiApiMapping> reader	= 
-					new XmlFileReader<IatiApiMapping>(IatiApiMapping.class, nameValue.toString(),
-							IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME) );
+					new XmlFileReader<IatiApiMapping>(IatiApiMapping.class, nameValue.toString() );
 			
 			IatiApiMapping jaxbMapping				= reader.load();
 			contentPage = new CreateSettingContentPage( "contentPage", jaxbMapping );

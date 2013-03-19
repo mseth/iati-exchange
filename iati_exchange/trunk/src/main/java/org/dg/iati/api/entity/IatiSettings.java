@@ -87,6 +87,9 @@ public class IatiSettings implements Serializable{
 	@TransformationMetadata ( jaxbMapping = "iatiActivity:content" )
 	private String globalQueryIDs;
 	
+	@TransformationMetadata ( jaxbMapping = "globalSettings:xsltTransformation" )
+	private String xsltTransformation	= Constants.XSLT_AUTOMATIC_OPTION;
+	
 	   
 	public String getGlobalQuery() {
 		return globalQuery;
@@ -358,6 +361,22 @@ public class IatiSettings implements Serializable{
 
 	public void setIatiActivityType(String iatiActivityType) {
 		this.iatiActivityType = iatiActivityType;
+	}
+
+	/**
+	 * @return the xsltTransformation
+	 */
+	public String getXsltTransformation() {
+		return xsltTransformation;
+	}
+
+
+
+	/**
+	 * @param xsltTransformation the xsltTransformation to set
+	 */
+	public void setXsltTransformation(String xsltTransformation) {
+		this.xsltTransformation = xsltTransformation;
 	}
 
 

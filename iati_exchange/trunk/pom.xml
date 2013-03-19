@@ -39,11 +39,11 @@
 		-->
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.2</version>
-		</dependency>
+		</dependency>  -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -105,7 +105,19 @@
 			<artifactId>xstream</artifactId>
 			<version>1.4.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+          	<artifactId>commons-logging</artifactId>
+          	<version>1.1.1</version>
+		</dependency>
+            
 	</dependencies>
+	
 	<build>
 	    <finalName>iati</finalName>
 		<resources>
@@ -140,6 +152,15 @@
 				</excludes>
 			</testResource>
 		</testResources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jaxb2-maven-plugin</artifactId>
+					<version>1.5</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<inherited>true</inherited>
@@ -182,6 +203,36 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>schema-api</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>org.dg.iati.api.jaxb.iatiApiMapping</packageName> 
+							<schemaFiles>iati-api-mapping.xsd</schemaFiles>
+							<staleFile>${project.build.directory}/jaxb2/.schemaApiXjcStaleFlag</staleFile>
+						</configuration>
+					</execution>
+					<execution>
+						<id>schema-result</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>org.dg.iati.api.jaxb.iatiApiResult</packageName> 
+							<schemaFiles>iati-result.xsd</schemaFiles>
+							<clearOutputDir>false</clearOutputDir>
+							<staleFile>${project.build.directory}/jaxb2/.schemaResultXjcStaleFlag</staleFile>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -43,11 +43,8 @@ public class CreateSettingContentPage extends Panel {
 	/**
 	 * @param id
 	 */
-	public CreateSettingContentPage(String id) {
+	public CreateSettingContentPage(String id, IatiApiMapping jaxbObject) {
 		super(id);
-		// TODO Auto-generated constructor stub
-		
-//		final SaveXMLForm tf = new SaveXMLForm("createXMLForm");
 		this.settings	= new IatiSettings();
 	    //settings.setMappingItems(IatiUtils.generateStaticIATIElements());
 		try {
@@ -62,7 +59,10 @@ public class CreateSettingContentPage extends Panel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
+		if ( jaxbObject != null) {
+			BackwardsTransformerEngine bte	= new BackwardsTransformerEngine(this.settings, jaxbObject);
+			bte.transform();
+		}
 		final SaveXMLForm tf = new SaveXMLForm("createXMLForm", new CompoundPropertyModel<IatiSettings>(settings));
 		tf.setMultiPart(true);
 		add(tf);
@@ -105,8 +105,7 @@ public class CreateSettingContentPage extends Panel {
             	if(allowWSFilename!=null && "false".compareTo(allowWSFilename) == 0)
             		jaxbRoot.setMappingName(jaxbRoot.getMappingName().replaceAll(" ", "_"));
             	XmlFileWriter<IatiApiMapping> writer		= 
-            			new XmlFileWriter<IatiApiMapping>(jaxbRoot, jaxbRoot.getMappingName(), XmlFileWriter.EXTENSION, 
-            					IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME));
+            			new XmlFileWriter<IatiApiMapping>(jaxbRoot, jaxbRoot.getMappingName(), XmlFileWriter.EXTENSION );
             	writer.persist();
             	
             	target.add(gs);
@@ -141,12 +140,9 @@ public class CreateSettingContentPage extends Panel {
 
 	/**
 	 * @param id
-	 * @param model
 	 */
-	public CreateSettingContentPage(String id, IatiApiMapping jaxbObject) {
-		this(id);
-		BackwardsTransformerEngine bte	= new BackwardsTransformerEngine(this.settings, jaxbObject);
-		bte.transform();
+	public CreateSettingContentPage(String id) {
+		this(id, null);
 	}
 
 }

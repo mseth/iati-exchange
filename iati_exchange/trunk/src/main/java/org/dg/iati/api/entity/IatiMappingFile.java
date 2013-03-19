@@ -34,6 +34,7 @@ import org.dg.iati.api.jaxb.iatiApiResult.IatiActivity;
 import org.dg.iati.api.jaxb.iatiApiResult.Item;
 import org.dg.iati.api.jaxb.iatiApiResult.ObjectFactory;
 import org.dg.iati.api.transformer.jaxb.IATIFileWriter;
+import org.dg.iati.api.transformer.jaxb.XmlFileUtils;
 import org.dg.iati.api.transformer.jaxb.XmlFileWriter;
 import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.IatiUtils;
@@ -336,7 +337,8 @@ public class IatiMappingFile {
 				}
 			rootResult.getIatiActivity().add(resultActivity);
 		}
-		String fileName		= IatiMappingFile.generateResultFileName(mappingFile.getMappingName(), this.uniqueIdentifier );
+		String mappingName	= mappingFile.getMappingName();
+		String fileName		= IatiMappingFile.generateResultFileName(mappingName, this.uniqueIdentifier );
 		
     	IATIFileWriter xslWriter		= new IATIFileWriter(fileName,xslConv.getXSL());
     	xslWriter.persist();
@@ -344,9 +346,19 @@ public class IatiMappingFile {
     	XmlFileWriter<IatiActivities> writer		= new XmlFileWriter<IatiActivities>(rootResult, fileName, Constants.IATI_FILE_RESULT_EXTENSION);
     	writer.persist();
     	
-    	Source xmlSource 	=	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+fileName + Constants.IATI_FILE_RESULT_EXTENSION));
-    	Source xsltSource 	= 	new StreamSource(new File(XmlFileWriter.MAPPING_FOLDER+"/"+fileName + Constants.IATI_FILE_TRANSFORM_EXTENSION));
-    	Result result		=	new StreamResult(new File(IatiMappingFile.generateFinalIatiFilePath(fileName)));
+    	Source xmlSource 	=	new StreamSource(new File(XmlFileUtils.generateCustomFolderPath(mappingName)+"/"
+    							+fileName + Constants.IATI_FILE_RESULT_EXTENSION));
+    	
+    	Source xsltSource	= null;
+    	String xslFileName	= mappingFile.getGlobalSettings().getXsltTransformation();
+    	if ( xslFileName != null && !Constants.XSLT_AUTOMATIC_OPTION.equals(xslFileName) ) {
+    		xsltSource 	= 	new StreamSource(new File(XmlFileUtils.generateCustomFolderPath(mappingName)+"/"+xslFileName));
+//    		System.out.println("DEFAULT XSLT !!");
+    	}
+    	else
+    		xsltSource 	= 	new StreamSource(new File(XmlFileUtils.generateCustomFolderPath(mappingName)+"/"+fileName + Constants.IATI_FILE_TRANSFORM_EXTENSION));
+    	
+    	Result result		=	new StreamResult(new File(IatiMappingFile.generateFinalIatiFilePath(mappingName,fileName)));
     	 
     	// create an instance of TransformerFactory
     	javax.xml.transform.TransformerFactory transFact 	= javax.xml.transform.TransformerFactory.newInstance( );
@@ -399,12 +411,12 @@ public class IatiMappingFile {
 	
 	public static String generateResultFileName(String mappingName, String queryUniqueIdentifier) {
 		return 
-			(queryUniqueIdentifier==null?mappingName:mappingName+"-"+queryUniqueIdentifier);
+			(queryUniqueIdentifier==null?mappingName:mappingName+queryUniqueIdentifier);
 	}
 	
-	public static String generateFinalIatiFilePath(String fileName){
+	public static String generateFinalIatiFilePath(String mappingName, String fileName){
 		return 
-				IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME)+"/"+fileName + Constants.IATI_FILE_EXTENSION;
+				XmlFileUtils.generateCustomFolderPath(mappingName)+"/"+fileName + Constants.IATI_FILE_EXTENSION;
 	}
 	
 }

@@ -17,7 +17,7 @@ public class XmlFileReader<T> {
 	public XmlFileReader(Class<T> clazz, String filename) {
 		this.clazz = clazz;
 		this.filename = filename;
-		this.foldername = XmlFileWriter.MAPPING_FOLDER;
+		this.foldername = XmlFileUtils.generateCustomFolderPath(filename);
 	}
 	
 	
@@ -27,7 +27,7 @@ public class XmlFileReader<T> {
 		if ( foldername != null)
 			this.foldername = foldername;
 		else
-			this.foldername	= XmlFileWriter.MAPPING_FOLDER;
+			this.foldername	= XmlFileUtils.generateCustomFolderPath(filename);
 	}
 
 

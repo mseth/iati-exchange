@@ -3,6 +3,9 @@
  */
 package org.dg.iati.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -12,6 +15,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.dg.iati.api.entity.Constants;
 import org.dg.iati.api.entity.IatiSettings;
+import org.dg.iati.api.transformer.jaxb.SavedMappingList;
 import org.dg.iati.api.wicket.csvmapper.CsvMapperPanel;
 
 import com.google.code.jqwicket.ui.tiptip.TipTipBehavior;
@@ -48,6 +52,14 @@ public class GlobalSettings extends Panel {
 		final DropDownChoice<String> elType = new DropDownChoice<String>("datasourceType", new PropertyModel<String>(settings, "datasourceType"),Constants.IATI_DATASOURCE_TYPES);
 		elType.setOutputMarkupId(true);
 		add(elType);
+		
+		List<String> xsltTransformations	= new ArrayList<String>();
+		xsltTransformations.add(Constants.XSLT_AUTOMATIC_OPTION);
+		xsltTransformations.addAll( new SavedMappingList().showExistingXslt(settings.getSettingName()) );
+		
+		final DropDownChoice<String> xsltType = new DropDownChoice<String>("xsltTransformation", new PropertyModel<String>(settings, "xsltTransformation"),xsltTransformations);
+		xsltType.setOutputMarkupId(true);
+		add(xsltType);
         
         TextField<String> settingNameField 				= new TextField<String>("settingName",new PropertyModel<String>(settings, "settingName"));
         settingNameField.add(new TipTipBehavior(new TipTipOptions().maxWidth("auto").edgeOffset(10)));

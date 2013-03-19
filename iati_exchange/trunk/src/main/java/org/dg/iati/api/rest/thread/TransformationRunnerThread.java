@@ -46,7 +46,7 @@ public class TransformationRunnerThread extends Thread {
 		try {
 			String fileName 	= metadata.getTransformationId()+".mapping.xml";
 			XmlFileReader<IatiApiMapping> reader	= 
-					new XmlFileReader<IatiApiMapping>(IatiApiMapping.class, fileName, IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME) );
+					new XmlFileReader<IatiApiMapping>(IatiApiMapping.class, fileName );
 			IatiApiMapping jaxbMapping				= reader.load();
 			IatiMappingFile imf						= new IatiMappingFile(jaxbMapping);
 			imf.setUniqueIdentifier(metadata.uniqueIdentifier());

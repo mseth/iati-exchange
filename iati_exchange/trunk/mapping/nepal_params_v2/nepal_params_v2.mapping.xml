@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <iati-api-mapping>
-    <mapping-name>nepal_params_percentage</mapping-name>
+    <mapping-name>nepal_params_v2</mapping-name>
     <datasource type="postgres">
         <url>localhost:5432/amp_nepal_production</url>
         <username>postgres</username>
         <password>abc</password>
     </datasource>
     <generated-datetime/>
-    <iati-activity type="select">SELECT activity FROM &#xD;
+    <iati-activity type="select">-- FULL QUERY WITH SPECIFIC ACTIVITY (4452) FIRST &#xD;
+SELECT activity FROM &#xD;
  (&#xD;
  select distinct aor.activity as activity, &#xD;
   CASE WHEN aor.activity = 4452 THEN true ELSE false END as activity_order &#xD;
   from amp_org_role aor, amp_activity a &#xD;
-  where role=13 and a.amp_activity_id=activity  AND amp_activity_id IN &#xD;
+  where aor.role=13 and a.amp_activity_id=aor.activity  &#xD;
+   -- On budget activities&#xD;
+   AND amp_activity_id IN &#xD;
+   (&#xD;
+    SELECT a.amp_activity_id &#xD;
+     FROM amp_activity_version a, amp_category_value acv,amp_activities_categoryvalues aac &#xD;
+     WHERE aac.amp_activity_id = a.amp_activity_id AND aac.amp_categoryvalue_id=acv.id AND &#xD;
+     acv.id =253&#xD;
+   )&#xD;
+   AND amp_activity_id IN &#xD;
    (&#xD;
  &#xD;
    SELECT amp_activity_id FROM v_donor_funding &#xD;
     WHERE  adjustment_type_name='Planned' AND transaction_type=1  &#xD;
-     AND transaction_date &gt;= '2012-03-31 00:00:00'AND transaction_date &lt; '2016-01-11 00:00:00'&#xD;
+     AND transaction_date &gt;= '${startDate} 00:00:00' AND transaction_date &lt; '${endDate} 00:00:00'&#xD;
      &#xD;
    UNION&#xD;
     &#xD;
    SELECT amp_activity_id FROM v_donor_funding &#xD;
     WHERE  adjustment_type_name='Actual' AND transaction_type=1  &#xD;
-     AND transaction_date &gt;= '2007-03-31 00:00:00'AND transaction_date &lt; '2011-12-31 00:00:00'&#xD;
+     AND transaction_date &gt;= '${startDate} 00:00:00' AND transaction_date &lt; '${endDate} 00:00:00'&#xD;
    )&#xD;
  ) as act_list&#xD;
  &#xD;
@@ -35,10 +45,10 @@ ORDER BY activity_order DESC, activity DESC;</iati-activity>
             <query/>
         </field>
         <field ref="other-identifier">
-            <content type="column">budget_code</content>
+            <content type="column">proj_budget_code</content>
             <attribute type="column" ref="owner-ref">ref</attribute>
             <attribute type="column" ref="owner-name">name</attribute>
-            <query>select o.org_code as ref, o.budget_org_code as budget_code, o.name as name from amp_organisation o, amp_org_role aor, amp_role ar where aor.activity=$parent and aor.organisation=o.amp_org_id and aor.role = ar.amp_role_id and ar.name='Responsible Organisation';</query>
+            <query>select o.org_code as ref, o.budget_org_code as budget_code, o.name as name, concat(o.budget_org_code, aor.budget_code) as proj_budget_code from amp_organisation o, amp_org_role aor, amp_role ar where aor.activity=$parent and aor.organisation=o.amp_org_id and aor.role = ar.amp_role_id and ar.name='Responsible Organisation';</query>
         </field>
         <field ref="title">
             <content type="column">name</content>
@@ -50,18 +60,22 @@ ORDER BY activity_order DESC, activity DESC;</iati-activity>
             <attribute type="column" ref="ref">org_code</attribute>
             <attribute type="column" ref="role">role</attribute>
             <attribute type="constant" ref="xml:lang">en</attribute>
+            <attribute type="column" ref="budget-ref">budget_code</attribute>
             <query>select distinct case when ar.role_code = 'DN' then 'Funding' else 'Accountable' END as role, o.name as org_name, o.org_code as org_code, o.budget_org_code as budget_code  from amp_org_role aor, amp_organisation o, amp_role ar where aor.activity=$parent and o.amp_org_id = aor.organisation and aor.role = ar.amp_role_id and ar.role_code in ('DN','RO');</query>
+        </field>
+        <field ref="feed-period-start">
+            <content type="column">startDate</content>
+            <query>select '${startDate}' as startDate;</query>
+        </field>
+        <field ref="feed-period-end">
+            <content type="column">endDate</content>
+            <query>select '${endDate}' as endDate;</query>
         </field>
         <field ref="planned-disbursement">
             <content type="constant">novalue</content>
-            <query>SELECT &#xD;
-fund_temp.amp_fund_detail_id, fund_temp.transaction_date, fund_temp.transaction_amount,&#xD;
-	fund_temp.source_name, fund_temp.source_code, fund_temp.budget_code,&#xD;
-	fund_temp.source_type_name, fund_temp.source_type_code,&#xD;
-	fund_temp.org_name as org_name, fund_temp.org_code as org_code,&#xD;
-&#xD;
-min_temp.ministry_budget_code, &#xD;
-	min_temp.ministry_org_name,min_temp.ministry_org_code,min_temp.new_percentage,&#xD;
+            <query>-- Planned Disbursements&#xD;
+SELECT fund_temp.*, min_temp.ministry_budget_code, &#xD;
+	min_temp.ministry_org_name,min_temp.ministry_org_code,min_temp.new_percentage, min_temp.proj_budget_code,&#xD;
 	ROUND(CAST(&#xD;
 	CASE&#xD;
 		WHEN min_temp.percentage &gt; 0 &#xD;
@@ -93,10 +107,15 @@ min_temp.ministry_budget_code, &#xD;
 	  from v_donor_funding vf left join n_source_type st on &#xD;
 	  (vf.terms_assist_name=st.type_of_assistance AND vf.mode_of_payment_name=st.mode_of_payment), &#xD;
 	  amp_organisation o &#xD;
+	  -- change the activity&#xD;
 	  where vf.amp_activity_id = $parent and vf.org_id=o.amp_org_id and vf.transaction_type = 1 &#xD;
-	    and vf.adjustment_type_name='Planned' ) AS fund_temp,&#xD;
+	    and vf.adjustment_type_name='Planned' and &#xD;
+		vf.transaction_date &gt;= '${startDate} 00:00:00' AND vf.transaction_date &lt; '${endDate} 00:00:00'&#xD;
+	) AS fund_temp,&#xD;
  &#xD;
-	(select r.activity,r.percentage, r.organisation, o.budget_org_code as ministry_budget_code, &#xD;
+	(select r.activity,r.percentage, r.organisation, &#xD;
+		concat(o.budget_org_code,r.budget_code) as proj_budget_code,&#xD;
+		o.budget_org_code as ministry_budget_code, &#xD;
 		o.name as ministry_org_name, o.org_code as ministry_org_code,&#xD;
 		CASE&#xD;
 			WHEN r.percentage &gt; 0 THEN r.percentage&#xD;
@@ -105,8 +124,9 @@ min_temp.ministry_budget_code, &#xD;
 		as new_percentage,&#xD;
 		count(CASE WHEN r.percentage&gt;0 THEN TRUE ELSE NULL END)  OVER (PARTITION BY r.activity ) as count1, &#xD;
 		count(r.amp_org_role_id)  OVER (PARTITION BY r.activity ) as count2 &#xD;
+		-- change the role and activity !!!!!!!!!!!!!!!!&#xD;
 		from amp_org_role r, amp_organisation o&#xD;
-		WHERE r.organisation=o.amp_org_id AND role=2 AND r.activity=$parent ) as min_temp;</query>
+		WHERE r.organisation=o.amp_org_id AND role=13 AND r.activity=$parent ) as min_temp;</query>
             <field ref="period-start">
                 <content type="column">transaction_date</content>
                 <attribute type="column" ref="iso-date">transaction_date</attribute>
@@ -135,10 +155,15 @@ min_temp.ministry_budget_code, &#xD;
                 <attribute type="column" ref="code">source_type_code</attribute>
                 <query/>
             </field>
+            <field ref="receiver-activity-id">
+                <content type="column">proj_budget_code</content>
+                <query/>
+            </field>
         </field>
         <field ref="transaction">
             <content type="constant">novalue</content>
-            <query>SELECT fund_temp.*, min_temp.ministry_budget_code, &#xD;
+            <query>-- Actual Disbursements&#xD;
+SELECT fund_temp.*, min_temp.ministry_budget_code, min_temp.proj_budget_code,&#xD;
 	min_temp.ministry_org_name,min_temp.ministry_org_code,min_temp.new_percentage,&#xD;
 	ROUND(CAST(&#xD;
 	CASE&#xD;
@@ -171,11 +196,15 @@ min_temp.ministry_budget_code, &#xD;
 	  from v_donor_funding vf left join n_source_type st on &#xD;
 	  (vf.terms_assist_name=st.type_of_assistance AND vf.mode_of_payment_name=st.mode_of_payment), &#xD;
 	  amp_organisation o &#xD;
-	 &#xD;
+	  -- change the activity&#xD;
 	  where vf.amp_activity_id = $parent and vf.org_id=o.amp_org_id and vf.transaction_type = 1 &#xD;
-	    and vf.adjustment_type_name='Actual' ) AS fund_temp,&#xD;
+	    and vf.adjustment_type_name='Actual' and &#xD;
+		vf.transaction_date &gt;= '${startDate} 00:00:00' AND vf.transaction_date &lt; '${endDate} 00:00:00'&#xD;
+	) AS fund_temp,&#xD;
  &#xD;
-	(select r.activity,r.percentage, r.organisation, o.budget_org_code as ministry_budget_code, &#xD;
+	(select r.activity,r.percentage, r.organisation, &#xD;
+		concat(o.budget_org_code,r.budget_code) as proj_budget_code,&#xD;
+		o.budget_org_code as ministry_budget_code, &#xD;
 		o.name as ministry_org_name, o.org_code as ministry_org_code,&#xD;
 		CASE&#xD;
 			WHEN r.percentage &gt; 0 THEN r.percentage&#xD;
@@ -184,9 +213,9 @@ min_temp.ministry_budget_code, &#xD;
 		as new_percentage,&#xD;
 		count(CASE WHEN r.percentage&gt;0 THEN TRUE ELSE NULL END)  OVER (PARTITION BY r.activity ) as count1, &#xD;
 		count(r.amp_org_role_id)  OVER (PARTITION BY r.activity ) as count2 &#xD;
-		&#xD;
+		-- change the role and activity !!!!!!!!!!!!!!!!&#xD;
 		from amp_org_role r, amp_organisation o&#xD;
-		WHERE r.organisation=o.amp_org_id AND role=2 AND r.activity=$parent ) as min_temp;</query>
+		WHERE r.organisation=o.amp_org_id AND role=13 AND r.activity=$parent ) as min_temp;</query>
             <field ref="transaction-type">
                 <content type="constant">Disbursement</content>
                 <attribute type="constant" ref="code">D</attribute>
@@ -195,13 +224,13 @@ min_temp.ministry_budget_code, &#xD;
             <field ref="provider-org">
                 <content type="column">org_name</content>
                 <attribute type="column" ref="ref">org_code</attribute>
-                <attribute type="column" ref="provider-activity-id">budget_code</attribute>
+                <attribute type="column" ref="budget-ref">budget_code</attribute>
                 <query/>
             </field>
             <field ref="receiver-org">
                 <content type="column">ministry_org_name</content>
                 <attribute type="column" ref="ref">ministry_org_code</attribute>
-                <attribute type="column" ref="provider-activity-id">ministry_budget_code</attribute>
+                <attribute type="column" ref="budget-ref">ministry_budget_code</attribute>
                 <query/>
             </field>
             <field ref="value">
@@ -218,6 +247,10 @@ min_temp.ministry_budget_code, &#xD;
             <field ref="source-type">
                 <content type="column">source_type_name</content>
                 <attribute type="column" ref="code">source_type_code</attribute>
+                <query/>
+            </field>
+            <field ref="receiver-activity-id">
+                <content type="column">proj_budget_code</content>
                 <query/>
             </field>
         </field>

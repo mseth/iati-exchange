@@ -27,7 +27,7 @@ public class XmlFileWriter<T>{
 		this.mainJaxbObject = mainJaxbObject;
 		this.filename = filename;
 		this.extension	= XmlFileWriter.EXTENSION;
-		this.foldername = XmlFileWriter.MAPPING_FOLDER;
+		this.foldername = XmlFileUtils.generateCustomFolderPath(filename);
 	}
 	
 	
@@ -37,7 +37,7 @@ public class XmlFileWriter<T>{
 		this.mainJaxbObject = mainJaxbObject;
 		this.filename = filename;
 		this.extension = extension;
-		this.foldername = XmlFileWriter.MAPPING_FOLDER;
+		this.foldername = XmlFileUtils.generateCustomFolderPath(filename);
 	}
 	
 	public XmlFileWriter(T mainJaxbObject, String filename, String extension,
