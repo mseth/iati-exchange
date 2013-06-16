@@ -1,0 +1,38 @@
+<wicket:panel>
+<div id="container"> 
+	<div id="iati-container">
+		<div class="demo">
+			<form wicket:id="createXMLForm">
+		<!--content start-->
+				<div wicket:id="mainTabs" id="maintabs"><!--maintabs - taburile orizontale-->
+					<ul id="maintabslist">
+						<li><a href="#maintab1">Global settings</a></li>
+						<li><a href="#maintab2">Global Queries</a></li>
+						<li><a href="#maintab3">Mapping settings</a></li>
+						<li><a href="#maintab4">Organization settings</a></li>
+					</ul>
+					<!--tab1 orizontal-->
+						<div id="maintab1">
+							<wicket:container wicket:id="globalSettings"/>
+						</div><!--final tab1 orizontal-->
+					<!--tab2-->
+						<div id="maintab2">
+							<wicket:container wicket:id="globalQueries"/>
+						</div>
+					<!--final tab2-->
+						<div id="maintab3">
+							<wicket:container wicket:id="mappingSettings"/>
+						</div>
+					
+						<div id="maintab4">
+							<wicket:container wicket:id="organizationSettings"/>
+						</div>
+					<div class="clear"></div>
+				</div><!--final container taburi orizontale-->
+		<!--content end-->
+				<input wicket:id="ajaxSubmit" type="button" value="Save Setting" class="button-save"/>
+			</form>
+		</div>
+	</div>
+</div>
+</wicket:panel>

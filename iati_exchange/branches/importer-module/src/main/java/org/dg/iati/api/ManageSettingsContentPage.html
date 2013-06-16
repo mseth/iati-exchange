@@ -1,0 +1,21 @@
+<wicket:panel>
+<div id="iati-container">
+			<div id="container">
+				<table cellpadding="1" cellspacing="1" border="0" id="settings">
+					<tr>
+						<td class="header" width="40%">Setting name</td>
+						<td class="header" colspan="6">Actions</td>
+					</tr>
+					<tr wicket:id="linkItems">
+						<td width="40%"><a wicket:id="setting"  href="#"><span wicket:id="linkLabel"/></a></td>
+						<td width="8%" class="action iati"><a wicket:id="iatiFile" href="#">IATI</a></td>
+						<td width="14%" class="action xml"><a wicket:id="xmlResultFile" href="#">XML-result</a></td>
+						<td width="8%" class="action xsl"><a wicket:id="xslFile" href="#">XSL</a></td>
+						<td width="10%" class="action edit"><a wicket:id="link" href="#">Edit</a></td>
+						<td width="10%" class="action delete"><a href="#">Delete</a></td>
+						<td width="10%" class="action run"><a wicket:id="execute" href="#">Execute</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+</wicket:panel>

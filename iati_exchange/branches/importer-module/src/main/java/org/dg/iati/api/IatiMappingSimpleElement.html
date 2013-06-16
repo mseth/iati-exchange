@@ -1,0 +1,20 @@
+<wicket:panel>
+		<ul>
+			<li>
+				<label class="smalllabel" >Query</label>
+				<textarea wicket:id="elQuery" class="query" title="Query if needed for current element"></textarea>
+			</li>
+			<li>
+				<wicket:container wicket:id = "item"/>
+			</li>
+			<li >
+				<h4>Attributes</h4>
+			</li>
+			<wicket:container wicket:id="attributesRepeater">
+			<li>
+					<wicket:container wicket:id = "itemAttribute"/>
+			</li>
+			</wicket:container>
+		</ul>
+		<div class="clear"></div>
+</wicket:panel>

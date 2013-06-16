@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="for-solr.xslt"?>
+<iati-activities version="1.00" generated-datetime="2012-05-02T00:00:00">
+    <ir:registry-record xmlns:ir="http://iatiregistry.org/ns/record#" xml:lang="en" file-id="21020" source-url="http://www.cafod.org.uk/extra/data/iati/IATIFile_Burundi.xml" publisher-id="GB-CC-285776" publisher-role="Reporting" activity-period="All Periods" last-updated-datetime="2012-05-02T00:00:00" generated-datetime="2012-05-02T00:00:00" verification-status="1" format="xml" license="IATI"/>
+    <iati-activity hierarchy="1" xml:lang="en" default-currency="GBP" last-updated-datetime="2012-05-02T00:00:00">
+        <reporting-org ref="GB-CC-285776" type="21">CAFOD</reporting-org>
+        <iati-identifier>GB-CC-285776-BRN023</iati-identifier>
+        <other-identifier>BRN023</other-identifier>
+        <title>Socio-economic capacity building for vulnerable households and setting-up of human rights respect </title>
+        <description>Burundi is gradually recovering from the war which lasted almost 15 years. With the signing of cease-fire between PALIPEHUTU-FNL and the government in 2006, there is a period of calm in all the Bujumbura rural hills. People who had moved to other neighbouring countries are gradually returning in their homes. Thus to this situation, social and economic life reconstruction becomes more and more imperative and urgent. 
+In Burundi, the main income generating activity of the population is agriculture: more than 95% of people live are based on their land. Thus, the land remains the main source of income for the vast majority of households but it no longer offers to them opportunities to support their self-sufficiency following the vagaries of climate change and various plant diseases (Cassava mosaic). Add to this the looting of livestock during the war years.
+The project will contribute to solve the problems mentioned above, by distributing agricultural inputs, goats for domestic livestock and the rebuilding of peace among communities. </description>
+        <activity-status code="2">Implementation</activity-status>
+        <default-tied-status code="5">Untied</default-tied-status>
+        <activity-date type="start-actual" iso-date="2006-03-16"/>
+        <activity-date type="end-planned" iso-date="2013-01-31"/>
+        <contact-info>
+            <organisation>CAFOD</organisation>
+            <email>cafod@cafod.org.uk</email>
+        </contact-info>
+        <participating-org role="Funding" ref="GB-CC-285776">CAFOD</participating-org>
+        <participating-org role="Implementing">Organisation Diocésaine pour le Développement du Bujumbura</participating-org>
+        <recipient-country code="BI">Burundi</recipient-country>
+        <sector vocabulary="RO">Food and Livelihood Security</sector>
+        <sector vocabulary="DAC" code="31150" percentage="80">Agricultural inputs</sector>
+        <sector vocabulary="DAC" code="41010" percentage="20">Environmental policy and administrative management</sector>
+        <default-flow-type code="30">Private grants</default-flow-type>
+        <default-aid-type code="C01">Project-type interventions</default-aid-type>
+        <default-finance-type code="110">Aid grant excluding debt reorganisation</default-finance-type>
+        <transaction ref="28299">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2006-01-01">57143</value>
+            <transaction-date iso-date="2006-01-01">2006-01-01</transaction-date>
+        </transaction>
+        <transaction ref="44819">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2006-04-10">57143</value>
+            <transaction-date iso-date="2006-01-01">2006-01-01</transaction-date>
+        </transaction>
+        <transaction ref="29328">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2007-03-01">25000</value>
+            <transaction-date iso-date="2007-03-01">2007-03-01</transaction-date>
+        </transaction>
+        <transaction ref="46900">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2007-05-04">25000</value>
+            <transaction-date iso-date="2007-03-01">2007-03-01</transaction-date>
+        </transaction>
+        <transaction ref="31652">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2008-04-01">25000</value>
+            <transaction-date iso-date="2008-04-01">2008-04-01</transaction-date>
+        </transaction>
+        <transaction ref="48976">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2008-06-04">25127</value>
+            <transaction-date iso-date="2008-04-01">2008-04-01</transaction-date>
+        </transaction>
+        <transaction ref="33611">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2009-04-01">32771</value>
+            <transaction-date iso-date="2009-04-01">2009-04-01</transaction-date>
+        </transaction>
+        <transaction ref="50419">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2009-03-27">33232</value>
+            <transaction-date iso-date="2009-04-01">2009-04-01</transaction-date>
+        </transaction>
+        <transaction ref="35906">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2010-02-01">25000</value>
+            <transaction-date iso-date="2010-02-01">2010-02-01</transaction-date>
+        </transaction>
+        <transaction ref="51965">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2010-02-22">25000</value>
+            <transaction-date iso-date="2010-02-01">2010-02-01</transaction-date>
+        </transaction>
+        <transaction ref="39165">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2011-03-01">38000</value>
+            <transaction-date iso-date="2011-03-01">2011-03-01</transaction-date>
+        </transaction>
+        <transaction ref="53892">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2011-03-18">38000</value>
+            <transaction-date iso-date="2011-03-01">2011-03-01</transaction-date>
+        </transaction>
+        <transaction ref="41448">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>CGF</provider-org>
+            <value value-date="2012-02-01">38000</value>
+            <transaction-date iso-date="2012-02-01">2012-02-01</transaction-date>
+        </transaction>
+        <transaction ref="55817">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Organisation Diocésaine pour le Développement du Bujumbura</receiver-org>
+            <value value-date="2012-03-05">37761</value>
+            <transaction-date iso-date="2012-02-01">2012-02-01</transaction-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity hierarchy="1" xml:lang="en" default-currency="GBP" last-updated-datetime="2012-05-02T00:00:00">
+        <reporting-org ref="GB-CC-285776" type="21">CAFOD</reporting-org>
+        <iati-identifier>GB-CC-285776-BRN025</iati-identifier>
+        <other-identifier>BRN025</other-identifier>
+        <title>Participation in governance process during the election and post electoral periods in Burundi</title>
+        <description>This project intends to implement five activities:
+- Observation of election process in Burundi
+- Preparation of modules and tools of awareness about the principles of good governance and about  the role of elected  representatives 
+- Awareness of the new elected officials and representatives (450 in total) for their involvement in the democratic process 
+- Conduct advocacy activities based on monitoring field activities of the elected. 
+
+The CDJP with the parish facilitators will follow the elected on how they involve themselves on local governance issues  and prepare their reports. 
+The CEJP will do the same thing - in collaboration with civil society stakeholders - at the national level.</description>
+        <activity-status code="2">Implementation</activity-status>
+        <default-tied-status code="5">Untied</default-tied-status>
+        <activity-date type="start-actual" iso-date="2010-03-29"/>
+        <activity-date type="end-planned" iso-date="2013-08-31"/>
+        <contact-info>
+            <organisation>CAFOD</organisation>
+            <email>cafod@cafod.org.uk</email>
+        </contact-info>
+        <participating-org role="Funding" ref="GB-CC-285776">CAFOD</participating-org>
+        <participating-org role="Implementing">Commission Episcopale Justice et Paix Burundi</participating-org>
+        <recipient-country code="BI">Burundi</recipient-country>
+        <sector vocabulary="RO">Governance, Citizenship and Rights</sector>
+        <sector vocabulary="DAC" code="15151" percentage="40">Elections</sector>
+        <sector vocabulary="DAC" code="15160" percentage="60">Human rights</sector>
+        <default-flow-type code="30">Private grants</default-flow-type>
+        <default-aid-type code="C01">Project-type interventions</default-aid-type>
+        <default-finance-type code="110">Aid grant excluding debt reorganisation</default-finance-type>
+        <transaction ref="37085">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>DfiD</provider-org>
+            <value value-date="2010-04-01">31982</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="52604">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Episcopale Justice et Paix Burundi</receiver-org>
+            <value value-date="2010-06-07">22529</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="53286">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Episcopale Justice et Paix Burundi</receiver-org>
+            <value value-date="2010-12-08">9453</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="40599">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>DfiD</provider-org>
+            <value value-date="2011-09-01">30000</value>
+            <transaction-date iso-date="2011-09-01">2011-09-01</transaction-date>
+        </transaction>
+        <transaction ref="54875">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Episcopale Justice et Paix Burundi</receiver-org>
+            <value value-date="2011-09-05">30000</value>
+            <transaction-date iso-date="2011-09-01">2011-09-01</transaction-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity hierarchy="1" xml:lang="en" default-currency="GBP" last-updated-datetime="2012-05-02T00:00:00">
+        <reporting-org ref="GB-CC-285776" type="21">CAFOD</reporting-org>
+        <iati-identifier>GB-CC-285776-BRN026</iati-identifier>
+        <other-identifier>BRN026</other-identifier>
+        <title>Support to the cohabitation of the population in the electoral period</title>
+        <description>This project will be carried out for two needs:
+1° need to work for the good cohabitation affecting electoral protagonists and the administrative municipal and provincial authorities for a good electoral success,
+2° need, at the local level, to put together the various groups of the population.
+The main activities involved in this operation are:
+- Meetings with leaders of political parties on the electoral and on cohabitation issues   
+- Sensibilisation of managers of election commissions, of the administrative and communal authorities and of leaders of Christian communities on the electoral issues.
+- Training of managers of parish focal points on civic and democratic rights.</description>
+        <activity-status code="2">Implementation</activity-status>
+        <default-tied-status code="5">Untied</default-tied-status>
+        <activity-date type="start-actual" iso-date="2010-03-30"/>
+        <activity-date type="end-planned" iso-date="2013-08-31"/>
+        <contact-info>
+            <organisation>CAFOD</organisation>
+            <email>cafod@cafod.org.uk</email>
+        </contact-info>
+        <participating-org role="Funding" ref="GB-CC-285776">CAFOD</participating-org>
+        <participating-org role="Implementing">Commission Diocésaine Justice et Paix Bujumbura</participating-org>
+        <recipient-country code="BI">Burundi</recipient-country>
+        <sector vocabulary="RO">Governance, Citizenship and Rights</sector>
+        <sector vocabulary="DAC" code="15160" percentage="70">Human rights</sector>
+        <sector vocabulary="DAC" code="15151" percentage="30">Elections</sector>
+        <default-flow-type code="30">Private grants</default-flow-type>
+        <default-aid-type code="C01">Project-type interventions</default-aid-type>
+        <default-finance-type code="110">Aid grant excluding debt reorganisation</default-finance-type>
+        <transaction ref="37087">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>DfiD</provider-org>
+            <value value-date="2010-04-01">21904</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="52595">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Diocésaine Justice et Paix Bujumbura</receiver-org>
+            <value value-date="2010-06-02">12573</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="53289">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Diocésaine Justice et Paix Bujumbura</receiver-org>
+            <value value-date="2010-12-08">9331</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="40598">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>DfiD</provider-org>
+            <value value-date="2011-09-01">21500</value>
+            <transaction-date iso-date="2011-09-01">2011-09-01</transaction-date>
+        </transaction>
+        <transaction ref="54891">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Diocésaine Justice et Paix Bujumbura</receiver-org>
+            <value value-date="2011-09-07">21500</value>
+            <transaction-date iso-date="2011-09-01">2011-09-01</transaction-date>
+        </transaction>
+    </iati-activity>
+    <iati-activity hierarchy="1" xml:lang="en" default-currency="GBP" last-updated-datetime="2012-05-02T00:00:00">
+        <reporting-org ref="GB-CC-285776" type="21">CAFOD</reporting-org>
+        <iati-identifier>GB-CC-285776-BRN027</iati-identifier>
+        <other-identifier>BRN027</other-identifier>
+        <title>Education to peaceful cohabitatio between the local communities of the Diocese of BUBANZA </title>
+        <description>This is to sensitize members of local communities to peaceful coexistence  by cohabitation education sessions . It will also raise awareness on the value and importance of the elections as being a popular choice and one of the models of democracy.
+Activities to be conducted are the following :
+1. Workshops training in peaceful cohabitation and peaceful resolution of conflicts 2. Training workshops in monitoring and electoral observation; 3. Training in monitoring and observation of human rights. 4. Two visits for the exchange of experience in 2 border dioceses (BUKAVU in DRC) and CYANGUGU in the RWANDA
+</description>
+        <activity-status code="2">Implementation</activity-status>
+        <default-tied-status code="5">Untied</default-tied-status>
+        <activity-date type="start-actual" iso-date="2010-03-30"/>
+        <activity-date type="end-planned" iso-date="2013-08-31"/>
+        <contact-info>
+            <organisation>CAFOD</organisation>
+            <email>cafod@cafod.org.uk</email>
+        </contact-info>
+        <participating-org role="Funding" ref="GB-CC-285776">CAFOD</participating-org>
+        <participating-org role="Implementing">Commission Diocésaine Justice et Paix Bubanza</participating-org>
+        <recipient-country code="BI">Burundi</recipient-country>
+        <sector vocabulary="RO">Governance, Citizenship and Rights</sector>
+        <sector vocabulary="DAC" code="15160" percentage="70">Human rights</sector>
+        <sector vocabulary="DAC" code="15151" percentage="30">Elections</sector>
+        <default-flow-type code="30">Private grants</default-flow-type>
+        <default-aid-type code="C01">Project-type interventions</default-aid-type>
+        <default-finance-type code="110">Aid grant excluding debt reorganisation</default-finance-type>
+        <transaction ref="37086">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>DfiD</provider-org>
+            <value value-date="2010-04-01">21883</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="53288">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Diocésaine Justice et Paix Bubanza</receiver-org>
+            <value value-date="2010-12-08">8510</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="52592">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Diocésaine Justice et Paix Bubanza</receiver-org>
+            <value value-date="2010-06-02">13373</value>
+            <transaction-date iso-date="2010-04-01">2010-04-01</transaction-date>
+        </transaction>
+        <transaction ref="40600">
+            <transaction-type code="IF">Incoming Funds</transaction-type>
+            <provider-org>DfiD</provider-org>
+            <value value-date="2011-09-01">21500</value>
+            <transaction-date iso-date="2011-09-01">2011-09-01</transaction-date>
+        </transaction>
+        <transaction ref="54876">
+            <transaction-type code="D">Disbursement</transaction-type>
+            <receiver-org>Commission Diocésaine Justice et Paix Bubanza</receiver-org>
+            <value value-date="2011-09-05">21500</value>
+            <transaction-date iso-date="2011-09-01">2011-09-01</transaction-date>
+        </transaction>
+    </iati-activity>
+</iati-activities>

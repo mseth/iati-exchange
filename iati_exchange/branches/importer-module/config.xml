@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-activities>
+    <iati-activity>
+        <item ref="reporting-org">
+            <attribute ref="ref"/>
+            <attribute ref="type"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="iati-identifier"/>
+        <item ref="other-identifier">
+            <attribute ref="owner-ref"/>
+            <attribute ref="owner-name"/>
+        </item>
+        <item ref="activity-website"/>
+        <item ref="title">
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="description">
+            <attribute ref="type"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="activity-status">
+            <attribute ref="code"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="activity-date">
+            <attribute ref="type"/>
+            <attribute ref="iso-date"/>
+        </item>
+        <item ref="participating-org">
+            <attribute ref="ref"/>
+            <attribute ref="type"/>
+            <attribute ref="role"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="contact-info">
+            <item ref="organisation"/>
+			<item ref="person-name"/>
+			<item ref="telephone"/>
+			<item ref="email"/>
+			<item ref="mailing-address"/>
+        </item>        
+        <item ref="recipient-country">
+        	<attribute ref="code"/>
+            <attribute ref="percentage"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="recipient-region">
+        	<attribute ref="code"/>
+            <attribute ref="percentage"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="location">
+         	<attribute ref="percentage"/>
+            <item ref="location-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="name">
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="description">
+            	<attribute ref="type"/>
+            	<attribute ref="xml:lang"/>
+            </item>
+            <item ref="administrative">
+                <attribute ref="country"/>
+                <attribute ref="adm1"/>
+                <attribute ref="adm2"/>
+            </item>
+            <item ref="coordinates">
+                <attribute ref="latitude"/>
+                <attribute ref="longitude"/>
+                <attribute ref="precision"/>
+            </item>
+            <item ref="gazetteer-entry">
+                <attribute ref="gazetteer-ref"/>
+            </item>
+        </item>
+        <item ref="sector">
+            <attribute ref="code"/>
+            <attribute ref="vocabulary"/>
+            <attribute ref="percentage"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="policy-marker">
+            <attribute ref="code"/>
+            <attribute ref="vocabulary"/>
+            <attribute ref="significance"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="collaboration-type">
+            <attribute ref="code"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="default-flow-type">
+            <attribute ref="code"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="default-finance-type">
+            <attribute ref="code"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="default-aid-type">
+            <attribute ref="code"/>
+            <attribute ref="xml:lang"/>
+        </item>
+        <item ref="default-tied-status">
+            <attribute ref="code"/>
+            <attribute ref="xml:lang"/>
+        </item>
+		<item ref="budget">
+        	<attribute ref="type"/>
+            <item ref="period-start">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="period-end">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>            
+		</item>
+		<item ref="planned-disbursement">
+        	<attribute ref="updated"/>
+            <item ref="period-start">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="period-end">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>            
+		</item>        
+        <item ref="transaction">
+        	<attribute ref="ref"/>
+            <item ref="transaction-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="provider-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="receiver-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>
+            <item ref="description">
+                <attribute ref="type"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="transaction-date">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="flow-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="finance-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="aid-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="disbursement-channel">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="tied-status">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+        </item>
+        <item ref="document-link">
+        	<attribute ref="url"/>
+        	<attribute ref="format"/>
+            <item ref="title"/>
+			<item ref="category">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="language">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+		</item>
+		<item ref="related-activity">
+	        <attribute ref="ref"/>
+	        <attribute ref="type"/>
+	        <attribute ref="xml:lang"/>
+		</item>
+        <item ref="conditions">
+        	<attribute ref="attached"/>
+			<item ref="condition">
+                <attribute ref="type"/>
+            </item>
+		</item>
+        <item ref="result">
+        	<attribute ref="type"/>
+        	<attribute ref="aggregation-status"/>        	
+			<item ref="title">
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="description">
+                <attribute ref="type"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="indicator">
+                <attribute ref="measure"/>
+                <attribute ref="ascending"/>
+            </item>
+		</item>
+		<item ref="legacy-data">
+	        <attribute ref="name"/>
+	        <attribute ref="value"/>
+	        <attribute ref="iati-equivalent"/>
+		</item>
+    </iati-activity>
+</iati-activities>
