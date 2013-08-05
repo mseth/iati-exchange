@@ -151,6 +151,7 @@ public class DataSourceConnection {
                         System.out.println("Connection Done successfully");
                 }
         } catch (Exception e) {
+        		e.printStackTrace();
                 System.out.println("Error Occured " + e.toString());
         }
         return con;

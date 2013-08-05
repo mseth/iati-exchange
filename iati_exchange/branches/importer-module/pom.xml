@@ -232,6 +232,18 @@
 							<staleFile>${project.build.directory}/jaxb2/.schemaResultXjcStaleFlag</staleFile>
 						</configuration>
 					</execution>
+					<execution>
+						<id>import-rules</id> 
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<packageName>org.dg.iati.api.jaxb.iatiImportRules</packageName> 
+							<schemaFiles>iati-import-rules.xsd</schemaFiles>
+							<clearOutputDir>false</clearOutputDir>
+							<staleFile>${project.build.directory}/jaxb2/.schemaImportRulesXjcStaleFlag</staleFile>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

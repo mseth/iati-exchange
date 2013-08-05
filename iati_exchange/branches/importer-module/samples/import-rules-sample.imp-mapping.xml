@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-import-rules>
+    <mapping-name>sample-import</mapping-name>
+    <datadestination type="postgres">
+        <url>localhost:5432/amp_madagascar</url>
+        <username>postgres</username>
+        <password>abc</password>
+    </datadestination>
+    <datasource type="file">
+    	<url>sample-iati-source.iati.xml</url>
+    </datasource>
+	<iati-activity>
+		<test>
+			<!-- type SQL, JAXB, CONSTANT, EXISTENT; visibility GLOBAL, LOCAL -->
+			<term1 visibility="GLOBAL" mode="SQL" name="amp-activity-id"></term1>
+			<term2 visibility="LOCAL" mode="JAXB" name="term2"></term2>
+			<!-- eq / neq / gt / lt / TRUE / FALSE -->
+			<comparison>NEQ</comparison>
+			<!-- SQL, SKIP, NOTHING, PREPARED-ACTION -->
+			<on-true mode="SQL"></on-true>
+			<on-false mode="PREPARED-ACTION">new-activity</on-false>
+		</test>
+	</iati-activity>
+    
+    <mapping>
+        <field ref="title">
+        	<test>
+        		<!-- type SQL, JAXB, CONSTANT, EXISTENT; visibility GLOBAL, LOCAL -->
+				<term1 visibility="GLOBAL" mode="SQL" name="amp-activity-id"></term1>
+				<term2 visibility="LOCAL" mode="JAXB" name="term2"></term2>
+				<!-- eq / neq / gt / lt  -->
+				<comparison>NEQ</comparison>
+				<on-true mode="SQL"></on-true>
+				<on-false mode="PREPARED-ACTION">new-activity</on-false>
+        	</test>
+        </field>
+        <field ref="default-flow-type">
+        	<test> <!-- Testing if the current flow type exists in the database -->
+				<term1 visibility="GLOBAL" mode="SQL" name="flow-type-id">
+					SELECT id FROM amp_category_value 
+					WHERE amp_category_class_id = 12 AND category_value ilike '%$I{default-flow-type.value}%';  
+				</term1>
+				<term2 visibility="LOCAL" mode="CONSTANT" name="term2">0</term2>
+				<!-- eq / neq / gt / lt  -->
+				<comparison>GT</comparison>
+				<on-true mode="NOTHING"></on-true>
+				<on-false mode="SKIP"></on-false>
+        	</test>
+        </field>
+        <field ref="activity-status">
+           <term1 visibility="GLOBAL" mode="SQL" name="activity-status-id">
+				SELECT id FROM amp_category_value 
+				WHERE amp_category_class_id = 22 AND category_value ilike '%$I{activity-status.value}%';  
+			</term1>
+			<term2 visibility="LOCAL" mode="CONSTANT" name="term2">0</term2>
+			<!-- eq / neq / gt / lt  -->
+			<comparison>GT</comparison>
+			<on-true mode="NOTHING"></on-true>
+			<on-false mode="SKIP"></on-false>
+        </field>
+        <field ref="sector">
+            <content type="column">sector_name</content>
+            <attribute type="column" ref="code">sector_code</attribute>
+            <attribute type="column" ref="vocabulary">sector_scheme</attribute>
+            <attribute type="column" ref="percentage">sector_percentage</attribute>
+            <attribute type="constant" ref="xml:lang">fr</attribute>
+            <query>select aas.sector_percentage as sector_percentage, s.name as sector_name, s.sector_code_official as sector_code, ss.sec_scheme_name as sector_scheme from amp_activity_sector aas, amp_sector_scheme ss, amp_sector s where aas.amp_activity_id=$parent and aas.classification_config_id=ss.amp_sec_scheme_id and ss.sec_scheme_code='OCDE'  and aas.amp_sector_id=s.amp_sector_id;</query>
+        </field>
+        <field ref="transaction">
+           <test>
+        		<!-- type SQL, JAXB, CONSTANT, EXISTENT; visibility GLOBAL, LOCAL -->
+				<term1 visibility="GLOBAL" mode="SQL" name="amp-activity-id"></term1>
+				<term2 visibility="LOCAL" mode="JAXB" name="term2"></term2>
+				<!-- eq / neq / gt / lt  -->
+				<comparison>NEQ</comparison>
+				<on-true mode="SQL"></on-true>
+				<on-false mode="PREPARED-ACTION">new-activity</on-false>
+        	</test>
+        	<action></action>
+        </field>
+    </mapping>
+    <global-settings/>
+</iati-import-rules>

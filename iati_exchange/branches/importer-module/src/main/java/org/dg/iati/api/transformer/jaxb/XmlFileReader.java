@@ -6,11 +6,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.log4j.Logger;
+
 public class XmlFileReader<T> {
 	
-	private Class<T> clazz;
-	private String filename;
-	private String foldername;
+	private final Logger logger = Logger.getLogger( XmlFileReader.class );
+	
+	protected Class<T> clazz;
+	protected String filename;
+	protected String foldername;
 	
 	
 	
@@ -31,18 +35,42 @@ public class XmlFileReader<T> {
 	}
 
 
-
+	protected Unmarshaller createJAXBUnmarshaller () throws JAXBException {
+		JAXBContext context			= JAXBContext.newInstance(this.clazz );
+		Unmarshaller unmarshaller 	= context.createUnmarshaller();
+		return unmarshaller;
+	}
 
 
 	public T load() {
 		try {
-			JAXBContext context			= JAXBContext.newInstance(this.clazz );
-			Unmarshaller unmarshaller 	= context.createUnmarshaller();
-			T retObj					= (T) unmarshaller.unmarshal(new File(this.foldername + "/" + this.filename));
+			Unmarshaller unmarshaller 	= this.createJAXBUnmarshaller();
+			File sourceFileObj			= new File(this.foldername + "/" + this.filename);
+			logger.info("File " + sourceFileObj.getAbsolutePath() + " exists: " + sourceFileObj.exists() );
+			T retObj					= (T) unmarshaller.unmarshal( sourceFileObj );
 			return retObj;
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
+
+	/**
+	 * @return the filename
+	 */
+	public String getFilename() {
+		return filename;
+	}
+
+
+	/**
+	 * @return the foldername
+	 */
+	public String getFoldername() {
+		return foldername;
+	}
+	
+	
+	
 }

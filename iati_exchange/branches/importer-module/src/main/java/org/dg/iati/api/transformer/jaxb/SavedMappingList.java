@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.ConfigInstance;
 
 public class SavedMappingList {
@@ -12,7 +13,7 @@ public class SavedMappingList {
 	//private String extension;
 	
 	public SavedMappingList(){
-		this.foldername = ConfigInstance.getInstance().getMappingFolder();
+		this.foldername = ConfigInstance.getInstance().get( ConfigConstants.MAPPING_FOLDER_NAME );
 	//	this.extension	= XmlFileWriter.EXTENSION;
 	}
 	
@@ -21,7 +22,7 @@ public class SavedMappingList {
 		if ( foldername != null )
 			this.foldername = foldername;
 		else
-			this.foldername = ConfigInstance.getInstance().getMappingFolder();
+			this.foldername = ConfigInstance.getInstance().get( ConfigConstants.MAPPING_FOLDER_NAME );
 		
 //		if ( extension != null)
 //			this.extension = extension;

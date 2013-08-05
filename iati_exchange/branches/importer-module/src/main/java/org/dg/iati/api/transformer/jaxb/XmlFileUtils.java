@@ -2,6 +2,7 @@ package org.dg.iati.api.transformer.jaxb;
 
 import org.dg.iati.api.entity.Constants;
 import org.dg.iati.api.rest.constants.RestConstants;
+import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.ConfigInstance;
 
 public class XmlFileUtils {
@@ -15,6 +16,6 @@ public class XmlFileUtils {
 		if ( indexExt > 0 ) 
 			mappingName	= mappingName.substring(0, indexExt);
 		ConfigInstance config 	= ConfigInstance.getInstance();
-		return config.getMappingFolder() + "/" + mappingName	;
+		return config.get( ConfigConstants.MAPPING_FOLDER_NAME ) + "/" + mappingName	;
 	}
 }

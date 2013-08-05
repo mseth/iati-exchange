@@ -1,0 +1,116 @@
+<iati-activity xml:lang="en" default-currency="GBP"
+	hierarchy="2">
+	<reporting-org ref="GB-1" type="10">Department for
+		International Development</reporting-org>
+	<participating-org ref="GB" type="10" role="Funding">UNITED
+		KINGDOM</participating-org>
+	<participating-org ref="GB-1" type="10" role="Extending">Department
+		for International Development</participating-org>
+	<participating-org ref="51000" role="Implementing">University,
+		college or other teaching institution, research institute or
+		think-tank</participating-org>
+	<recipient-country code="CD">Congo, Dem Rep</recipient-country>
+	<collaboration-type code="1">Bilateral</collaboration-type>
+	<default-flow-type code="10">ODA</default-flow-type>
+	<default-aid-type code="C01">Project-type interventions</default-aid-type>
+	<default-finance-type code="110">Aid grant excluding
+		debt reorganisation</default-finance-type>
+	<iati-identifier>GB-1-105838-104</iati-identifier>
+	<other-identifier owner-ref="GB-1" owner-name="DFID">105838-104</other-identifier>
+	<title>PRSP Audit &amp; Value for Money Study Contracts PWC Gabon</title>
+	<sector code="15110">Public sector policy and administrative management</sector>
+	<activity-date type="end-actual">2010-09-30</activity-date>
+	<activity-date type="end-planned">2010-09-30</activity-date>
+	<activity-date type="start-actual">2004-01-01</activity-date>
+	<activity-date type="start-planned">2004-01-01</activity-date>
+	<activity-status code="4">Post-completion</activity-status>
+	<contact-info>
+		<organisation>Department for International Development</organisation>
+		<telephone>+44 (0) 1355 84 3132</telephone>
+		<email>enquiry@dfid.gov.uk</email>
+		<mailing-address>Public Enquiry Point, Abercrombie House, Eaglesham
+			Road, East Kilbride, Glasgow G75 8EA</mailing-address>
+	</contact-info>
+	<default-tied-status code="5">Untied</default-tied-status>
+	<policy-marker code="1" vocabulary="DAC" significance="1">Gender
+		Equality</policy-marker>
+	<policy-marker code="2" vocabulary="DAC" significance="0">Aid
+		to Environment</policy-marker>
+	<policy-marker code="3" vocabulary="DAC" significance="0">Participatory
+		Development/Good Governance</policy-marker>
+	<policy-marker code="4" vocabulary="DAC" significance="0">Trade
+		Development</policy-marker>
+	<policy-marker code="5" vocabulary="DAC" significance="0">Aid
+		Targeting the Objectives of the Convention on Biological Diversity</policy-marker>
+	<policy-marker code="6" vocabulary="DAC" significance="0">Aid
+		Targeting the Objectives of the Framework Convention on Climate Change
+		- Mitigation</policy-marker>
+	<policy-marker code="7" vocabulary="DAC" significance="0">Aid
+		Targeting the Objectives of the Framework Convention on Climate Change
+		- Adaptation</policy-marker>
+	<policy-marker code="8" vocabulary="DAC" significance="0">Aid
+		Targeting the Objectives of the Convention to Combat Desertification</policy-marker>
+	<transaction>
+		<value value-date="2010-04-01">61655</value>
+		<transaction-type code="C">Commitment</transaction-type>
+		<transaction-date iso-date="2004-01-01">Total Commitment to 30 Sep
+			2010</transaction-date>
+	</transaction>
+	<transaction>
+		<value currency="GBP" value-date="2010-05-14">2634</value>
+		<transaction-type code="E">Expenditure</transaction-type>
+		<provider-org ref="GB-1">Department for International
+			Development</provider-org>
+		<receiver-org ref="Excluded">Supplier Name Withheld</receiver-org>
+		<description>Technical &amp; Advisory services</description>
+		<transaction-date iso-date="2010-05-14" />
+	</transaction>
+	<transaction>
+		<value currency="GBP" value-date="2010-05-14">33204</value>
+		<transaction-type code="E">Expenditure</transaction-type>
+		<provider-org ref="GB-1">Department for International
+			Development</provider-org>
+		<receiver-org ref="Excluded">Supplier Name Withheld</receiver-org>
+		<description>Technical &amp; Advisory services</description>
+		<transaction-date iso-date="2010-05-14" />
+	</transaction>
+	<transaction>
+		<value currency="GBP" value-date="2010-05-17">16977</value>
+		<transaction-type code="E">Expenditure</transaction-type>
+		<provider-org ref="GB-1">Department for International
+			Development</provider-org>
+		<receiver-org ref="Excluded">Supplier Name Withheld</receiver-org>
+		<description>Technical &amp; Advisory services</description>
+		<transaction-date iso-date="2010-05-17" />
+	</transaction>
+	<transaction>
+		<value currency="GBP" value-date="2010-06-03">17196</value>
+		<transaction-type code="E">Expenditure</transaction-type>
+		<provider-org ref="GB-1">Department for International
+			Development</provider-org>
+		<receiver-org ref="Excluded">Supplier Name Withheld</receiver-org>
+		<description>Technical &amp; Advisory services</description>
+		<transaction-date iso-date="2010-06-03" />
+	</transaction>
+	<budget type="Revised">
+		<period-start iso-date="2009-04-01" />
+		<period-end iso-date="2010-03-31" />
+		<value value-date="2009-04-01" currency="GBP">56876</value>
+	</budget>
+	<budget type="Revised">
+		<period-start iso-date="2010-04-01" />
+		<period-end iso-date="2011-03-31" />
+		<value value-date="2010-04-01" currency="GBP">4779</value>
+	</budget>
+	<related-activity ref="GB-1-105838" type="1">Support to
+		the Poverty Reduction Strategy Process</related-activity>
+	<related-activity ref="GB-1-105838-101" type="3">NONBUDSUPPFINAID
+		and P0015 for Support to the Poverty Reduction Strategy Process</related-activity>
+	<related-activity ref="GB-1-105838-102" type="3">PROCOFSERVICES
+		and P0015 for Support to the Poverty Reduction Strategy Process</related-activity>
+	<related-activity ref="GB-1-105838-103" type="3">Support
+		to the PRSP Process in DRC</related-activity>
+	<legacy-data
+		name="15020 Government Unallocated/Unspecified: (Governance and Security)"
+		value="15020" iati-equivalent="sector" />
+</iati-activity>

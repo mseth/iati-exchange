@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-import-rules noNamespaceSchemaLocation="../../src/main/xsd/iati-import-rules.xsd">
+    <mapping-name>test</mapping-name>
+    <datadestination type="postgres">
+        <url>localhost:5432/amp_nepal</url>
+        <username>postgres</username>
+        <password>abc</password>
+    </datadestination>
+    <datasource type="file">
+    	<url>test.xml</url>
+    </datasource>
+	<iati-activity>
+		<test>
+			<!-- type SQL, JAXB, CONSTANT, EXISTENT; visibility GLOBAL, LOCAL -->
+			<term1 visibility="GLOBAL" mode="SQL" name="amp-activity-id">select amp_activity_id from amp_activity where amp_activity_id=$I{iati-identifier}</term1>
+			<term2 visibility="LOCAL" mode="CONSTANT" name="term2">0</term2>
+			<!-- eq / neq / gt / lt / TRUE / FALSE -->
+			<comparison compare-as="NUMBER" >GT</comparison>
+			<!-- SQL, SKIP, NOTHING, PREPARED-ACTION -->
+			<on-true mode="SQL">update amp_activity_version set draft = true where amp_activity_id = $G{amp-activity-id}</on-true>
+			<on-false mode="SKIP"></on-false>
+		</test>
+	</iati-activity>
+    
+    <mapping>
+        <field ref="budget">
+           <test>
+        		<!-- type SQL, JAXB, CONSTANT, EXISTENT; visibility GLOBAL, LOCAL -->
+				<term1 visibility="LOCAL" mode="IATI-PATH" name="amp-activity-id">$I{source-type.@code}</term1>
+				<term2 visibility="LOCAL" mode="CONSTANT" name="term2">12</term2>
+				<!-- eq / neq / gt / lt  -->
+				<comparison compare-as="STRING">EQ</comparison>
+				<on-true mode="SQL" visibility="LOCAL" name="type-of-assistance">SELECT id FROM amp_category_value WHERE category_value ilike 'Grant Aid';</on-true>
+				<on-true mode="SQL" visibility="LOCAL" name="mode-of-payment">SELECT id FROM amp_category_value WHERE category_value ilike 'Direct Payment Mode';</on-true>
+				<on-false mode="NOTHING"/>
+        	</test>
+        	<action mode="SQL" name="amp-funding-id" visibility="LOCAL">SELECT nextval('amp_funding_seq');</action>
+        	<action mode="SQL" name="currency-id" visibility="LOCAL">SELECT amp_currency_id FROM amp_currency WHERE currency_code = '$I{value.@currency}';</action>
+        	<action mode="SQL" name="amp-donor-id" visibility="LOCAL">SELECT amp_org_id FROM amp_organisation WHERE budget_org_code='$I{provider-org.@budget-ref}';</action>
+        	<action mode="SQL">
+        		INSERT INTO amp_funding(amp_funding_id, delegated_partner, delegated_cooperation,
+        		amp_donor_org_id, amp_activity_id, 
+        		type_of_assistance_category_va, mode_of_payment_category_va, 
+        		financing_instr_category_value, capital_spend_percent)  
+        		VALUES ( $L{amp-funding-id}, FALSE, FALSE, $L{amp-donor-id}, $G{amp-activity-id},
+        		 $L{type-of-assistance}, $L{mode-of-payment}, 190, 0 );
+        	</action>
+        	<action mode="SQL">
+        		INSERT INTO amp_funding_detail(amp_fund_detail_id,transaction_type, adjustment_type,  
+        		transaction_date, reporting_date, transaction_amount, amp_currency_id, amp_funding_id)
+        		VALUES(nextval('amp_funding_detail_seq'),1, 264,
+        		to_timestamp('$I{period-start}', 'YYYY-MM-DD')::timestamp without time zone,
+        		to_timestamp('$I{period-start}', 'YYYY-MM-DD')::timestamp without time zone,
+        		$I{value},$L{currency-id},$L{amp-funding-id} );
+        	</action>
+        </field>
+    </mapping>
+    <global-settings/>
+</iati-import-rules>

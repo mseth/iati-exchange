@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      results items after extracting information from data sources
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <!-- for xml:lang -->
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  
+   <xsd:element name="iati-import-rules">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level list of one or more IATI mapping.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+      	<xsd:element name="mapping-name" type="xsd:string"/>
+        <xsd:element ref="datadestination"/>
+        <xsd:element ref="datasource"/>
+        <xsd:element name="activity-var-name" type="xsd:string" />
+        <xsd:element ref="generated-datetime"/>
+        <xsd:element ref="iati-activity"/>
+        <xsd:element ref="mapping"/>
+      </xsd:sequence>
+    </xsd:complexType>
+    </xsd:element>
+  
+  
+  <xsd:element name="datadestination">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="url" type="xsd:string"/>
+        <xsd:element name="port" type="xsd:string"/>
+        <xsd:element name="username" type="xsd:string"/>
+        <xsd:element name="password" type="xsd:string"/>
+      </xsd:sequence>
+	  <xsd:attribute ref="type" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="datasource">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="url" type="xsd:string"/>
+      </xsd:sequence>
+	  <xsd:attribute ref="type" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="mapping">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:choice minOccurs="1" maxOccurs="unbounded">
+        <xsd:element ref="field"/>
+      </xsd:choice>
+    </xsd:complexType>
+   </xsd:element>
+  
+  <xsd:element name="generated-datetime" type="typeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Top-level element for a single IATI activity report.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  
+  <xsd:element name="iati-activity">
+    <xsd:complexType>
+		<xsd:sequence>
+			<xsd:element name="test" type="test" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="action" type="action" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+  </xsd:element>
+  
+
+  
+  
+  <xsd:attribute name="ref" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Machine-readable identification string for the business object being described.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  
+  <xsd:attribute name="type" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Machine-readable identification string for the business
+        object being described.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:attribute>
+  
+  <xsd:complexType name="refType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="ref" use="optional"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="typeType" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Data type for an element that refers to a business object that
+        can have unique identifier
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute ref="type" use="optional"/>
+  </xsd:complexType>
+
+
+	<xsd:simpleType name="type-mode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SQL" />
+			<xsd:enumeration value="IATI-PATH" />
+			<xsd:enumeration value="EXISTENT" />
+			<xsd:enumeration value="NOTHING" />
+			<xsd:enumeration value="PREPARED-ACTION" />
+			<xsd:enumeration value="SKIP-ACTIVITY" />
+			<xsd:enumeration value="LOG" />
+			<xsd:enumeration value="CONSTANT" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="type-visibility">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="LOCAL" />
+			<xsd:enumeration value="GLOBAL" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="type-comparison-values">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="EQ" />
+			<xsd:enumeration value="NEQ" />
+			<xsd:enumeration value="GT" />
+			<xsd:enumeration value="LT" />
+			<xsd:enumeration value="TRUE" />
+			<xsd:enumeration value="FALSE" />
+			<xsd:enumeration value="NOT-EMPTY" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="type-compare-as">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="STRING" />
+			<xsd:enumeration value="NUMBER" />
+			<xsd:enumeration value="DATE" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:attribute name="mode" type="type-mode">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Machine-readable
+				identification string for the business
+				object being described.
+			</xsd:documentation>
+		</xsd:annotation>
+		
+	</xsd:attribute>
+	<xsd:attribute name="visibility" type="type-visibility">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Machine-readable
+				identification string for the business
+				object being described.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<xsd:attribute name="name" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Machine-readable
+				identification string for the business
+				object being described.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+
+	<xsd:complexType name="action" mixed="true">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Data type for an
+				element that refers to a business object that
+				can have unique
+				identifier
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute ref="mode" use="required" />
+		<xsd:attribute ref="name" use="optional" />
+		<xsd:attribute ref="visibility" use="optional" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="type-comparison" mixed="true" >
+		<xsd:simpleContent>
+			<xsd:extension base="type-comparison-values">  			
+				<xsd:attribute name="compare-as" type="type-compare-as" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="test" mixed="true">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Data type for an element that refers to a business object that
+				can have unique identifier
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="term1" type="action" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="term2" type="action" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="comparison" type="type-comparison" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="on-true" type="action" minOccurs="1" maxOccurs="unbounded" />
+			<xsd:element name="on-false" type="action" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="field">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="test" type="test" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="action" type="action" minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+			<xsd:attribute ref="ref" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+  
+</xsd:schema>
