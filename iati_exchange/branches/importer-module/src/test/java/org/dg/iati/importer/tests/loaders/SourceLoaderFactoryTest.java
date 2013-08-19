@@ -40,7 +40,7 @@ public class SourceLoaderFactoryTest {
 	@Test
 	public final void testGetSourceLoaderInstace() {
 		try {
-			SourceLoader srcLoader	= new SourceLoaderFactory( this.rules ).getSourceLoaderInstace();
+			SourceLoader srcLoader	= new SourceLoaderFactory( this.rules ).getSourceLoaderInstace(null);
 			assertNotNull( "Verifying source loader is not null", srcLoader );
 			assertTrue( "source loader is of type file", srcLoader instanceof LocalSourceLoader );
 			assertNotNull( "Verify XmlFileReader not null", ( (LocalSourceLoader) srcLoader).getXmlFileReader() );

@@ -80,7 +80,8 @@ public class JdbcSqlRunner {
 	
 	public void finish() {
 		try {
-			this.connection.close();
+			if (this.connection != null)
+				this.connection.close();
 			this.dataSourceConnection	= null;
 			instances.remove(this.configName);
 		} catch (SQLException e) {

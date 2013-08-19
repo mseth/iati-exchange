@@ -51,6 +51,27 @@ public class SavedMappingList {
 		
 		return retList;
 	}
+	
+	public List<String> showFileList(String mappingName) {
+		List<String> retList	= new ArrayList<String>();
+		File f 					= new File (this.foldername + "/" + mappingName + "/.");
+		
+		File [] fileList		= f.listFiles();
+		
+		if ( fileList != null && fileList.length > 0) {
+			for (int i = 0; i < fileList.length; i++) {
+				File tempFile	= fileList[i];
+				if ( tempFile.isFile() && !tempFile.isHidden() ) {
+					String filename = tempFile.getName();
+					retList.add(filename);
+				}
+				
+			}
+		}
+		
+		return retList;
+	}
+	
 	public List<String> showExistingXslt(String mappingName) {
 		String path = XmlFileUtils.generateCustomFolderPath(mappingName);
 		

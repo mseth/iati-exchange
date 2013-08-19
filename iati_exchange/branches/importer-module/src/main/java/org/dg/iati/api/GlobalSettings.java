@@ -66,7 +66,8 @@ public class GlobalSettings extends Panel {
         settingNameField.setOutputMarkupId(true);
         add(settingNameField);
         
-        final GSDatabasePanel	dbPanel					= new GSDatabasePanel("databaseSettings", settingsModel);
+        final GSDatabasePanel<IatiSettings>	dbPanel		= 
+        		new GSDatabasePanel<IatiSettings>("databaseSettings", settingsModel);
         dbPanel.setVisibilityAllowed(true);
         dbPanel.setOutputMarkupPlaceholderTag(true);
         dbPanel.setOutputMarkupId(true);

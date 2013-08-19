@@ -25,6 +25,8 @@ public class XmlFileReaderAndTransformer<T> extends XmlFileReader<T> {
 	
 	private final Logger logger = Logger.getLogger( XmlFileReaderAndTransformer.class );
 	
+	public static final String CUSTOM_PREFIX = "custom_";
+	
 	protected String xslFile;
 	
 	public XmlFileReaderAndTransformer( Class<T> clazz, String filename, String foldername, String xslFile ) {
@@ -46,7 +48,7 @@ public class XmlFileReaderAndTransformer<T> extends XmlFileReader<T> {
 		try {
 			Transformer transformer		= this.createTransformer();
 			File sourceFile				= new File( this.foldername + "/" + this.filename );
-			File customFile				= new File( this.foldername + "/" + "custom_" + this.filename );
+			File customFile				= new File( this.foldername + "/" + CUSTOM_PREFIX + this.filename );
 			StreamSource inSrc			= new StreamSource( sourceFile );
 			StreamResult customOut		= new StreamResult( customFile );
 			transformer.transform( inSrc, customOut );

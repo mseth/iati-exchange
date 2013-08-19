@@ -1,0 +1,39 @@
+<wicket:panel>
+<div id="container"> 
+	<div id="iati-container">
+		<div class="demo">
+			<form wicket:id="edit-importer-config-form">
+					<!--content start-->
+					<div wicket:id="mainTabs" id="maintabs">
+						<!--maintabs - taburile orizontale-->
+						<ul id="maintabslist">
+							<li><a href="#maintab1">Global settings</a></li>
+							<li><a href="#maintab2">File upload</a></li>
+						</ul>
+						<!--tab1 orizontal-->
+						<div id="maintab1">
+							<br />
+							<ul class="no-list">
+								<div wicket:id="database-settings" />
+								<li>
+									<label>Filename</label> 
+									<select wicket:id="filename-select" />
+								</li>
+							</ul>
+						</div>
+						<!--final tab1 orizontal-->
+						<!--tab2-->
+						<div id="maintab2">
+								<div wicket:id="file-upload" /> 
+						</div>
+
+						<div class="clear"></div>
+					</div>
+					<!--final container taburi orizontale-->
+					<!--content end-->
+					<input wicket:id="submit-button" type="submit" value="Save Setting" class="button-save"/>
+			</form>
+		</div>
+	</div>
+</div>
+</wicket:panel>

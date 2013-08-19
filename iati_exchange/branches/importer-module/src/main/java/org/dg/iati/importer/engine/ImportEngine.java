@@ -52,7 +52,8 @@ public class ImportEngine {
 		
 		try {
 			sqlRunner.startTransaction();
-		} catch (SQLException e1) {
+		} catch (Exception e1) {
+			sqlRunner.finish();
 			e1.printStackTrace();
 			return;
 		}
@@ -164,15 +165,8 @@ public class ImportEngine {
 	public String generateReport() {
 		StringBuffer sBuffer 	= new StringBuffer();
 		sBuffer.append("Succesfully imported activities: \n");
-		for (Entry<String, String> e: this.successful.entrySet() ) {
-			String name 		= e.getValue();
-			String activityId	= e.getKey();
-			String viewUrl		= ConfigInstance.getInstance().get( ConfigConstants.IMPORT_VIEW_URL ).replace("${activity-id}", activityId);
-			String editUrl		= ConfigInstance.getInstance().get( ConfigConstants.IMPORT_EDIT_URL ).replace("${activity-id}", activityId);
-			
-			sBuffer.append(" -- " + name);
-			sBuffer.append(" - view: " + viewUrl );
-			sBuffer.append(" - edit: " + editUrl + "\n" );
+		for (String s: this.generateSuccessfulReportList() ) {
+			sBuffer.append(s + "\n");
 		}
 		
 		sBuffer.append("\n Failed activities: \n");
@@ -180,6 +174,24 @@ public class ImportEngine {
 			sBuffer.append(" -- " + name + "\n");
 		}
 		return sBuffer.toString();
+	}
+	
+	public List<String> generateSuccessfulReportList() {
+		List<String> ret	= new ArrayList<String>();
+		for (Entry<String, String> e: this.successful.entrySet() ) {
+			StringBuffer sBuffer 	= new StringBuffer();
+			String name 		= e.getValue();
+			String activityId	= e.getKey();
+			String viewUrl		= ConfigInstance.getInstance().get( ConfigConstants.IMPORT_VIEW_URL ).replace("${activity-id}", activityId);
+			String editUrl		= ConfigInstance.getInstance().get( ConfigConstants.IMPORT_EDIT_URL ).replace("${activity-id}", activityId);
+			
+			sBuffer.append(" -- " + name);
+			sBuffer.append(" - view: " + viewUrl );
+			sBuffer.append(" - edit: " + editUrl );
+			
+			ret.add(sBuffer.toString());
+		}
+		return ret;
 	}
 	
 	

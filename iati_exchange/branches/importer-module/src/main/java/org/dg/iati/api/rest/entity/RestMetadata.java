@@ -2,6 +2,8 @@ package org.dg.iati.api.rest.entity;
 
 import java.util.HashMap;
 
+import org.dg.iati.api.rest.constants.RestConstants;
+
 public class RestMetadata {
 	public String transformationId;
 	public String transformationAction;
@@ -49,7 +51,7 @@ public class RestMetadata {
 	}
 	
 	public String uniqueIdentifier() {
-		return "tr" + this.hashCode();
+		return RestConstants.OUT_FILENAME_PREFIX + this.hashCode();
 	}
 	
 }

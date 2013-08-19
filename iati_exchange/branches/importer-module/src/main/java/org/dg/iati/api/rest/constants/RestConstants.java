@@ -13,5 +13,5 @@ public class RestConstants {
 	
 	public static final String REST_RESULT_NONE = "none";
 	
-	public static final String OUT_FILENAME_PREFIX	= "tr";
+	public static final String OUT_FILENAME_PREFIX	= "--tr";
 }

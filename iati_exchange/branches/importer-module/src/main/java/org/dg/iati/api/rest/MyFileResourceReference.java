@@ -12,6 +12,7 @@ import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.util.io.IOUtils;
 import org.apache.wicket.util.string.StringValue;
+import org.dg.iati.api.rest.constants.RestConstants;
 import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.IatiUtils;
 
@@ -49,9 +50,11 @@ public class MyFileResourceReference extends ResourceReference {
 			ByteArrayResource res	= new ByteArrayResource("text/xml"){
 				@Override
 				protected byte[] getData(IResource.Attributes attributes) {
-					StringValue fileNameSV	= attributes.getParameters().get("file");
+					String fileName	= attributes.getParameters().get("file").toString();
+					//Ugly temporary hack
+					String folder		= fileName.substring(0, fileName.indexOf(RestConstants.OUT_FILENAME_PREFIX) ); 
 					File myFile			= 
-							new File(IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME) + "/" + fileNameSV.toString() );
+							new File(IatiUtils.getPropertyValue(ConfigConstants.MAPPING_FOLDER_NAME) + "/" + folder + "/" + fileName );
 					FileInputStream fis;
 					try {
 						fis 					= new FileInputStream(myFile);

@@ -1,0 +1,22 @@
+<wicket:panel>
+	<div>
+		<table cellpadding="1" cellspacing="1" border="0" id="settings"
+			style="width: 400px; margin: auto;">
+			<tr>
+				<td class="header">Filename</td>
+				<td class="header" style="width: 100px;">Actions</td>
+			</tr>
+			<tr wicket:id="file-list">
+				<td style="text-align: center;"><span wicket:id="src-file-name">Setting
+						Name</span></td>
+				<td style="width: 100px;" class="action delete"><a wicket:id="delete-link" href="#">Delete</a></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<input wicket:id="file" type="file"/>
+					<input wicket:id="ajax-submit" type="button" value="Upload"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+</wicket:panel>

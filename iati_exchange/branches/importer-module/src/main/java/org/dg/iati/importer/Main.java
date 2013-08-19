@@ -17,6 +17,7 @@ import org.dg.iati.importer.rules.loaders.XMLRulesLoader;
 import org.dg.iati.importer.source.loaders.SourceLoader;
 import org.dg.iati.importer.source.loaders.SourceLoaderFactory;
 import org.dg.iati.importer.source.loaders.LocalSourceLoader;
+import org.dg.iati.importer.util.ImporterConstants;
 
 /**
  * @author Alex Gartner
@@ -33,7 +34,7 @@ public class Main {
 	private HashMap<String, Object> localParams = new HashMap<String, Object>();
 	
 	public static void main(String [] args) {
-		Main main	= new Main("nepal-import");
+		Main main	= new Main("nepal-import-bmis");
 		ImportEngine engine	= main.setup();
 		engine.transform();
 	
@@ -51,7 +52,8 @@ public class Main {
 		
 		IatiImportRules rules 	= rulesLoader.loadJaxbRules();
 		
-		SourceLoader srcLoader	= new SourceLoaderFactory( rules ).getSourceLoaderInstace();
+		String urlString		= httpReqParams.get( ImporterConstants.URL_ADDRESS ); 
+		SourceLoader srcLoader	= new SourceLoaderFactory( rules ).getSourceLoaderInstace(urlString);
 		
 		IatiActivities sourceData 	= srcLoader.loadJaxbSource();
 		
@@ -65,6 +67,11 @@ public class Main {
 		engine.setHttpReqVariables(httpReqParams);
 		//engine.transform();
 		return engine;
+	}
+
+	public ImportEngine setup(HashMap<String, String> httpReqParams) {
+		this.httpReqParams	= httpReqParams;
+		return this.setup();
 	}
 	
 }

@@ -6,6 +6,8 @@ import org.dg.iati.api.rest.MyFileResourceReference;
 import org.dg.iati.api.rest.TransformationRunnerPage;
 import org.dg.iati.api.rest.constants.RestConstants;
 import org.dg.iati.api.rest.importing.ImportTransformationRestPage;
+import org.dg.iati.importer.pages.EditImporterConfigurationPage;
+import org.dg.iati.importer.pages.ManageImporterConfigurationPage;
 
 import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
 import com.google.code.jqwicket.JQContributionConfig;
@@ -44,6 +46,9 @@ public class WicketApplication extends WebApplication
 		mountPage("/create", IndexPage.class);
 		mountPage("/extract", ExtractInfoPage.class);
 		mountPage("/manage", ManageSettingsPage.class);
+		
+		mountPage("/manage-import", ManageImporterConfigurationPage.class);
+		mountPage("/edit-import-config", EditImporterConfigurationPage.class);
 		mountPage("/transformation/" +
 				RestConstants.REST_TRASNF_ID+"/${"+RestConstants.REST_TRASNF_ID+"}/" +
 				RestConstants.REST_ACTION+"/${"+RestConstants.REST_ACTION+"}/" +

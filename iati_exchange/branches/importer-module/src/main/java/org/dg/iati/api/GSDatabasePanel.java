@@ -17,7 +17,7 @@ import com.google.code.jqwicket.ui.tiptip.TipTipOptions;
  * @author dan
  *
  */
-public class GSDatabasePanel extends Panel {
+public class GSDatabasePanel<T> extends Panel {
 
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class GSDatabasePanel extends Panel {
 	 */
 	public GSDatabasePanel(String id, IModel<?> model) {
 		super(id, model);
-		IatiSettings settings	= (IatiSettings) model.getObject();
+		T settings	= (T) model.getObject();
 		
 		TextField<String> url 	= new TextField<String>("url", new PropertyModel<String>(settings, "url"));
 		url.add(new TipTipBehavior(new TipTipOptions().maxWidth("auto").edgeOffset(10)));

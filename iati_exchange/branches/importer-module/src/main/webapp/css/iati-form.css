@@ -16,8 +16,8 @@
 form{margin:0px;padding:0px;}
 #container{background:#fff;padding:25px 0px;}
 div.iati-form{margin:0 auto;position:relative;padding:10px;}
-div.iati-form li{list-style:none;margin:0px 0px 10px 0px;min-height:30px;}
-div.iati-form li label{display:inline-block;width:150px;color:#0f0f0e;font-size:14px;}
+div.iati-form li, ul.no-list li{list-style:none;margin:0px 0px 10px 0px;min-height:30px;}
+div.iati-form li label, ul.no-list li label{display:inline-block;width:150px;color:#0f0f0e;font-size:14px;}
 div.ubox{width:150px;position:absolute;right:20px; top:70px;}
 input.iati-text{width:200px;height:20px;border:1px solid #d6d5d2;}
 input.iati-text-small{width:100px;height:20px;border:1px solid #d6d5d2;}
