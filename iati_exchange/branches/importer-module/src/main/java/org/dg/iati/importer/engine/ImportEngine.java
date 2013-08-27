@@ -58,11 +58,14 @@ public class ImportEngine {
 			return;
 		}
 		
+		Long timeInMillis		= System.currentTimeMillis();
+		
 		List<IatiActivity> activities	= this.iatiActivities.getIatiActivity();
 		for (IatiActivity iatiActivity : activities) {
 			String currentActivity 	= null;
 			try {
 				this.globalVariables.put(ImporterConstants.IMPORTER_CONFIGURATION_NAME, configName);
+				this.globalVariables.put(ImporterConstants.TIME_IN_MILLIS, timeInMillis);
 				Item	iatiActivityItem	= this.transformActivityToItem(iatiActivity);
 				for (Item temp: iatiActivity.getItem() ) {
 					if ("title".equals(temp.getRef())) {

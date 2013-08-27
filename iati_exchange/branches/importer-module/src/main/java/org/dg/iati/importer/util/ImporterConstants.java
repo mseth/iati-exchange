@@ -6,4 +6,5 @@ public class ImporterConstants {
 	public static final String ACTIVITY_IATI_ID	= "activity-iati-id";
 	
 	public static final String URL_ADDRESS		= "url";
+	public static final String TIME_IN_MILLIS = "time-in-millis";
 }
