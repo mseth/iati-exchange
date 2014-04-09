@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.apache.log4j.Logger;
+import org.dg.iati.api.entity.Constants;
 
 public class XmlFileWriter<T>{
 	
@@ -54,7 +55,7 @@ public class XmlFileWriter<T>{
 	public void persist () {
 		try {
 			
-			File folder				= new File(this.foldername);
+			File folder				= new File(Constants.APP_PATH+this.foldername);
 			if ( !folder.isDirectory() && !folder.mkdir() ) {
 				logger.error("Cannot create mapping folder !!");
 				return;

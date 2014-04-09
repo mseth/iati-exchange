@@ -101,4 +101,13 @@ public class Constants {
 	//public static final String CONFIG_UI_FILE = "config.xml";
 	public static final String XSLT_AUTOMATIC_OPTION = "Automatic";
 	
+	public static final String APP_PATH;
+	static {
+		if(System.getProperty("iati.conf.path")!=null){
+			APP_PATH = System.getProperty("iati.conf.path");
+		}else{
+			APP_PATH = "./";
+		}
+	}
+	
 }

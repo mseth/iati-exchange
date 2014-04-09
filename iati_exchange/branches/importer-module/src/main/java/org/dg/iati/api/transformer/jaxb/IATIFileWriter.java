@@ -53,7 +53,7 @@ public class IATIFileWriter{
 	public void persist (){
 		try {
 			
-			File folder				= new File(this.foldername);
+			File folder				= new File(Constants.APP_PATH + this.foldername);
 			if ( !folder.isDirectory() && !folder.mkdir() ) {
 				logger.error("Cannot create mapping folder !!");
 				return;

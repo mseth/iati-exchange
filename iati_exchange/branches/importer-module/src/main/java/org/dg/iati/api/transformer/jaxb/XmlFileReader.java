@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.Logger;
+import org.dg.iati.api.entity.Constants;
 
 public class XmlFileReader<T> {
 	
@@ -45,7 +46,7 @@ public class XmlFileReader<T> {
 	public T load() {
 		try {
 			Unmarshaller unmarshaller 	= this.createJAXBUnmarshaller();
-			File sourceFileObj			= new File(this.foldername + "/" + this.filename);
+			File sourceFileObj			= new File(Constants.APP_PATH+this.foldername + "/" + this.filename);
 			logger.info("File " + sourceFileObj.getAbsolutePath() + " exists: " + sourceFileObj.exists() );
 			T retObj					= (T) unmarshaller.unmarshal( sourceFileObj );
 			return retObj;

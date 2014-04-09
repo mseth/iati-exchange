@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-api-mapping>
+    <mapping-name>test2</mapping-name>
+    <datasource type="postgres">
+        <url>localhost:5432/amp_kosovo_production3</url>
+        <username>amp</username>
+        <password>amp</password>
+    </datasource>
+    <generated-datetime/>
+    <iati-activity type="select"/>
+    <global-query type="select"/>
+    <mapping/>
+    <global-settings>
+        <xslt-transformation>Automatic</xslt-transformation>
+    </global-settings>
+</iati-api-mapping>

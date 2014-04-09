@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iati-api-mapping>
+    <mapping-name>test1</mapping-name>
+    <datasource type="postgres">
+        <url>localhost:5432/amp_kosovo_production3</url>
+        <username>amp</username>
+        <password>amp</password>
+    </datasource>
+    <generated-datetime/>
+    <iati-activity type="select">select amp_activity_id from amp_activity a where  &#xD;
+a.approval_status IN ('approved','startedapproved') &#xD;
+and a.draft is not true;</iati-activity>
+    <global-query type="select">select amp_activity_id,amp_id,name,description from amp_activity &#xD;
+where amp_activity_id=$parent;</global-query>
+    <mapping>
+        <field ref="iati-identifier">
+            <content type="column">amp_id</content>
+            <query/>
+        </field>
+        <field ref="title">
+            <content type="column">name</content>
+            <query/>
+        </field>
+        <field ref="description">
+            <content type="column">body</content>
+            <attribute ref="type" type="column">type</attribute>
+            <attribute ref="xml:lang" type="column">lang</attribute>
+            <query>(select e.body, e.language as lang, 'description' as type from dg_editor e, amp_activity a where a.description = e.editor_key and a.amp_activity_id=$parent)&#xD;
+UNION&#xD;
+(select e.body, e.language as lang, 'objectives' as type from dg_editor e, amp_activity a where a.objectives = e.editor_key and a.amp_activity_id=$parent);</query>
+        </field>
+        <field ref="related-activity">
+            <content type="column">body</content>
+            <attribute ref="xml:lang" type="column">lang</attribute>
+            <query>select e.body, e.language as lang from dg_editor e, amp_activity a where a.projectcomments = e.editor_key and a.amp_activity_id=$parent;</query>
+        </field>
+        <field ref="activity-status">
+            <content type="column">status</content>
+            <attribute ref="xml:lang" type="constant">en</attribute>
+            <query>SELECT acv.category_value as status&#xD;
+     FROM amp_activity  a, amp_category_value acv,amp_activities_categoryvalues aac, amp_category_class acc&#xD;
+     WHERE aac.amp_activity_id = a.amp_activity_id AND aac.amp_categoryvalue_id=acv.id AND acc.keyname='activity_status' and acv.amp_category_class_id=acc.id and a.amp_activity_id=$parent;</query>
+        </field>
+        <field ref="activity-date">
+            <content type="column">date</content>
+            <attribute ref="type" type="column">type</attribute>
+            <attribute ref="iso-date" type="column">date</attribute>
+            <query>(select date(actual_start_date) as date,'start-actual' as type from amp_activity where date(actual_start_date) is not null and amp_activity_id = $parent)&#xD;
+UNION&#xD;
+(select date(actual_completion_date) as date,'end-actual' as type from amp_activity where date(actual_completion_date) is not null and amp_activity_id = $parent)</query>
+        </field>
+        <field ref="location">
+            <content type="constant">constant</content>
+            <attribute ref="percentage" type="column">percentage</attribute>
+            <query>select acvl.location_name as region,aal.location_percentage as percentage, &#xD;
+acv.category_value as location_type,&#xD;
+CASE WHEN acv.category_value = 'Country' THEN 'PCL' WHEN acv.category_value = 'Region' THEN 'ADM1'&#xD;
+ELSE 'ADM2' END as code_type&#xD;
+from amp_activity a, amp_activity_location aal, amp_location al, amp_category_value_location acvl,&#xD;
+amp_category_value acv&#xD;
+where a.amp_activity_id = aal.amp_activity_id and aal.amp_location_id = al.amp_location_id&#xD;
+and al.location_id = acvl.id and acvl.parent_category_value = acv.id and a.amp_activity_id = $parent;</query>
+            <field ref="location-type">
+                <content type="column">location_type</content>
+                <attribute ref="code" type="column">code_type</attribute>
+                <query/>
+            </field>
+            <field ref="name">
+                <content type="column">region</content>
+                <query/>
+            </field>
+        </field>
+        <field ref="sector">
+            <content type="column">name</content>
+            <attribute ref="code" type="column">sector_code_official</attribute>
+            <attribute ref="vocabulary" type="column">sector_scheme</attribute>
+            <attribute ref="percentage" type="column">sector_percentage</attribute>
+            <query>select aas.amp_activity_id,aas.amp_sector_id,asec.name,aas.sector_percentage,asec.sector_code_official,&#xD;
+asec.amp_sec_scheme_id,(CASE WHEN asec.amp_sec_scheme_id =1 THEN 'DAC'&#xD;
+WHEN asec.amp_sec_scheme_id = 2 THEN 'RO' ELSE 'CCT' END) as sector_scheme&#xD;
+ from amp_activity a, amp_activity_sector aas,amp_sector asec&#xD;
+where aas.amp_sector_id=asec.amp_sector_id and a.amp_activity_id = aas.amp_activity_id and a.amp_activity_id = $parent</query>
+        </field>
+        <field ref="participating-org">
+            <content type="column">name</content>
+            <attribute ref="role" type="column">org_role</attribute>
+            <query>(select aor.activity,ao.name,aor.role as org_role_id,ar.name as org_role from amp_activity a, amp_org_role aor, amp_organisation ao, amp_role ar &#xD;
+where aor.organisation = ao.amp_org_id and ar.amp_role_id = aor.role and (ar.role_code = 'IA' or ar.role_code = 'BA')&#xD;
+and a.amp_activity_id = aor.activity&#xD;
+and a.amp_activity_id=$parent)&#xD;
+UNION&#xD;
+(select af.amp_activity_id,ao.name,'1' as org_role_id,'Donor' as org_role from amp_organisation ao, amp_funding af, amp_activity a, amp_category_value acv&#xD;
+where af.amp_donor_org_id = ao.amp_org_id and a.amp_activity_id = af.amp_activity_id&#xD;
+and af.type_of_assistance_category_va=acv.id&#xD;
+and a.amp_activity_id=$parent&#xD;
+group by af.amp_activity_id,ao.name&#xD;
+ order by af.amp_activity_id )</query>
+        </field>
+        <field ref="transaction">
+            <content type="constant">asd</content>
+            <query>select af.amp_activity_id,afd.transaction_type as transaction_type_va,&#xD;
+(CASE WHEN afd.transaction_type= 1 THEN 'D' else 'C' END) AS transaction_type_code,&#xD;
+(CASE WHEN afd.transaction_type= 1 THEN 'Disbursement' else 'Commitment' END) AS transaction_type,&#xD;
+af.type_of_assistance_category_va,acv.category_value as type_of_assistance,&#xD;
+ao.name as donor, ao.org_code as donor_code, ao.budget_org_code,&#xD;
+afd.adjustment_type as adjustment_type_va,acv1.category_value as adjustment_type,&#xD;
+acv2.category_value as aid_modality,&#xD;
+afd.transaction_amount,&#xD;
+afd.amp_currency_id, ac.currency_code,&#xD;
+date(afd.transaction_date) as transaction_date&#xD;
+ from amp_funding af, amp_funding_detail afd, amp_category_value acv,amp_category_value acv1,&#xD;
+ amp_category_value acv2,amp_currency ac, amp_activity a, amp_organisation ao&#xD;
+where af.amp_funding_id = afd.amp_funding_id&#xD;
+and af.type_of_assistance_category_va = acv.id&#xD;
+and afd.amp_currency_id =ac.amp_currency_id&#xD;
+and afd.adjustment_type = acv1.id&#xD;
+and af.amp_donor_org_id = ao.amp_org_id&#xD;
+and af.financing_instr_category_value = acv2.id&#xD;
+and af.amp_activity_id = a.amp_activity_id&#xD;
+and acv1.category_value = 'Actual'&#xD;
+and a.amp_activity_id = $parent;</query>
+            <field ref="transaction-type">
+                <content type="column">transaction_type</content>
+                <attribute ref="code" type="column">transaction_type_code</attribute>
+                <query/>
+            </field>
+            <field ref="provider-org">
+                <content type="column">donor</content>
+                <attribute ref="provider-activity-id" type="column">donor_code</attribute>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">transaction_amount</content>
+                <attribute ref="currency" type="column">currency_code</attribute>
+                <attribute ref="value-date" type="column">transaction_date</attribute>
+                <query/>
+            </field>
+            <field ref="finance-type">
+                <content type="column">type_of_assistance</content>
+                <attribute ref="code" type="column">type_of_assistance_category_va</attribute>
+                <query/>
+            </field>
+            <field ref="aid-type">
+                <content type="column">aid_modality</content>
+                <query/>
+            </field>
+        </field>
+        <field ref="planned-disbursement">
+            <content type="constant">asd</content>
+            <query>select af.amp_activity_id,afd.transaction_type as transaction_type_va,&#xD;
+(CASE WHEN afd.transaction_type= 1 THEN 'D' else 'C' END) AS transaction_type_code,&#xD;
+(CASE WHEN afd.transaction_type= 1 THEN 'Disbursement' else 'Commitment' END) AS transaction_type,&#xD;
+af.type_of_assistance_category_va,acv.category_value as type_of_assistance,&#xD;
+ao.name as donor, ao.org_code as donor_code, ao.budget_org_code,&#xD;
+afd.adjustment_type as adjustment_type_va,acv1.category_value as adjustment_type,&#xD;
+acv2.category_value as aid_modality,&#xD;
+afd.transaction_amount,&#xD;
+afd.amp_currency_id, ac.currency_code,&#xD;
+afd.transaction_date&#xD;
+ from amp_funding af, amp_funding_detail afd, amp_category_value acv,amp_category_value acv1,&#xD;
+ amp_category_value acv2,amp_currency ac, amp_activity a, amp_organisation ao&#xD;
+where af.amp_funding_id = afd.amp_funding_id&#xD;
+and af.type_of_assistance_category_va = acv.id&#xD;
+and afd.amp_currency_id =ac.amp_currency_id&#xD;
+and afd.adjustment_type = acv1.id&#xD;
+and af.amp_donor_org_id = ao.amp_org_id&#xD;
+and af.financing_instr_category_value = acv2.id&#xD;
+and af.amp_activity_id = a.amp_activity_id&#xD;
+and afd.transaction_type = 1&#xD;
+and acv1.category_value = 'Planned'&#xD;
+and a.amp_activity_id = $parent;</query>
+            <field ref="provider-org">
+                <content type="column">donor</content>
+                <attribute ref="provider-activity-id" type="column">donor_code</attribute>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">transaction_amount</content>
+                <attribute ref="currency" type="column">currency_code</attribute>
+                <attribute ref="value-date" type="column">transaction_date</attribute>
+                <query/>
+            </field>
+            <field ref="finance-type">
+                <content type="column">type_of_assistance</content>
+                <query/>
+            </field>
+            <field ref="aid-type">
+                <content type="column">aid_modality</content>
+                <query/>
+            </field>
+        </field>
+        <field ref="planned-commitment">
+            <content type="constant">asd</content>
+            <query>select af.amp_activity_id,afd.transaction_type as transaction_type_va,&#xD;
+(CASE WHEN afd.transaction_type= 1 THEN 'D' else 'C' END) AS transaction_type_code,&#xD;
+(CASE WHEN afd.transaction_type= 1 THEN 'Disbursement' else 'Commitment' END) AS transaction_type,&#xD;
+af.type_of_assistance_category_va,acv.category_value as type_of_assistance,&#xD;
+ao.name as donor, ao.org_code as donor_code, ao.budget_org_code,&#xD;
+afd.adjustment_type as adjustment_type_va,acv1.category_value as adjustment_type,&#xD;
+acv2.category_value as aid_modality,&#xD;
+afd.transaction_amount,&#xD;
+afd.amp_currency_id, ac.currency_code,&#xD;
+afd.transaction_date&#xD;
+ from amp_funding af, amp_funding_detail afd, amp_category_value acv,amp_category_value acv1,&#xD;
+ amp_category_value acv2,amp_currency ac, amp_activity a, amp_organisation ao&#xD;
+where af.amp_funding_id = afd.amp_funding_id&#xD;
+and af.type_of_assistance_category_va = acv.id&#xD;
+and afd.amp_currency_id =ac.amp_currency_id&#xD;
+and afd.adjustment_type = acv1.id&#xD;
+and af.amp_donor_org_id = ao.amp_org_id&#xD;
+and af.financing_instr_category_value = acv2.id&#xD;
+and af.amp_activity_id = a.amp_activity_id&#xD;
+and afd.transaction_type = 0&#xD;
+and acv1.category_value = 'Planned'&#xD;
+and a.amp_activity_id = $parent;</query>
+            <field ref="provider-org">
+                <content type="column">donor</content>
+                <attribute ref="provider-activity-id" type="column">donor_code</attribute>
+                <query/>
+            </field>
+            <field ref="value">
+                <content type="column">transaction_amount</content>
+                <attribute ref="currency" type="column">currency_code</attribute>
+                <attribute ref="value-date" type="column">transaction_date</attribute>
+                <query/>
+            </field>
+            <field ref="finance-type">
+                <content type="column">type_of_assistance</content>
+                <query/>
+            </field>
+            <field ref="aid-type">
+                <content type="column">aid_modality</content>
+                <query/>
+            </field>
+        </field>
+    </mapping>
+    <global-settings>
+        <xslt-transformation>custom.xsl</xslt-transformation>
+    </global-settings>
+</iati-api-mapping>

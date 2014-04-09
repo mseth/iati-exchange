@@ -19,7 +19,7 @@ public class Start {
         Server server = new Server();
         SocketConnector connector = new SocketConnector();
         Properties prop = new Properties();
-        prop.load(new FileInputStream(Constants.CONFIG_FILE));
+        prop.load(new FileInputStream(Constants.APP_PATH+Constants.CONFIG_FILE));
 
         // Set some timeout options to make debugging easier.
         connector.setMaxIdleTime(timeout);

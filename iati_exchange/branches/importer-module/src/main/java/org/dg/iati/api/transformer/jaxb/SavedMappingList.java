@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dg.iati.api.entity.Constants;
 import org.dg.iati.api.util.ConfigConstants;
 import org.dg.iati.api.util.ConfigInstance;
 
@@ -34,7 +35,7 @@ public class SavedMappingList {
 
 	public List<String> showSavedMappings() {
 		List<String> retList	= new ArrayList<String>();
-		File f 					= new File (this.foldername + "/" + ".");
+		File f 					= new File (Constants.APP_PATH + this.foldername + "/" + ".");
 		
 		File [] fileList		= f.listFiles();
 		
@@ -76,7 +77,7 @@ public class SavedMappingList {
 		String path = XmlFileUtils.generateCustomFolderPath(mappingName);
 		
 		List<String> retList	= new ArrayList<String>();
-		File f 					= new File (path);
+		File f 					= new File (Constants.APP_PATH + path);
 		
 		File [] fileList		= f.listFiles();
 		

@@ -3,10 +3,12 @@
  */
 package org.dg.iati.api.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,7 +53,7 @@ public class IatiUtils {
 	public static String getPropertyValue(String property){
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileInputStream(Constants.CONFIG_FILE));
+			prop.load(new FileInputStream(Constants.APP_PATH+Constants.CONFIG_FILE));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -180,8 +182,11 @@ public class IatiUtils {
 		// TODO Auto-generated method stub
 		List<IatiMappingElement> items = new ArrayList<IatiMappingElement>();
         Properties prop = new Properties();
-        prop.load(new FileInputStream(Constants.CONFIG_FILE));
-		InputStream inputStream = new FileInputStream(prop.getProperty("ui-config-file"));//Constants.CONFIG_UI_FILE);
+        File f	= new File(".");
+        //ClassLoader classLoader = Thread.currentThread().getContextClassLoader();  
+        System.out.println("Local path:" + f.getAbsolutePath());
+        prop.load(new FileInputStream(Constants.APP_PATH+Constants.CONFIG_FILE));
+		InputStream inputStream = new FileInputStream(Constants.APP_PATH+prop.getProperty("ui-config-file"));//Constants.CONFIG_UI_FILE);
 		
 		IatiActivities rf;
 		JAXBContext jc 	= JAXBContext.newInstance(Constants.IATI_API_RESULT_JAXB);

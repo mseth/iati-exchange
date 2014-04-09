@@ -14,6 +14,9 @@
             <attribute ref="type"/>
             <attribute ref="xml:lang"/>
         </item>
+        <item ref="related-activity">
+            <attribute ref="xml:lang"/>
+        </item>
         <item ref="activity-status">
             <attribute ref="code"/>
             <attribute ref="xml:lang"/>
@@ -57,8 +60,105 @@
             <attribute ref="percentage"/>
             <attribute ref="xml:lang"/>
         </item>
+        
+        <item ref="participating-org">
+            <attribute ref="type"/>
+            <attribute ref="role"/>
+        </item>
 
         <item ref="transaction">
+        	<attribute ref="ref"/>
+            <item ref="transaction-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="provider-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="receiver-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>
+            <item ref="description">
+                <attribute ref="type"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="transaction-date">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="flow-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="finance-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="aid-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="disbursement-channel">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="tied-status">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+        </item>
+        <item ref="planned-disbursement">
+        	<attribute ref="ref"/>
+            <item ref="transaction-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="provider-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="receiver-org">
+                <attribute ref="ref"/>
+                <attribute ref="provider-activity-id"/>
+            </item>
+            <item ref="value">
+                <attribute ref="currency"/>
+                <attribute ref="value-date"/>
+            </item>
+            <item ref="description">
+                <attribute ref="type"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="transaction-date">
+                <attribute ref="iso-date"/>
+            </item>
+            <item ref="flow-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>
+            <item ref="finance-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="aid-type">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="disbursement-channel">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+            <item ref="tied-status">
+                <attribute ref="code"/>
+                <attribute ref="xml:lang"/>
+            </item>            
+        </item>
+        <item ref="planned-commitment">
         	<attribute ref="ref"/>
             <item ref="transaction-type">
                 <attribute ref="code"/>

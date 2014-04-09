@@ -77,22 +77,22 @@ public class ManageSettingsContentPage extends Panel {
 				};
 				item.add(link);
 				
-
-				String iatiFilename = baseFileName + Constants.IATI_FILE_EXTENSION;
+				System.out.println("test manage page 1");
+				String iatiFilename = Constants.APP_PATH + baseFileName + Constants.IATI_FILE_EXTENSION;
 				File iatiFile = new File(iatiFilename);
 				DownloadLink iatiLink = new DownloadLink("iatiFile", iatiFile, iatiFilename);
 				if(!iatiFile.exists())
 					iatiLink.setEnabled(false);
 				item.add(iatiLink);
 				
-				String xmlFilename = baseFileName + Constants.IATI_FILE_RESULT_EXTENSION;
+				String xmlFilename = Constants.APP_PATH + baseFileName + Constants.IATI_FILE_RESULT_EXTENSION;
 				File xmlFile = new File(xmlFilename);
 				DownloadLink xmlResultLink = new DownloadLink("xmlResultFile", xmlFile, xmlFilename);
 				if(!xmlFile.exists())
 					xmlResultLink.setEnabled(false);
 				item.add(xmlResultLink);
 				
-				String xslFilename = baseFileName + Constants.IATI_FILE_TRANSFORM_EXTENSION ;
+				String xslFilename = Constants.APP_PATH + baseFileName + Constants.IATI_FILE_TRANSFORM_EXTENSION ;
 				File xslFile = new File(xslFilename);
 				DownloadLink xslLink = new DownloadLink("xslFile", xslFile, xslFilename );
 				if(!xslFile.exists())
@@ -130,6 +130,7 @@ public class ManageSettingsContentPage extends Panel {
 			
 		};
 		
+		System.out.println("test manage page 2");
 		add(lView);
 		
 	}
